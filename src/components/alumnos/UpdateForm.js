@@ -1,25 +1,33 @@
 import alumnosStore from '../../stores/alumnosStore'
+import ModalWindow from '../general/ModalWindow'
 
 export default function UpdateForm () {
   const store = alumnosStore((store) => {
     return {
       updateForm: store.updateForm,
       updateAlumno: store.updateAlumno,
-      handleUpdateFieldChange: store.handleUpdateFieldChange
-
+      handleUpdateFieldChange: store.handleUpdateFieldChange,
+      btnClose: store.btnClose,
+      updateFormVisibility: store.updateFormVisibility
     }
   })
 
-  if (!store.updateForm._id) return <></>
+  if (!store.updateFormVisibility) return <></>
   return (
-    <div>
-      <h2>Modificar alumno</h2>
-      <form onSubmit={store.updateAlumno}>
-        <input onChange={store.handleUpdateFieldChange} value={store.updateForm.nombre} name='nombre' /><br />
-        <input onChange={store.handleUpdateFieldChange} value={store.updateForm.apellido} name='apellido' /><br />
-        <input onChange={store.handleUpdateFieldChange} value={store.updateForm.edad} name='edad' /><br />
-        <button type='submit'>Modificar</button>
-      </form>
-    </div>
+    <>
+      <ModalWindow>
+        <div className='exit-modal' onClick={() => store.btnClose()}><span>X</span></div>
+        <h2>Modificar alumno</h2>
+        <form onSubmit={store.updateAlumno} className='form-modal'>
+          <label>Nombre</label>
+          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.nombre} name='nombre' /><br />
+          <label>Apellido</label>
+          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.apellido} name='apellido' /><br />
+          <label>Edad</label>
+          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.edad} name='edad' /><br />
+          <button type='submit'>Modificar</button>
+        </form>
+      </ModalWindow>
+    </>
   )
 }

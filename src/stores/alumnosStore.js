@@ -4,6 +4,7 @@ import axios from 'axios'
 const alumnosStore = create((set) => ({
   alumnos: null,
   createFormVisibility: false,
+  updateFormVisibility: false,
 
   createForm: {
     nombre: '',
@@ -91,6 +92,7 @@ const alumnosStore = create((set) => ({
 
     set({
       alumnos: newAlumnos,
+      updateFormVisibility: false,
       updateForm: {
         _id: null,
         nombre: '',
@@ -102,6 +104,7 @@ const alumnosStore = create((set) => ({
   toggleUpdate: (alumno) => {
     set({
       createFormVisibility: false,
+      updateFormVisibility: true,
       createForm: {
         nombre: '',
         apellido: '',
@@ -123,7 +126,24 @@ const alumnosStore = create((set) => ({
         _id: null,
         nombre: '',
         apellido: '',
-        edad: 0
+        edad: ''
+      }
+    })
+  },
+  btnClose: () => {
+    set({
+      createFormVisibility: false,
+      updateFormVisibility: false,
+      updateForm: {
+        _id: null,
+        nombre: '',
+        apellido: '',
+        edad: ''
+      },
+      createForm: {
+        nombre: '',
+        apellido: '',
+        edad: ''
       }
     })
   }

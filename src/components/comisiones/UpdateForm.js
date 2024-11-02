@@ -1,4 +1,5 @@
 import comisionesStore from '../../stores/comisionesStore'
+import ModalWindow from '../general/ModalWindow'
 
 export default function UpdateForm () {
   const store = comisionesStore((store) => {
@@ -13,14 +14,16 @@ export default function UpdateForm () {
 
   if (!store.updateFormVisibility) return <></>
   return (
-    <div>
-      <h2>Modificar Comision</h2>
-      <button onClick={store.cerrarForm}>x</button>
-      <form onSubmit={store.updateComision}>
-        <input onChange={store.handleUpdateFieldChange} value={store.updateForm.numero} name='numero' /><br />
-        <input onChange={store.handleUpdateFieldChange} value={store.updateForm.year} name='year' /><br />
-        <button type='submit'>Modificar</button>
-      </form>
-    </div>
+    <>
+      <ModalWindow>
+        <h2>Modificar Comision</h2>
+        <button onClick={store.cerrarForm}>x</button>
+        <form onSubmit={store.updateComision}>
+          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.numero} name='numero' /><br />
+          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.year} name='year' /><br />
+          <button type='submit'>Modificar</button>
+        </form>
+      </ModalWindow>
+    </>
   )
 }

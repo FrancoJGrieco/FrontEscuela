@@ -17,33 +17,35 @@ function App () {
   return (
     <div className="App">
       <BrowserRouter>
-        <header>
+        <header className='header-nav'>
           <nav>
-            <ul>
-              {!store.loggedIn &&
+            {store.loggedIn &&
+              <ul>
+                {/* {!store.loggedIn &&
                 <li>
                   <Link to='/login'>Login</Link>
                 </li>
-              }
-              <li>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to='/comisiones'>Comisiones</Link>
-              </li>
-              <li>
-                <Link to='/cursos'>Cursos</Link>
-              </li>
-              <li>
-                <Link to='/materias'>Materias</Link>
-              </li>
-              <li>
-                <Link to='/alumnos'>Alumnos</Link>
-              </li>
-              <li>
-                <Link to='/boletines'>Boletines</Link>
-              </li>
-            </ul>
+              } */}
+                <li>
+                  <Link to='/'>Home</Link>
+                </li>
+                <li>
+                  <Link to='/comisiones'>Comisiones</Link>
+                </li>
+                <li>
+                  <Link to='/cursos'>Cursos</Link>
+                </li>
+                <li>
+                  <Link to='/materias'>Materias</Link>
+                </li>
+                <li>
+                  <Link to='/alumnos'>Alumnos</Link>
+                </li>
+                <li>
+                  <Link to='/boletines'>Boletines</Link>
+                </li>
+              </ul>
+            }
           </nav>
         </header>
         <Routes>
