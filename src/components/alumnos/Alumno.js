@@ -1,4 +1,6 @@
 import alumnosStore from '../../stores/alumnosStore'
+import CeldaTabla from '../general/CeldaTabla'
+import FilaTabla from '../general/FilaTabla'
 
 export default function Alumno ({ alumno }) {
   const store = alumnosStore(store => {
@@ -8,13 +10,13 @@ export default function Alumno ({ alumno }) {
     }
   })
   return (
-    <tr>
-      <td>{alumno.nombre}</td>
-      <td>{alumno.apellido}</td>
-      <td>{alumno.edad}</td>
-      <td><button>Ver</button></td>
-      <td><button onClick={() => store.deleteAlumno(alumno._id)}>Eliminar</button></td>
-      <td><button onClick={() => store.toggleUpdate(alumno)}>Modificar</button></td>
-    </tr>
+    <FilaTabla>
+      <CeldaTabla>{alumno.nombre}</CeldaTabla>
+      <CeldaTabla>{alumno.apellido}</CeldaTabla>
+      <CeldaTabla>{alumno.edad}</CeldaTabla>
+      <CeldaTabla><button>Ver</button></CeldaTabla>
+      <CeldaTabla><button onClick={() => store.deleteAlumno(alumno._id)}>Eliminar</button></CeldaTabla>
+      <CeldaTabla><button onClick={() => store.toggleUpdate(alumno)}>Modificar</button></CeldaTabla>
+    </FilaTabla>
   )
 }

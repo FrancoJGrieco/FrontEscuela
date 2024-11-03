@@ -1,4 +1,6 @@
 import alumnosStore from '../../stores/alumnosStore'
+import BtnExit from '../general/BtnExit'
+import InputLabel from '../general/InputLabel'
 import ModalWindow from '../general/ModalWindow'
 
 export default function CreateForm () {
@@ -16,15 +18,12 @@ export default function CreateForm () {
   return (
     <>
       <ModalWindow>
-        <div className='exit-modal' onClick={() => store.toggleCreate()}><span>X</span></div>
+        <BtnExit funcion={store.toggleCreate}/>
         <h2>Crear alumno</h2>
         <form onSubmit={store.createAlumno} className='form-modal'>
-          <label>Nombre</label>
-          <input onChange={store.updateCreateFormField} value={store.createForm.nombre} name="nombre" /><br />
-          <label>Apellido</label>
-          <input onChange={store.updateCreateFormField} value={store.createForm.apellido} name="apellido" /><br />
-          <label>Edad</label>
-          <input onChange={store.updateCreateFormField} value={store.createForm.edad} name="edad" /><br />
+          <InputLabel titulo='Nombre' onChangeFuncion={store.updateCreateFormField} valueForm={store.createForm.nombre} nameForm='nombre'/>
+          <InputLabel titulo='Apellido' onChangeFuncion={store.updateCreateFormField} valueForm={store.createForm.apellido} nameForm='apellido'/>
+          <InputLabel titulo='Edad' onChangeFuncion={store.updateCreateFormField} valueForm={store.createForm.edad} nameForm='edad'/>
           <button type="submit">Crear</button>
         </form>
       </ModalWindow>

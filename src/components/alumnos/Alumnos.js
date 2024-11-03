@@ -1,26 +1,28 @@
 import alumnosStore from '../../stores/alumnosStore'
+import CeldaTituloTabla from '../general/CeldaTituloTabla'
+import FilaTituloTabla from '../general/FilaTituloTabla'
 import Alumno from './Alumno'
 
 export default function Alumnos () {
   const store = alumnosStore()
+  const titulos = ['Nombre', 'Apellido', 'Edad', 'Boletin', 'Eliminar', 'Modificar']
   return (
     <section>
       <header>
-        <h2>Tabla de Alumnos</h2>
+        <h2>Alumnos</h2>
       </header>
       <div>
         <button onClick={() => store.toggleCreate()}>Crear</button>
         <div>
           <table>
             <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Edad</th>
-                <th>Boletin</th>
-                <th>Eliminar</th>
-                <th>Modificar</th>
-              </tr>
+              <FilaTituloTabla>
+                {titulos.map((titulo) => {
+                  return (
+                    <CeldaTituloTabla key={titulo}>{titulo}</CeldaTituloTabla>
+                  )
+                })}
+              </FilaTituloTabla>
             </thead>
             <tbody>
               {store.alumnos &&
