@@ -7,6 +7,7 @@ import MateriasPage from '../pages/MateriasPage'
 import CursosPage from '../pages/CursosPage'
 import ComisionesPage from '../pages/ComisionesPage'
 import BoletinesPage from '../pages/BoletinesPages'
+import AlumnoInfoPage from '../pages/AlumnoInfoPage'
 
 function App () {
   const store = authStore((store) => {
@@ -21,11 +22,6 @@ function App () {
           <nav>
             {store.loggedIn &&
               <ul>
-                {/* {!store.loggedIn &&
-                <li>
-                  <Link to='/login'>Login</Link>
-                </li>
-              } */}
                 <li>
                   <Link to='/'>Home</Link>
                 </li>
@@ -58,6 +54,11 @@ function App () {
           <Route path='/alumnos' element={
             <RequireAuth>
               <AlumnosPage />
+            </RequireAuth>
+          } />
+          <Route path='/alumno/:_id' element={
+            <RequireAuth>
+              <AlumnoInfoPage />
             </RequireAuth>
           } />
           <Route path='/materias' element={
