@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import comisionesStore from '../../stores/comisionesStore'
 import cursosStore from '../../stores/cursosStore'
 import ModalWindow from '../general/ModalWindow'
+import BtnExit from '../general/BtnExit'
 
 export default function CreateForm () {
   const store = comisionesStore((store) => {
@@ -32,7 +33,7 @@ export default function CreateForm () {
   return (
     <>
       <ModalWindow>
-        <button onClick={store.cerrarForm}>x</button>
+        <BtnExit funcion={store.cerrarForm} />
         <h2>Crear Comision</h2>
         <form onSubmit={store.createComision} >
           <label>Numero de comisión</label>

@@ -1,4 +1,6 @@
 import cursosStore from '../../stores/cursosStore'
+import BtnExit from '../general/BtnExit'
+import ModalWindow from '../general/ModalWindow'
 
 export default function CreateForm () {
   const store = cursosStore((store) => {
@@ -13,8 +15,8 @@ export default function CreateForm () {
 
   if (!store.createFormVisibility) return <></>
   return (
-    <div class="formulario">
-      <button onClick={store.cerrarForm}>x</button>
+    <ModalWindow>
+      <BtnExit funcion={store.cerrarForm} />
       <h2>Crear Curso</h2>
       <form onSubmit={store.createCurso}>
         <label>Curso</label>
@@ -23,6 +25,6 @@ export default function CreateForm () {
         <input onChange={store.updateCreateFormField} value={store.createForm.years} name="years" />
         <button type="submit">Crear</button>
       </form>
-    </div>
+    </ModalWindow>
   )
 }
