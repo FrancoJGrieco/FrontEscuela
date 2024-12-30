@@ -13,6 +13,10 @@ export default function AlumnosPage () {
 
   return (
     <main>
+      <div className='container-search'>
+        <input type='text' placeholder='DNI' onChange={store.updateSearchField} />
+        <input type='button' value='boton' onClick={() => store.fetchAlumno()} />
+      </div>
       <Alumnos />
       <UpdateForm />
       <CreateForm />

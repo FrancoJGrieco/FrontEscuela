@@ -3,27 +3,45 @@ import axios from 'axios'
 
 const alumnosStore = create((set) => ({
   alumnos: null,
+  dni: '',
+  alumnosFiltrados: [],
   createFormVisibility: false,
   updateFormVisibility: false,
 
   createForm: {
     nombre: '',
     apellido: '',
-    edad: ''
+    edad: '',
+    dni: ''
   },
   updateForm: {
     _id: null,
     nombre: '',
     apellido: '',
-    edad: ''
+    edad: '',
+    dni: ''
   },
 
   fetchAlumnos: async () => {
     const res = await axios.get('http://localhost:3030/alumnos', { withCredentials: true })
 
     set({
-      alumnos: res.data.alumnos
+      alumnos: res.data.alumnos,
+      alumnosFiltrados: res.data.alumnos
     })
+  },
+
+  fetchAlumno: async () => {
+    const { dni, alumnos } = alumnosStore.getState()
+    const filtrados = alumnos[alumnos.findIndex((alumno) => alumno.dni === dni)]
+
+    if (filtrados !== -1) {
+      set({
+        alumnosFiltrados: [filtrados]
+      })
+    }
+    console.log(dni)
+    console.log(filtrados)
   },
 
   updateCreateFormField: (e) => {
@@ -35,6 +53,12 @@ const alumnosStore = create((set) => ({
           [name]: value
         }
       }
+    })
+  },
+  updateSearchField: (e) => {
+    const { value } = e.target
+    set({
+      dni: value
     })
   },
   createAlumno: async (e) => {

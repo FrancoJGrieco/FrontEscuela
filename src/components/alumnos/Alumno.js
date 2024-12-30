@@ -16,8 +16,9 @@ export default function Alumno ({ alumno }) {
         <CeldaTabla>{alumno.nombre}</CeldaTabla>
         <CeldaTabla>{alumno.apellido}</CeldaTabla>
         <CeldaTabla>{alumno.edad}</CeldaTabla>
+        <CeldaTabla>{alumno.dni || 'No DNI'}</CeldaTabla>
         <CeldaTabla>
-            <Link to={'/alumno/' + alumno._id}>Información</Link>
+          <Link to={'/alumno/' + alumno._id}>Información</Link>
         </CeldaTabla>
         <CeldaTabla><button onClick={() => store.deleteAlumno(alumno._id)}>Eliminar</button></CeldaTabla>
         <CeldaTabla><button onClick={() => store.toggleUpdate(alumno)}>Modificar</button></CeldaTabla>

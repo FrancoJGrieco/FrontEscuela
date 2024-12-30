@@ -5,7 +5,7 @@ import Alumno from './Alumno'
 
 export default function Alumnos () {
   const store = alumnosStore()
-  const titulos = ['Nombre', 'Apellido', 'Edad', 'Boletin', 'Eliminar', 'Modificar']
+  const titulos = ['Nombre', 'Apellido', 'Edad', 'DNI', 'Boletin', 'Eliminar', 'Modificar']
   return (
     <section>
       <header>
@@ -25,8 +25,8 @@ export default function Alumnos () {
               </FilaTituloTabla>
             </thead>
             <tbody>
-              {store.alumnos &&
-                store.alumnos.map((alumno) => {
+              {store.alumnosFiltrados &&
+                store.alumnosFiltrados.map((alumno) => {
                   return (
                     <Alumno key={alumno._id} alumno={alumno} />
                   )
