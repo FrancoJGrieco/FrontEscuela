@@ -33,9 +33,13 @@ const alumnosStore = create((set) => ({
 
   fetchAlumno: async () => {
     const { dni, alumnos } = alumnosStore.getState()
-    const filtrados = alumnos[alumnos.findIndex((alumno) => alumno.dni === dni)]
 
-    if (filtrados !== -1) {
+    let filtrados = null
+    if (dni) {
+      filtrados = alumnos[alumnos.findIndex((alumno) => alumno.dni === dni)]
+    }
+
+    if (filtrados !== null) {
       set({
         alumnosFiltrados: [filtrados]
       })

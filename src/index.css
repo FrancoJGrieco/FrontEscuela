@@ -625,16 +625,19 @@ main {
     margin:auto;
     display:flex;
     flex-direction: row;
+    width: fit-content;
 }
 
 .container-search input[type='text']{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    max-width: 20rem;
 }
 
-.container-search input[type='button']{
+.container-search input[type='image']{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    width:1rem;
     background-color: white;
     border-color: white;
 }

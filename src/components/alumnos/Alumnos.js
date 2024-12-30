@@ -12,6 +12,10 @@ export default function Alumnos () {
         <h2>Alumnos</h2>
       </header>
       <div>
+        <div className='container-search'>
+          <input type='text' placeholder='DNI' onChange={store.updateSearchField} />
+          <input type='image' src='/lupa.png' alt='Buscar' onClick={() => store.fetchAlumno()} />
+        </div>
         <button onClick={() => store.toggleCreate()}>Crear</button>
         <div>
           <table>
