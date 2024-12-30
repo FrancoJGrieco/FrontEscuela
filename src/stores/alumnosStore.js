@@ -37,6 +37,10 @@ const alumnosStore = create((set) => ({
     let filtrados = null
     if (dni) {
       filtrados = alumnos[alumnos.findIndex((alumno) => alumno.dni === dni)]
+    } else {
+      set({
+        alumnosFiltrados: alumnos
+      })
     }
 
     if (filtrados !== null) {

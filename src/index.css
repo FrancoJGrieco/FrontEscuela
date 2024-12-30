@@ -631,6 +631,7 @@ main {
 .container-search input[type='text']{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    outline: none;
     max-width: 20rem;
 }
 
