@@ -24,6 +24,7 @@ export default function CreateForm () {
           <InputLabel titulo='Nombre' onChangeFuncion={store.updateCreateFormField} valueForm={store.createForm.nombre} nameForm='nombre'/>
           <InputLabel titulo='Apellido' onChangeFuncion={store.updateCreateFormField} valueForm={store.createForm.apellido} nameForm='apellido'/>
           <InputLabel titulo='Edad' onChangeFuncion={store.updateCreateFormField} valueForm={store.createForm.edad} nameForm='edad'/>
+          <InputLabel titulo='DNI' onChangeFuncion={store.updateCreateFormField} valueForm={store.createForm.dni} nameForm='dni'/>
           <button type="submit">Crear</button>
         </form>
       </ModalWindow>
