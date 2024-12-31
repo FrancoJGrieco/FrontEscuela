@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import alumnosStore from '../../stores/alumnosStore'
 import CeldaTituloTabla from '../general/CeldaTituloTabla'
 import FilaTituloTabla from '../general/FilaTituloTabla'
@@ -6,6 +7,12 @@ import Alumno from './Alumno'
 export default function Alumnos () {
   const store = alumnosStore()
   const titulos = ['Nombre', 'Apellido', 'Edad', 'DNI', 'Boletin', 'Eliminar', 'Modificar']
+
+  useEffect(() => {
+    if (store.alumnos) {
+      store.paginarAlumnos()
+    }
+  }, [store.maxPagina, store.pagina, store.alumnos])
   return (
     <section>
       <header>
@@ -38,6 +45,11 @@ export default function Alumnos () {
               }
             </tbody>
           </table>
+          <div className='container-pages'>
+            <input type='button' value='<' onClick={store.previousPage} />
+            <label onClick={() => store.toggleGoPage()}>{store.pagina + 1}</label>
+            <input type='button' value='>' onClick={store.nextPage} />
+          </div>
         </div>
       </div>
     </section>

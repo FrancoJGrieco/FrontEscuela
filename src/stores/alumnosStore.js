@@ -4,9 +4,13 @@ import axios from 'axios'
 const alumnosStore = create((set) => ({
   alumnos: null,
   dni: '',
+  pagina: 0,
+  listaSize: 2,
+  maxPagina: 0,
   alumnosFiltrados: [],
   createFormVisibility: false,
   updateFormVisibility: false,
+  pageModalVisibility: false,
 
   createForm: {
     nombre: '',
@@ -20,6 +24,54 @@ const alumnosStore = create((set) => ({
     apellido: '',
     edad: '',
     dni: ''
+  },
+
+  paginarAlumnos: async () => {
+    const { alumnos, listaSize, pagina, maxPagina } = alumnosStore.getState()
+    const alumnosPaginados = alumnos.slice(listaSize * pagina, (listaSize * pagina) + listaSize)
+    if (pagina < maxPagina && pagina >= 0) {
+      set({
+        alumnosFiltrados: alumnosPaginados
+      })
+    }
+  },
+
+  nextPage: async () => {
+    const { pagina, maxPagina } = alumnosStore.getState()
+    if (pagina < maxPagina - 1 && pagina >= 0) {
+      set({
+        pagina: pagina + 1
+      })
+    }
+  },
+
+  previousPage: async () => {
+    const { pagina, maxPagina } = alumnosStore.getState()
+    if (pagina < maxPagina && pagina > 0) {
+      set({
+        pagina: pagina - 1
+      })
+    }
+  },
+
+  goPage: async (valor) => {
+    set({
+      pagina: valor
+    })
+  },
+
+  toggleGoPage: async () => {
+    set({
+      pageModalVisibility: true
+    })
+  },
+
+  iniciarValores: async () => {
+    const { alumnos, listaSize } = alumnosStore.getState()
+    const size = alumnos.length
+    set({
+      maxPagina: size / listaSize
+    })
   },
 
   fetchAlumnos: async () => {

@@ -8,7 +8,9 @@ export default function AlumnosPage () {
   const store = alumnosStore()
 
   useEffect(() => {
-    store.fetchAlumnos()
+    store.fetchAlumnos().then(() => {
+      store.iniciarValores()
+    })
   }, [])
 
   return (

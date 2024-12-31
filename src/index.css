@@ -643,6 +643,14 @@ main {
     border-color: white;
 }
 
+.container-pages{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: fit-content;
+    margin: auto;
+}
+
 .content-modal {
     background-color: rgba(51, 51, 51);
     border-radius: 10px;
