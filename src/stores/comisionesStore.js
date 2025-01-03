@@ -5,6 +5,7 @@ const comisionesStore = create((set) => ({
   comisiones: null,
   cursos: null,
   alumnos: null,
+  materiasBoletin: [],
   alumnoSeleccionado: null,
   cursoSeleccionado: null,
   createFormVisibility: false,
@@ -177,7 +178,7 @@ const comisionesStore = create((set) => ({
   },
 
   verAlumnos: async (comision) => {
-    const { cerrarForm, updateForm } = comisionesStore.getState()
+    const { cerrarForm } = comisionesStore.getState()
     const resAlumnos = await axios.get('http://localhost:3030/alumnos', { withCredentials: true })
     cerrarForm()
     set({
@@ -185,30 +186,49 @@ const comisionesStore = create((set) => ({
         _id: comision._id,
         numero: comision.numero,
         year: comision.year,
+        materias: comision.materias,
         alumnos: comision.alumnos
       },
       alumnosVisibility: true,
       alumnos: resAlumnos
     })
-
-    console.log(updateForm)
   },
 
   agregarAlumno: async (e) => {
     e.preventDefault()
 
-    const { updateForm, alumnoSeleccionado, comisiones, vaciarUpdateForm, cerrarForm } = comisionesStore.getState()
-    const { numero, year, materias, alumnos } = updateForm
+    const { alumnos: alumnoss, updateForm, alumnoSeleccionado, comisiones, vaciarUpdateForm, cerrarForm, materiasBoletin } = comisionesStore.getState()
+    const { _id, numero, year, materias, alumnos } = updateForm
 
     alumnos.push(alumnoSeleccionado)
-
-    console.log(updateForm._id)
-    console.log(alumnos)
-    console.log(alumnoSeleccionado)
+    console.log(_id)
 
     const res = await axios.put('http://localhost:3030/comisiones/' + updateForm._id, { numero, year, materias, alumnos })
 
-    console.log(res.data)
+    try {
+      const res = await Promise.all(
+        materias.map((materia) =>
+          axios.post('http://localhost:3030/materias_boletin', { materia, notas: [] })
+        )
+      )
+      res.forEach(resMateria => {
+        materiasBoletin.push(resMateria.data.materiaBoletin._id)
+      })
+    } catch (err) {
+      console.error('Error en una de las solicitudes: ' + err)
+    }
+
+    const resBoletin = await axios.post('http://localhost:3030/boletines', { curso: '66463c89ae70832092e2253f', comision: _id, year: '2025', materias: materiasBoletin, alumno: alumnoSeleccionado })
+
+    const alumnoIndex = alumnoss.data.alumnos.findIndex((alumno) => alumno._id === alumnoSeleccionado)
+
+    console.log(resBoletin.data.boletin._id)
+    alumnoss.data.alumnos[alumnoIndex].boletines.push(resBoletin.data.boletin._id)
+
+    const resAlumno = await axios.put('http://localhost:3030/alumnos/' + alumnoSeleccionado, { boletines: alumnoss.data.alumnos[alumnoIndex].boletines })
+
+    console.log(resAlumno)
+
     const newComisiones = [...comisiones]
     const comisionIndex = comisiones.findIndex((comision) => {
       return comision._id === updateForm._id
@@ -217,7 +237,8 @@ const comisionesStore = create((set) => ({
     vaciarUpdateForm()
     cerrarForm()
     set({
-      comisiones: newComisiones
+      comisiones: newComisiones,
+      materiasBoletin: []
     })
   },
 

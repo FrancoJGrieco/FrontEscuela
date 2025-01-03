@@ -8,8 +8,8 @@ export default function ListaMateria ({ boletin }) {
   })
   return (
     <tr>
-      <td>{boletin.curso}</td>
-      <td>{boletin.comision}</td>
+      <td>{boletin.curso.titulatura}</td>
+      <td>{boletin.comision.numero}</td>
       <td>{boletin.year}</td>
       <td>{boletin.alumno.nombre} {boletin.alumno.apellido}</td>
       <td><button onClick={() => store.toggleUpdate(boletin)}>Ver</button></td>
