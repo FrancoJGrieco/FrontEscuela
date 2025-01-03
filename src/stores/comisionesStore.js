@@ -5,6 +5,7 @@ const comisionesStore = create((set) => ({
   comisiones: null,
   cursos: null,
   alumnos: null,
+  alumnoSeleccionado: null,
   cursoSeleccionado: null,
   createFormVisibility: false,
   materiasVisibility: false,
@@ -19,7 +20,8 @@ const comisionesStore = create((set) => ({
     _id: null,
     numero: '',
     year: '',
-    materias: []
+    materias: [],
+    alumnos: []
   },
 
   fetchComisiones: async () => {
@@ -41,6 +43,7 @@ const comisionesStore = create((set) => ({
       }
     })
   },
+
   createComision: async (e) => {
     e.preventDefault()
 
@@ -61,6 +64,7 @@ const comisionesStore = create((set) => ({
       createFormVisibility: false
     })
   },
+
   deleteComision: async (_id) => {
     const { comisiones } = comisionesStore.getState()
     await axios.delete('http://localhost:3030/comisiones/' + _id, { withCredentials: true })
@@ -73,6 +77,7 @@ const comisionesStore = create((set) => ({
       comisiones: newComisiones
     })
   },
+
   handleUpdateFieldChange: (e) => {
     const { name, value } = e.target
     set((state) => {
@@ -84,6 +89,7 @@ const comisionesStore = create((set) => ({
       }
     })
   },
+
   handleCursoSeleccionado: (e) => {
     const { value } = e.target
     set((state) => {
@@ -91,22 +97,30 @@ const comisionesStore = create((set) => ({
         cursoSeleccionado: value
       }
     })
-
-    console.log(value)
   },
+
+  handleAlumnoSeleccionado: (e) => {
+    const { value } = e.target
+    set((state) => {
+      return {
+        alumnoSeleccionado: value
+      }
+    })
+  },
+
   updateComision: async (e) => {
     e.preventDefault()
 
     const { updateForm, comisiones, vaciarUpdateForm, cursoSeleccionado, cerrarForm } = comisionesStore.getState()
-    const { numero, year } = updateForm
+    const { numero, year, alumnos } = updateForm
     let { materias } = updateForm
 
     if (cursoSeleccionado) {
       const resCursos = await axios.get('http://localhost:3030/cursos/' + cursoSeleccionado)
-      materias = updateForm.materias.concat(resCursos.data.curso.materias.filter((materia) => materia.year === updateForm.year))
+      materias = resCursos.data.curso.materias.filter((materia) => materia.year === updateForm.year)
     }
 
-    const res = await axios.put('http://localhost:3030/comisiones/' + updateForm._id, { numero, year, materias }, { withCredentials: true })
+    const res = await axios.put('http://localhost:3030/comisiones/' + updateForm._id, { numero, year, materias, alumnos }, { withCredentials: true })
 
     const newComisiones = [...comisiones]
     const comisionIndex = comisiones.findIndex((comision) => {
@@ -119,6 +133,7 @@ const comisionesStore = create((set) => ({
       comisiones: newComisiones
     })
   },
+
   toggleUpdate: (comision) => {
     const { cerrarForm, vaciarCreateForm } = comisionesStore.getState()
     cerrarForm()
@@ -132,6 +147,7 @@ const comisionesStore = create((set) => ({
       updateFormVisibility: true
     })
   },
+
   toggleCreate: async () => {
     const { createFormVisibility } = comisionesStore.getState()
 
@@ -144,6 +160,7 @@ const comisionesStore = create((set) => ({
       createFormVisibility: !createFormVisibility
     })
   },
+
   verMaterias: (comision) => {
     const { _id, numero, year, materias } = comision
     const { cerrarForm } = comisionesStore.getState()
@@ -159,14 +176,51 @@ const comisionesStore = create((set) => ({
     })
   },
 
-  verAlumnos: () => {
-    const { cerrarForm, vaciarUpdateForm } = comisionesStore.getState()
+  verAlumnos: async (comision) => {
+    const { cerrarForm, updateForm } = comisionesStore.getState()
+    const resAlumnos = await axios.get('http://localhost:3030/alumnos', { withCredentials: true })
     cerrarForm()
-    vaciarUpdateForm()
     set({
-      alumnosVisibility: true
+      updateForm: {
+        _id: comision._id,
+        numero: comision.numero,
+        year: comision.year,
+        alumnos: comision.alumnos
+      },
+      alumnosVisibility: true,
+      alumnos: resAlumnos
+    })
+
+    console.log(updateForm)
+  },
+
+  agregarAlumno: async (e) => {
+    e.preventDefault()
+
+    const { updateForm, alumnoSeleccionado, comisiones, vaciarUpdateForm, cerrarForm } = comisionesStore.getState()
+    const { numero, year, materias, alumnos } = updateForm
+
+    alumnos.push(alumnoSeleccionado)
+
+    console.log(updateForm._id)
+    console.log(alumnos)
+    console.log(alumnoSeleccionado)
+
+    const res = await axios.put('http://localhost:3030/comisiones/' + updateForm._id, { numero, year, materias, alumnos })
+
+    console.log(res.data)
+    const newComisiones = [...comisiones]
+    const comisionIndex = comisiones.findIndex((comision) => {
+      return comision._id === updateForm._id
+    })
+    newComisiones[comisionIndex] = res.data.comision
+    vaciarUpdateForm()
+    cerrarForm()
+    set({
+      comisiones: newComisiones
     })
   },
+
   cerrarForm: () => {
     set({
       createFormVisibility: false,
@@ -176,6 +230,7 @@ const comisionesStore = create((set) => ({
       cursoSeleccionado: null
     })
   },
+
   vaciarUpdateForm: () => {
     set({
       updateForm: {
@@ -186,6 +241,7 @@ const comisionesStore = create((set) => ({
       }
     })
   },
+
   vaciarCreateForm: () => {
     set({
       updateForm: {
