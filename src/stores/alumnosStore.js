@@ -164,9 +164,9 @@ const alumnosStore = create((set) => ({
     e.preventDefault()
 
     const { updateForm, alumnos } = alumnosStore.getState()
-    const { nombre, apellido, edad } = updateForm
+    const { nombre, apellido, edad, dni } = updateForm
 
-    const res = await axios.put('http://localhost:3030/alumnos/' + updateForm._id, { nombre, apellido, edad }, { withCredentials: true })
+    const res = await axios.put('http://localhost:3030/alumnos/' + updateForm._id, { nombre, apellido, edad, dni }, { withCredentials: true })
 
     const newAlumnos = [...alumnos]
     const alumnoIndex = alumnos.findIndex((alumno) => {
@@ -181,7 +181,8 @@ const alumnosStore = create((set) => ({
         _id: null,
         nombre: '',
         apellido: '',
-        edad: ''
+        edad: '',
+        dni: ''
       }
     })
   },
@@ -192,13 +193,15 @@ const alumnosStore = create((set) => ({
       createForm: {
         nombre: '',
         apellido: '',
-        edad: ''
+        edad: '',
+        dni: ''
       },
       updateForm: {
         _id: alumno._id,
         nombre: alumno.nombre,
         apellido: alumno.apellido,
-        edad: alumno.edad
+        edad: alumno.edad,
+        dni: alumno.dni
       }
     })
   },

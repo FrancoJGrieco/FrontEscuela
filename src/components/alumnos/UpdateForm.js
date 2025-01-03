@@ -25,6 +25,8 @@ export default function UpdateForm () {
           <input onChange={store.handleUpdateFieldChange} value={store.updateForm.apellido} name='apellido' /><br />
           <label>Edad</label>
           <input onChange={store.handleUpdateFieldChange} value={store.updateForm.edad} name='edad' /><br />
+          <label>DNI</label>
+          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.dni} name='dni' /><br />
           <button type='submit'>Modificar</button>
         </form>
       </ModalWindow>
