@@ -1,150 +1,60 @@
 import { create } from 'zustand'
 import axios from 'axios'
 
-const alumnosStore = create((set) => ({
+const alumnosInfoStore = create((set) => ({
   alumno: null,
-  boletin: null,
+  notaFormVisibility: false,
   updateFormVisibility: false,
-
-  updateForm: {
-    _id: null,
-    nombre: '',
-    apellido: '',
-    edad: ''
-  },
+  materia: null,
+  nota: null,
 
   fetchAlumno: async (_id) => {
     const resAlumno = await axios.get('http://localhost:3030/alumnos/' + _id, { withCredentials: true })
-    const resBoletin = await axios.get('http://localhost:3030/boletinesa/' + _id, { withCredentials: true })
 
     set({
-      alumno: resAlumno.data.alumno,
-      boletin: resBoletin.data.boletin
+      alumno: resAlumno.data.alumno
     })
   },
 
-  updateCreateFormField: (e) => {
+  handleNotaFieldChange: (e) => {
     const { name, value } = e.target
-    set((state) => {
-      return {
-        createForm: {
-          ...state.createForm,
-          [name]: value
-        }
-      }
+    set({
+      [name]: value
     })
   },
-  createAlumno: async (e) => {
-    e.preventDefault()
 
-    const { createForm, alumnos } = alumnosStore.getState()
-    const res = await axios.post('http://localhost:3030/alumnos', createForm, { withCredentials: true })
+  agregarNota: async () => {
+    const { nota, materia } = alumnosInfoStore.getState()
+
+    materia.notas.push(nota)
+    const notas = materia.notas
+
+    const res = await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas })
 
     set({
-      alumnos: [...alumnos, res.data.alumno],
-      createForm: {
-        nombre: '',
-        apellido: '',
-        edad: ''
-      },
-      createFormVisibility: false
+      materia: res.data.materia
     })
   },
-  deleteAlumno: async (_id) => {
-    const { alumnos } = alumnosStore.getState()
-    await axios.delete('http://localhost:3030/alumnos/' + _id, { withCredentials: true })
 
-    const newAlumnos = [...alumnos].filter((alumno) => {
-      return alumno._id !== _id
-    })
-
+  toggleNota: (materia) => {
     set({
-      alumnos: newAlumnos
+      notaFormVisibility: true,
+      materia
     })
   },
-  handleUpdateFieldChange: (e) => {
-    const { name, value } = e.target
-    set((state) => {
-      return {
-        updateForm: {
-          ...state.updateForm,
-          [name]: value
-        }
-      }
-    })
-  },
-  updateAlumno: async (e) => {
-    e.preventDefault()
-
-    const { updateForm, alumnos } = alumnosStore.getState()
-    const { nombre, apellido, edad } = updateForm
-
-    const res = await axios.put('http://localhost:3030/alumnos/' + updateForm._id, { nombre, apellido, edad }, { withCredentials: true })
-
-    const newAlumnos = [...alumnos]
-    const alumnoIndex = alumnos.findIndex((alumno) => {
-      return alumno._id === updateForm._id
-    })
-    newAlumnos[alumnoIndex] = res.data.alumno
-
+  toggleUpdate: (materia) => {
     set({
-      alumnos: newAlumnos,
-      updateFormVisibility: false,
-      updateForm: {
-        _id: null,
-        nombre: '',
-        apellido: '',
-        edad: ''
-      }
-    })
-  },
-  toggleUpdate: (alumno) => {
-    set({
-      createFormVisibility: false,
       updateFormVisibility: true,
-      createForm: {
-        nombre: '',
-        apellido: '',
-        edad: ''
-      },
-      updateForm: {
-        _id: alumno._id,
-        nombre: alumno.nombre,
-        apellido: alumno.apellido,
-        edad: alumno.edad
-      }
-    })
-  },
-  toggleCreate: () => {
-    const { createFormVisibility } = alumnosStore.getState()
-    set({
-      createFormVisibility: !createFormVisibility,
-      updateForm: {
-        _id: null,
-        nombre: '',
-        apellido: '',
-        edad: ''
-      }
+      materia
     })
   },
   btnClose: () => {
     set({
-      createFormVisibility: false,
-      updateFormVisibility: false,
-      updateForm: {
-        _id: null,
-        nombre: '',
-        apellido: '',
-        edad: ''
-      },
-      createForm: {
-        nombre: '',
-        apellido: '',
-        edad: ''
-      }
+      notaFormVisibility: false,
+      updateFormVisibility: false
     })
   }
 
 }))
 
-export default alumnosStore
+export default alumnosInfoStore
