@@ -7,6 +7,7 @@ const alumnosInfoStore = create((set) => ({
   updateFormVisibility: false,
   materia: null,
   nota: null,
+  notass: [],
 
   fetchAlumno: async (_id) => {
     const resAlumno = await axios.get('http://localhost:3030/alumnos/' + _id, { withCredentials: true })
@@ -20,6 +21,37 @@ const alumnosInfoStore = create((set) => ({
     const { name, value } = e.target
     set({
       [name]: value
+    })
+  },
+
+  handleUpdateFieldChange: (e) => {
+    const { name, value } = e.target
+    const { notass } = alumnosInfoStore.getState()
+    set({
+      notass: notass.map((nota, index) =>
+        index === parseInt(name) ? value : nota
+      )
+    })
+  },
+
+  updateNotas: async (materia, boletinId) => {
+    const { notass, alumno } = alumnosInfoStore.getState()
+
+    const res = await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas: notass })
+
+    const newAlumno = alumno
+    const boletinIndex = newAlumno.boletines.findIndex((boletin) => {
+      return boletin._id === boletinId
+    })
+
+    const materiaIndex = newAlumno.boletines[boletinIndex].materias.findIndex((materiaInd) => {
+      return materiaInd._id === materia._id
+    })
+
+    newAlumno.boletines[boletinIndex].materias[materiaIndex] = res.data.materiaBoletin
+
+    set({
+      alumno: newAlumno
     })
   },
 
@@ -45,7 +77,8 @@ const alumnosInfoStore = create((set) => ({
   toggleUpdate: (materia) => {
     set({
       updateFormVisibility: true,
-      materia
+      materia,
+      notass: materia.notas
     })
   },
   btnClose: () => {

@@ -60,27 +60,24 @@ export default function AlumnoInfoPage () {
                       <input type='button' value='Agregar' onClick={() => store.agregarNota()} />
                     </ModalWindow>
                   }
-                  {/* {store.updateFormVisibility &&
+                  {store.updateFormVisibility &&
                     <ModalWindow>
                       <BtnExit funcion={store.btnClose}></BtnExit>
-                      {console.log(store.materia)}
-
                       <h2>{store.materia.materia.nombre}</h2>
                       <h3>Notas</h3>
                       {store.materia &&
                         <>
-                          {store.materia.notas.map((nota) => {
+                          {store.notass.map((nota, index) => {
                             return <>
-                              <input type='number' value={nota} placeholder='1-10' name='nota' onChange={() => (console.log('nota'))} />
+                              <input type='number' value={nota} key={index} placeholder='1-10' name={index} onChange={store.handleUpdateFieldChange} />
                             </>
                           }
                           )}
                         </>
                       }
-                      <input type='button' value='Agregar' onClick={() => { console.log('hola') }} />
+                      <input type='button' value='Agregar' onClick={() => store.updateNotas(store.materia, boletin._id)} />
                     </ModalWindow>
-                  } */}
-                  {/* Hacer modal para agregar nota y modificar */}
+                  }
                 </div>
               })
             }
