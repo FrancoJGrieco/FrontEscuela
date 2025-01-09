@@ -6,6 +6,7 @@ const alumnosInfoStore = create((set) => ({
   notaFormVisibility: false,
   updateFormVisibility: false,
   materia: null,
+  boletin: null,
   nota: null,
   notass: [],
 
@@ -75,11 +76,12 @@ const alumnosInfoStore = create((set) => ({
       materia
     })
   },
-  toggleUpdate: (materia) => {
+  toggleUpdate: (materia, _id) => {
     set({
       updateFormVisibility: true,
       materia,
-      notass: materia.notas
+      notass: materia.notas,
+      boletin: _id
     })
   },
   btnClose: () => {
