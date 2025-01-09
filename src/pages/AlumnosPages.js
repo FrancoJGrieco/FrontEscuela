@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 import Alumnos from '../components/alumnos/Alumnos'
 import CreateForm from '../components/alumnos/CreateForm'
