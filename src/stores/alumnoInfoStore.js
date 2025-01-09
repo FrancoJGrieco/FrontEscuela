@@ -64,7 +64,8 @@ const alumnosInfoStore = create((set) => ({
     const res = await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas })
 
     set({
-      materia: res.data.materia
+      materia: res.data.materia,
+      notaFormVisibility: false
     })
   },
 

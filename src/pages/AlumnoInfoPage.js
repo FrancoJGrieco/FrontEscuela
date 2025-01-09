@@ -32,7 +32,7 @@ export default function AlumnoInfoPage () {
             {store.alumno.boletines.length > 0 &&
               store.alumno.boletines.map((boletin) => {
                 return <div key={boletin._id}>
-                  <label>Titulatura: {boletin.curso.titulatura}</label>
+                  <label>Comision: {boletin.comision.numero}</label>
                   <table>
                     <thead>
                       <th>Materia</th>
@@ -75,7 +75,7 @@ export default function AlumnoInfoPage () {
                           )}
                         </>
                       }
-                      <input type='button' value='Agregar' onClick={() => store.updateNotas(store.materia, boletin._id)} />
+                      <input type='button' value='Modificar' onClick={() => store.updateNotas(store.materia, boletin._id)} />
                     </ModalWindow>
                   }
                 </div>
