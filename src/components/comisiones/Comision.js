@@ -1,4 +1,6 @@
 import comisionesStore from '../../stores/comisionesStore'
+import SettingsIcon from '@mui/icons-material/Settings'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 export default function Comision ({ comision }) {
   const store = comisionesStore(store => {
@@ -15,8 +17,8 @@ export default function Comision ({ comision }) {
       <td>{comision.year}</td>
       <td><button onClick={() => store.verAlumnos(comision)}>Agregar</button></td> {/* Al agregar al alumno se crea el boletin */}
       <td><button onClick={() => store.verMaterias(comision)}>Ver</button></td>
-      <td><button onClick={() => store.deleteComision(comision._id)}>Eliminar</button></td>
-      <td><button onClick={() => store.toggleUpdate(comision)}>Modificar</button></td>
+      <td><button onClick={() => store.deleteComision(comision._id)}><DeleteForeverIcon/></button></td>
+      <td><button onClick={() => store.toggleUpdate(comision)}><SettingsIcon/></button></td>
     </tr>
   )
 }
