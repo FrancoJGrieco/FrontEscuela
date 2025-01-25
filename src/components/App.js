@@ -8,6 +8,7 @@ import CursosPage from '../pages/CursosPage'
 import ComisionesPage from '../pages/ComisionesPage'
 import BoletinesPage from '../pages/BoletinesPages'
 import AlumnoInfoPage from '../pages/AlumnoInfoPage'
+import { AppBar, Box, Button, Container, Toolbar } from '@mui/material'
 
 function App () {
   const store = authStore((store) => {
@@ -18,32 +19,70 @@ function App () {
   return (
     <div className="App">
       <BrowserRouter>
-        <header className='header-nav'>
-          <nav>
-            {store.loggedIn &&
-              <ul>
-                <li>
-                  <Link to='/'>Home</Link>
-                </li>
-                <li>
-                  <Link to='/comisiones'>Comisiones</Link>
-                </li>
-                <li>
-                  <Link to='/cursos'>Cursos</Link>
-                </li>
-                <li>
-                  <Link to='/materias'>Materias</Link>
-                </li>
-                <li>
-                  <Link to='/alumnos'>Alumnos</Link>
-                </li>
-                <li>
-                  <Link to='/boletines'>Boletines</Link>
-                </li>
-              </ul>
-            }
-          </nav>
-        </header>
+        {store.loggedIn &&
+          <AppBar position='static'>
+            <Container>
+              <Toolbar>
+                <Box>
+                  <Button
+                    component={Link}
+                    to='/'
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    Home
+                  </Button>
+                  <Button
+                    component={Link}
+                    to='/comisiones'
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    Comisiones
+                  </Button>
+                  <Button
+                    component={Link}
+                    to='/cursos'
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    Cursos
+                  </Button>
+                  <Button
+                    component={Link}
+                    to='/materias'
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    Materias
+                  </Button>
+                  <Button
+                    component={Link}
+                    to='/alumnos'
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    Alumnos
+                  </Button>
+                  <Button
+                    component={Link}
+                    to='/boletines'
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    Boletines
+                  </Button>
+                </Box>
+              </Toolbar>
+            </Container>
+          </AppBar>
+        }
         <Routes>
           <Route index element={
             <RequireAuth>

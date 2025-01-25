@@ -1,6 +1,6 @@
+import { Button, Dialog, DialogTitle, FormGroup, IconButton, TextField } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import cursosStore from '../../stores/cursosStore'
-import BtnExit from '../general/BtnExit'
-import ModalWindow from '../general/ModalWindow'
 
 export default function CreateForm () {
   const store = cursosStore((store) => {
@@ -13,18 +13,26 @@ export default function CreateForm () {
     }
   })
 
-  if (!store.createFormVisibility) return <></>
   return (
-    <ModalWindow>
-      <BtnExit funcion={store.cerrarForm} />
-      <h2>Crear Curso</h2>
-      <form onSubmit={store.createCurso}>
-        <label>Curso</label>
-        <input onChange={store.updateCreateFormField} value={store.createForm.titulatura} name="titulatura" />
-        <label>Años</label>
-        <input onChange={store.updateCreateFormField} value={store.createForm.years} name="years" />
-        <button type="submit">Crear</button>
-      </form>
-    </ModalWindow>
+    <Dialog
+      open={store.createFormVisibility}
+      slotProps={{
+        paper: {
+          component: 'form',
+          onSubmit: store.createCurso,
+          style: { padding: '16px', borderRadius: 10 }
+        }
+      }}
+    >
+      <IconButton onClick={store.cerrarForm} color='primary' edge='start' sx={{ maxWidth: 35, borderRadius: 1, ml: 0 }}>
+        <CloseIcon />
+      </IconButton>
+      <DialogTitle>Crear Curso</DialogTitle>
+      <FormGroup>
+        <TextField name='titulatura' label='Titulatura' variant='standard' size='small' margin='dense' onChange={store.updateCreateFormField} value={store.createForm.titulatura} />
+        <TextField name='years' label='Años' variant='standard' size='small' margin='dense' onChange={store.updateCreateFormField} value={store.createForm.years} />
+        <Button type="submit">Crear</Button>
+      </FormGroup>
+    </Dialog >
   )
 }

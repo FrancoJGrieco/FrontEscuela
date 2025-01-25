@@ -1,3 +1,5 @@
+import { Button, Dialog, DialogTitle, FormGroup, IconButton, TextField } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import cursosStore from '../../stores/cursosStore'
 
 export default function UpdateForm () {
@@ -11,18 +13,26 @@ export default function UpdateForm () {
     }
   })
 
-  if (!store.updateFormVisibility) return <></>
   return (
-    <div class="formulario">
-      <button onClick={store.cerrarForm}>x</button>
-      <h2>Modificar Curso</h2>
-      <form onSubmit={store.updateCurso}>
-        <label>Titulatura</label>
-        <input onChange={store.handleUpdateFieldChange} value={store.updateForm.titulatura} name='titulatura' />
-        <label>Año</label>
-        <input onChange={store.handleUpdateFieldChange} value={store.updateForm.years} name='years' />
-        <button type='submit'>Modificar</button>
-      </form>
-    </div>
+    <Dialog
+      open={store.updateFormVisibility}
+      slotProps={{
+        paper: {
+          component: 'form',
+          onSubmit: store.updateCurso,
+          style: { padding: '16px', borderRadius: 10 }
+        }
+      }}
+    >
+      <IconButton onClick={store.cerrarForm} color='primary' edge='start' sx={{ maxWidth: 35, borderRadius: 1, ml: 0 }}>
+        <CloseIcon />
+      </IconButton>
+      <DialogTitle>Modificar Curso</DialogTitle>
+      <FormGroup>
+        <TextField name='titulatura' label='Titulatura' variant='standard' size='small' margin='dense' onChange={store.handleUpdateFieldChange} value={store.updateForm.titulatura} />
+        <TextField name='years' label='Años' variant='standard' size='small' margin='dense' onChange={store.handleUpdateFieldChange} value={store.updateForm.years} />
+        <Button type="submit">Modificar</Button>
+      </FormGroup>
+    </Dialog>
   )
 }

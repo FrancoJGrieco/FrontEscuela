@@ -1,3 +1,4 @@
+import { Table, TableBody, TableContainer, TableHead, Paper, TableRow, TableCell, Button } from '@mui/material'
 import cursosStore from '../../stores/cursosStore'
 import Curso from './Curso'
 
@@ -9,19 +10,19 @@ export default function Cursos () {
         <h2>Tabla de Cursos</h2>
       </header>
       <div>
-        <button onClick={() => store.toggleCreate()}>Crear</button>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Titulatura</th>
-                <th>Años</th>
-                <th>Materias</th>
-                <th>Eliminar</th>
-                <th>Modificar</th>
-              </tr>
-            </thead>
-            <tbody>
+        <Button onClick={() => store.toggleCreate()}>Crear</Button>
+        <TableContainer component={Paper}>
+          <Table size='small' sx={{ color: 50 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell align='center'>Titulatura</TableCell>
+                <TableCell align='center'>Años</TableCell>
+                <TableCell align='center'>Materias</TableCell>
+                <TableCell align='center'>Eliminar</TableCell>
+                <TableCell align='center'>Modificar</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {store.cursos &&
                 store.cursos.map((curso) => {
                   return (
@@ -29,10 +30,10 @@ export default function Cursos () {
                   )
                 })
               }
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
-    </section>
+    </section >
   )
 }

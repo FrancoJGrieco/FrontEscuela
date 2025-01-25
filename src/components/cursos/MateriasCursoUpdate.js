@@ -1,32 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
 import cursosStore from '../../stores/cursosStore'
 import Materia from '../materias/Materia'
 import materiasStore from '../../stores/materiasStore'
 
 export default function MateriasCursoUpdate () {
-  const store = cursosStore((store) => {
-    return {
-      materiasVisibility: store.materiasVisibility,
-      updateForm: store.updateForm,
-      handleUpdateFieldChange: store.handleUpdateFieldChange,
-      materiaSeleccionada: store.materiaSeleccionada,
-      handleMateriaSeleccionada: store.handleMateriaSeleccionada,
-      cerrarForm: store.cerrarForm,
-      updateCurso: store.updateCurso,
-      eliminarMateria: store.eliminarMateria
-    }
-  })
+  const store = cursosStore()
   const storeMaterias = materiasStore((store) => {
     return {
-      fetchMaterias: store.fetchMaterias,
       materias: store.materias
     }
   })
-
-  useEffect(() => {
-    storeMaterias.fetchMaterias()
-  }, [])
 
   if (!store.materiasVisibility) return <></>
   return (

@@ -1,3 +1,4 @@
+import { Button, TableCell, TableRow } from '@mui/material'
 import cursosStore from '../../stores/cursosStore'
 
 export default function Curso ({ curso }) {
@@ -10,12 +11,12 @@ export default function Curso ({ curso }) {
     }
   })
   return (
-    <tr key={curso._id}>
-      <td>{curso.titulatura}</td>
-      <td>{curso.years}</td>
-      <td><button onClick={() => store.verMaterias(curso)}>Ver</button></td>
-      <td><button onClick={() => store.deleteCurso(curso._id)}>Eliminar</button></td>
-      <td><button onClick={() => store.toggleUpdate(curso)}>Modificar</button></td>
-    </tr >
+    <TableRow key={curso._id}>
+      <TableCell>{curso.titulatura}</TableCell>
+      <TableCell align='center'>{curso.years}</TableCell>
+      <TableCell align='center'><Button onClick={() => store.verMaterias(curso)}>Ver</Button></TableCell>
+      <TableCell align='center'><Button onClick={() => store.deleteCurso(curso._id)}>Eliminar</Button></TableCell>
+      <TableCell align='center'><Button onClick={() => store.toggleUpdate(curso)}>Modificar</Button></TableCell>
+    </TableRow>
   )
 }
