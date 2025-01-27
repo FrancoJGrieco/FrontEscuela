@@ -6,7 +6,7 @@ const alumnosInfoStore = create((set) => ({
   notaFormVisibility: false,
   updateFormVisibility: false,
   materia: null,
-  boletin: null,
+  boletinId: null,
   nota: null,
   notass: [],
 
@@ -35,8 +35,9 @@ const alumnosInfoStore = create((set) => ({
     })
   },
 
-  updateNotas: async (materia, boletinId) => {
-    const { notass, alumno } = alumnosInfoStore.getState()
+  updateNotas: async (e) => {
+    e.preventDefault()
+    const { notass, alumno, boletinId, materia } = alumnosInfoStore.getState()
 
     const res = await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas: notass })
 
@@ -82,7 +83,7 @@ const alumnosInfoStore = create((set) => ({
       updateFormVisibility: true,
       materia,
       notass: materia.notas,
-      boletin: _id
+      boletinId: _id
     })
   },
   btnClose: () => {
