@@ -56,7 +56,8 @@ const alumnosInfoStore = create((set) => ({
     })
   },
 
-  agregarNota: async () => {
+  agregarNota: async (e) => {
+    e.preventDefault()
     const { nota, materia } = alumnosInfoStore.getState()
 
     materia.notas.push(nota)
