@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 import alumnosStore from '../../stores/alumnosStore'
-import CeldaTabla from '../general/CeldaTabla'
-import FilaTabla from '../general/FilaTabla'
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove'
 import SettingsIcon from '@mui/icons-material/Settings'
+import { IconButton, TableCell, TableRow } from '@mui/material'
 
 export default function Alumno ({ alumno }) {
   const store = alumnosStore(store => {
@@ -13,18 +12,27 @@ export default function Alumno ({ alumno }) {
     }
   })
   return (
-    <>
-      <FilaTabla>
-        <CeldaTabla>{alumno.nombre}</CeldaTabla>
-        <CeldaTabla>{alumno.apellido}</CeldaTabla>
-        <CeldaTabla>{alumno.edad}</CeldaTabla>
-        <CeldaTabla>{alumno.dni || 'No DNI'}</CeldaTabla>
-        <CeldaTabla>
-          <Link to={'/alumno/' + alumno._id}>Información</Link>
-        </CeldaTabla>
-        <CeldaTabla><button onClick={() => store.deleteAlumno(alumno._id)}><PersonRemoveIcon/></button></CeldaTabla>
-        <CeldaTabla><button onClick={() => store.toggleUpdate(alumno)}><SettingsIcon/></button></CeldaTabla>
-      </FilaTabla>
-    </>
+    <TableRow
+      component={Link}
+      to={'/alumno/' + alumno._id}
+      variant='contained'
+      color='primary'
+      disableElevation
+    >
+      <TableCell>{alumno.nombre}</TableCell>
+      <TableCell>{alumno.apellido}</TableCell>
+      <TableCell>{alumno.edad}</TableCell>
+      <TableCell>{alumno.dni || 'No DNI'}</TableCell>
+      <TableCell>
+        <IconButton onClick={() => store.deleteAlumno()} color='primary'>
+          <PersonRemoveIcon />
+        </IconButton>
+      </TableCell>
+      <TableCell>
+        <IconButton onClick={() => store.toggleUpdate(alumno)} color='primary'>
+          <SettingsIcon />
+        </IconButton>
+      </TableCell>
+    </TableRow>
   )
 }

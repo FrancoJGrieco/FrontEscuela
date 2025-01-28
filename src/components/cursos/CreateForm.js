@@ -2,7 +2,7 @@ import { Button, Dialog, DialogTitle, FormGroup, IconButton, TextField } from '@
 import CloseIcon from '@mui/icons-material/Close'
 import cursosStore from '../../stores/cursosStore'
 
-export default function CreateForm () {
+export default function CreateForm() {
   const store = cursosStore((store) => {
     return {
       createFormVisibility: store.createFormVisibility,

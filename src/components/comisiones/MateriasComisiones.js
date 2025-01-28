@@ -1,10 +1,10 @@
 import comisionesStore from '../../stores/comisionesStore'
 import Materia from '../materias/Materia'
-import cursosStore from '../../stores/cursosStore'
+import { useGetCursos } from '../../hooks/cursos/useGetCursos'
 
 export default function MateriasComisiones () {
-  const storeCursos = cursosStore()
   const store = comisionesStore()
+  const { cursos } = useGetCursos()
 
   if (!store.materiasVisibility) return <></>
   return (
@@ -35,7 +35,7 @@ export default function MateriasComisiones () {
       </table>
       <select onChange={store.handleCursoSeleccionado} name="cursoSeleccionado" >
         <option value=''> </option>
-        {storeCursos.cursos.map((cursos) => (
+        {cursos.map((cursos) => (
           <option key={cursos._id} value={cursos._id}>
             {cursos.titulatura}
           </option>

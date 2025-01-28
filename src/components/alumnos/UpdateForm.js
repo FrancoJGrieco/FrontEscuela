@@ -1,21 +1,12 @@
+import { Dialog } from '@mui/material'
 import alumnosStore from '../../stores/alumnosStore'
-import ModalWindow from '../general/ModalWindow'
 
 export default function UpdateForm () {
-  const store = alumnosStore((store) => {
-    return {
-      updateForm: store.updateForm,
-      updateAlumno: store.updateAlumno,
-      handleUpdateFieldChange: store.handleUpdateFieldChange,
-      btnClose: store.btnClose,
-      updateFormVisibility: store.updateFormVisibility
-    }
-  })
+  const store = alumnosStore()
 
   if (!store.updateFormVisibility) return <></>
   return (
-    <>
-      <ModalWindow>
+      <Dialog>
         <div className='exit-modal' onClick={() => store.btnClose()}><span>X</span></div>
         <h2>Modificar alumno</h2>
         <form onSubmit={store.updateAlumno} className='form-modal'>
@@ -29,7 +20,6 @@ export default function UpdateForm () {
           <input onChange={store.handleUpdateFieldChange} value={store.updateForm.dni} name='dni' /><br />
           <button type='submit'>Modificar</button>
         </form>
-      </ModalWindow>
-    </>
+      </Dialog>
   )
 }

@@ -1,7 +1,7 @@
 import alumnosStore from '../../stores/alumnosStore'
 import comisionesStore from '../../stores/comisionesStore'
 
-export default function AlumnosComisiones () {
+export default function AlumnosComisiones() {
   const store = comisionesStore()
   const storeAlumnos = alumnosStore()
   // el fetch hacerlo cuando entro a comisiones

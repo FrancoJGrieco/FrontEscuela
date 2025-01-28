@@ -26,7 +26,7 @@ export default function Cursos () {
               {store.cursos &&
                 store.cursos.map((curso) => {
                   return (
-                    <Curso curso={curso} />
+                    <Curso curso={curso} key={curso._id} />
                   )
                 })
               }

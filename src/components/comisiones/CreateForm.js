@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
 import comisionesStore from '../../stores/comisionesStore'
-import cursosStore from '../../stores/cursosStore'
 import ModalWindow from '../general/ModalWindow'
 import BtnExit from '../general/BtnExit'
+import { useGetCursos } from '../../hooks/cursos/useGetCursos'
+import { CreateFormVisibilityContext } from '../../hooks/visibilidad/filtroCreate'
+import { useContext } from 'react'
+import { Button } from '@mui/material'
 
-export default function CreateForm () {
+export default function CreateForm() {
   const store = comisionesStore((store) => {
     return {
-      createFormVisibility: store.createFormVisibility,
       updateCreateFormField: store.updateCreateFormField,
       createForm: store.createForm,
       createComision: store.createComision,
@@ -18,22 +19,13 @@ export default function CreateForm () {
       cursoSeleccionado: store.cursoSeleccionado
     }
   })
-  const storeCursos = cursosStore((store) => {
-    return {
-      fetchCursos: store.fetchCursos,
-      cursos: store.cursos
-    }
-  })
-
-  useEffect(() => {
-    storeCursos.fetchCursos()
-  }, [])
-
-  if (!store.createFormVisibility) return <></>
+  const { cursos } = useGetCursos()
+  const { formVisibility, toggleFormVisibility } = useContext(CreateFormVisibilityContext)
+  if (!formVisibility.crearComision) return <></>
   return (
     <>
       <ModalWindow>
-        <BtnExit funcion={store.cerrarForm} />
+        <Button onClick={() => toggleFormVisibility('crearComision')}>x</Button>
         <h2>Crear Comision</h2>
         <form onSubmit={store.createComision} >
           <label>Numero de comisión</label>
@@ -43,7 +35,7 @@ export default function CreateForm () {
           <label>Agregar curso</label>
           <select onChange={store.handleCursoSeleccionado} name="cursoSeleccionado" >
             <option value=""> </option>
-            {storeCursos.cursos.map((curso) => (
+            {cursos.map((curso) => (
               <option key={curso._id} value={curso._id}>
                 {curso.titulatura}
               </option>

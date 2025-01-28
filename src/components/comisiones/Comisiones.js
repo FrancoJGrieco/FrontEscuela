@@ -1,15 +1,18 @@
-import comisionesStore from '../../stores/comisionesStore'
+import { useContext } from 'react'
+import { useGetComisiones } from '../../hooks/comisiones/useGetComisiones'
 import Comision from './Comision'
+import { CreateFormVisibilityContext } from '../../hooks/visibilidad/filtroCreate'
 
-export default function Comisiones () {
-  const store = comisionesStore()
+export default function Comisiones() {
+  const { comisiones } = useGetComisiones()
+  const { toggleFormVisibility } = useContext(CreateFormVisibilityContext)
   return (
     <section>
       <header>
         <h2>Tabla de Comisiones</h2>
       </header>
       <div>
-        <button onClick={() => store.toggleCreate()}>Crear</button>
+        <button onClick={() => (toggleFormVisibility( 'crearComision'))}>Crear</button>
         <div>
           <table>
             <thead>
@@ -23,8 +26,8 @@ export default function Comisiones () {
               </tr>
             </thead>
             <tbody>
-              {store.comisiones &&
-                store.comisiones.map((comision) => {
+              {comisiones &&
+                comisiones.map((comision) => {
                   return (
                     <Comision key={comision._id} comision={comision} />
                   )
@@ -35,6 +38,6 @@ export default function Comisiones () {
           </table>
         </div>
       </div>
-    </section>
+    </section >
   )
 }

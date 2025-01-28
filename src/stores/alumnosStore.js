@@ -11,6 +11,7 @@ const alumnosStore = create((set) => ({
   createFormVisibility: false,
   updateFormVisibility: false,
   pageModalVisibility: false,
+  cargadoValor: false,
 
   createForm: {
     nombre: '',
@@ -52,6 +53,12 @@ const alumnosStore = create((set) => ({
         pagina: pagina - 1
       })
     }
+  },
+
+  cargado: async () => {
+    set({
+      cargadoValor: true
+    })
   },
 
   goPage: async (valor) => {

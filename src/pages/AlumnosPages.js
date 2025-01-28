@@ -4,6 +4,7 @@ import Alumnos from '../components/alumnos/Alumnos'
 import CreateForm from '../components/alumnos/CreateForm'
 import UpdateForm from '../components/alumnos/UpdateForm'
 import alumnosStore from '../stores/alumnosStore'
+// import EnhancedTable from '../components/alumnos/EnhancedTable'
 
 export default function AlumnosPage () {
   const store = alumnosStore()
@@ -11,6 +12,7 @@ export default function AlumnosPage () {
   useEffect(() => {
     store.fetchAlumnos().then(() => {
       store.iniciarValores()
+      store.cargado()
     })
   }, [])
 
@@ -19,6 +21,9 @@ export default function AlumnosPage () {
       <Alumnos />
       <UpdateForm />
       <CreateForm />
+      {/* {store.cargadoValor &&
+        <EnhancedTable />
+      } */}
     </main>
   )
 }
