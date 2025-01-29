@@ -3,15 +3,15 @@ import { createContext, useState } from 'react'
 export const CreateFormVisibilityContext = createContext()
 
 export function CreateFormVisibilityProvider({ children }) {
-  const [formVisibility, setFormVisibility] = useState({
+  const [createFormVisibility, setCreateFormVisibility] = useState({
     crearAlumno: false,
     crearComision: false,
     crearMateria: false,
     crearCurso: false
   })
 
-  const toggleFormVisibility = (formName) => {
-    setFormVisibility((prevState) => ({
+  const toggleCreateFormVisibility = (formName) => {
+    setCreateFormVisibility((prevState) => ({
       ...prevState,
       [formName]: !prevState[formName]
     }))
@@ -19,8 +19,8 @@ export function CreateFormVisibilityProvider({ children }) {
 
   return (
     <CreateFormVisibilityContext.Provider value={{
-      formVisibility,
-      toggleFormVisibility
+      createFormVisibility,
+      toggleCreateFormVisibility
     }}>
       {children}
     </CreateFormVisibilityContext.Provider>

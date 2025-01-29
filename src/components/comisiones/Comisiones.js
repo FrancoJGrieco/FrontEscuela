@@ -1,18 +1,21 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useGetComisiones } from '../../hooks/comisiones/useGetComisiones'
 import Comision from './Comision'
 import { CreateFormVisibilityContext } from '../../hooks/visibilidad/filtroCreate'
+import { useInitializeCreateForm } from '../../hooks/comisiones/useInitializeCreateForm'
+import { ComisionFormContext } from '../../hooks/comisiones/updateForm'
 
 export default function Comisiones() {
   const { comisiones } = useGetComisiones()
-  const { toggleFormVisibility } = useContext(CreateFormVisibilityContext)
+  const { toggleCreateFormVisibility } = useContext(CreateFormVisibilityContext)
+  useInitializeCreateForm()
   return (
     <section>
       <header>
         <h2>Tabla de Comisiones</h2>
       </header>
       <div>
-        <button onClick={() => (toggleFormVisibility( 'crearComision'))}>Crear</button>
+        <button onClick={() => toggleCreateFormVisibility('crearComision')}>Crear</button>
         <div>
           <table>
             <thead>

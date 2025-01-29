@@ -1,6 +1,7 @@
 import comisionesStore from '../../stores/comisionesStore'
 import Materia from '../materias/Materia'
 import { useGetCursos } from '../../hooks/cursos/useGetCursos'
+import { Button } from '@mui/material'
 
 export default function MateriasComisiones () {
   const store = comisionesStore()
@@ -9,7 +10,7 @@ export default function MateriasComisiones () {
   if (!store.materiasVisibility) return <></>
   return (
     <>
-      <button onClick={store.cerrarForm}>x</button>
+    <Button onClick={store.cerrarForm}>x</Button>
       <h2>{store.updateForm.numero}</h2>
       <h3>Año: {store.updateForm.year}</h3>
       <label>Materias</label>

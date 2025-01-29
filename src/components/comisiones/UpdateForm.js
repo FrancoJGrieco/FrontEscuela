@@ -1,27 +1,23 @@
-import comisionesStore from '../../stores/comisionesStore'
-import BtnExit from '../general/BtnExit'
+import { useContext } from 'react'
+import { UpdateFormVisibilityContext } from '../../hooks/visibilidad/filtroUpdate'
 import ModalWindow from '../general/ModalWindow'
+import { ComisionFormContext } from '../../hooks/comisiones/updateForm'
+import { updateData } from '../../services/updateData'
 
-export default function UpdateForm () {
-  const store = comisionesStore((store) => {
-    return {
-      updateForm: store.updateForm,
-      updateComision: store.updateComision,
-      handleUpdateFieldChange: store.handleUpdateFieldChange,
-      updateFormVisibility: store.updateFormVisibility,
-      cerrarForm: store.cerrarForm
-    }
-  })
+export default function UpdateForm() {
 
-  if (!store.updateFormVisibility) return <></>
+  const { updateFormVisibility } = useContext(UpdateFormVisibilityContext)
+  const { updateForm, handleUpdateFieldChange } = useContext(ComisionFormContext)
+
+  if (!updateFormVisibility.comisionForm.updateComision) return <></>
+
   return (
     <>
       <ModalWindow>
-        <BtnExit funcion={store.cerrarForm} />
         <h2>Modificar Comision</h2>
-        <form onSubmit={store.updateComision}>
-          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.numero} name='numero' /><br />
-          <input onChange={store.handleUpdateFieldChange} value={store.updateForm.year} name='year' /><br />
+        <form onSubmit={(e) => updateData({e, type: 'comisiones', _id: updateForm._id, data: updateForm})}>
+          <input onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.numero} name='numero' /><br />
+          <input onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.year} name='year' /><br />
           <button type='submit'>Modificar</button>
         </form>
       </ModalWindow>
