@@ -1,36 +1,31 @@
-import comisionesStore from '../../stores/comisionesStore'
 import SettingsIcon from '@mui/icons-material/Settings'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { UpdateFormVisibilityContext } from '../../hooks/visibilidad/filtroUpdate'
 import { useContext } from 'react'
 import { Button } from '@mui/material'
-import { ComisionFormContext } from '../../hooks/comisiones/updateForm'
+import { FormContext } from '../../hooks/global/forms'
 import { deleteData } from '../../services/deleteData'
+import { FormVisibilityContext } from '../../hooks/global/filters'
 
 
 export default function Comision({ comision }) {
-  const store = comisionesStore(store => {
-    return {
-      verMaterias: store.verMaterias,
-      verAlumnos: store.verAlumnos
-    }
-  })
-  const { toggleUpdateFormVisibility } = useContext(UpdateFormVisibilityContext)
-  const { setUpdateForm } = useContext(ComisionFormContext)
+
+  const { toggleFormVisibility } = useContext(FormVisibilityContext)
+  const { setUpdateForm } = useContext(FormContext)
 
   return (
     <tr>
       <td>{comision.numero}</td>
       <td>{comision.year}</td>
-      <td><button onClick={() => store.verAlumnos(comision)}>Agregar</button></td> {/* Al agregar al alumno se crea el boletin */}
-      <td><button onClick={() => store.verMaterias(comision)}>Ver</button></td>
+      <td><button onClick={() => toggleFormVisibility({ formName: 'alumnos' })}>Agregar</button></td> {/* Al agregar al alumno se crea el boletin */}
+      <td><button onClick={() => toggleFormVisibility({ formName: 'materias' })}>Ver</button></td>
+
 
       <td><Button onClick={() => deleteData({ type: 'comisiones', _id: comision._id })}>
         <DeleteForeverIcon />
       </Button></td>
 
       <td><Button onClick={() => {
-        toggleUpdateFormVisibility({ name: 'comision', formName: 'updateComision', datos: comision })
+        toggleFormVisibility({ formName: 'update' })
         setUpdateForm(comision)
       }}>
         <SettingsIcon />

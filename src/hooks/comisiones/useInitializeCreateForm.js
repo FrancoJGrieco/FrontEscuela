@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react"
-import { ComisionFormContext } from "./updateForm"
+import { FormContext } from "../global/forms"
 
 export function useInitializeCreateForm() {
-  const { setCreateForm } = useContext(ComisionFormContext)
+  const { setCreateForm } = useContext(FormContext)
   useEffect(() => {
     setCreateForm({
       numero: '',
-      year: '',
+      year: null,
       alumnos: [],
       materias: []
     })

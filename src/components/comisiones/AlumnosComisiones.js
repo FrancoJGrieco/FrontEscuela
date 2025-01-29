@@ -1,11 +1,19 @@
+import { useContext } from 'react'
 import alumnosStore from '../../stores/alumnosStore'
 import comisionesStore from '../../stores/comisionesStore'
+import { FormContext } from '../../hooks/global/forms'
+import ModalWindow from '../general/ModalWindow'
+import { updateData } from '../../services/updateData'
+import { FormVisibilityContext } from '../../hooks/global/filters'
 
 export default function AlumnosComisiones() {
   const store = comisionesStore()
   const storeAlumnos = alumnosStore()
+  const { formVisibility } = useContext(FormVisibilityContext)
   // el fetch hacerlo cuando entro a comisiones
-  if (!store.alumnosVisibility) return <></>
+  console.log(formVisibility)
+  if (formVisibility !== 'alumnos') return <></>
+
   return (
     <>
       <button onClick={store.cerrarForm}>x</button>

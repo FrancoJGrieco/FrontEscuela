@@ -2,47 +2,50 @@
 import comisionesStore from '../../stores/comisionesStore'
 import ModalWindow from '../general/ModalWindow'
 import { useGetCursos } from '../../hooks/cursos/useGetCursos'
-import { CreateFormVisibilityContext } from '../../hooks/visibilidad/filtroCreate'
 import { useContext } from 'react'
 import { Button } from '@mui/material'
-import { ComisionFormContext } from '../../hooks/comisiones/updateForm'
+import { FormContext } from '../../hooks/global/forms'
+import { FormVisibilityContext } from '../../hooks/global/filters'
+import { handleCursoComision } from '../../hooks/comisiones/handleCursoComision'
+import { createData } from '../../services/createData'
 
 export default function CreateForm() {
-  const store = comisionesStore((store) => {
-    return {
-      updateCreateFormField: store.updateCreateFormField,
-      createForm: store.createForm,
-      createComision: store.createComision,
-      handleCursoSeleccionado: store.handleCursoSeleccionado,
-      cursoSeleccionado: store.cursoSeleccionado
-    }
-  })
   const { cursos } = useGetCursos()
-  const { createFormVisibility, toggleCreateFormVisibility } = useContext(CreateFormVisibilityContext)
-  const { createForm } = useContext(ComisionFormContext)
-  if (!createFormVisibility.crearComision) return <></>
+  const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
+  const { createForm, handleCreateFieldChange, handleCreateFieldChangeManual } = useContext(FormContext)
+
+  if (formVisibility !== 'create') return <></>
+
   return (
     <>
       <ModalWindow>
-        <Button onClick={() => toggleCreateFormVisibility('crearComision')}>x</Button>
+        {console.log(formVisibility)}
+        <Button onClick={() => toggleFormVisibility('create')}>x</Button>
         <h2>Crear Comision</h2>
-        <form onSubmit={store.createComision} >
+        <form onSubmit={(e) => createData({e, type: 'comisiones', data: createForm})} >
           <label>Numero de comisión</label>
-          <input onChange={store.updateCreateFormField} value={createForm.numero} name="numero" />
+          <input onChange={(e) => handleCreateFieldChange({ e })} value={createForm.numero} name="numero" />
           <label>Año de comisión</label>
-          <input onChange={store.updateCreateFormField} value={createForm.year} name="year" />
-          <label>Agregar curso</label>
-          <select onChange={store.handleCursoSeleccionado} name="cursoSeleccionado" >
+          <input onChange={(e) => handleCreateFieldChange({ e })} value={createForm.year} name="year" />
+          {createForm.year && <>
+            <label>Agregar curso</label>
+            <select onChange={(e) => handleCreateFieldChangeManual({ name: 'materias', value: handleCursoComision({ e, year: createForm.year })})} name="curso" >
             <option value=""> </option>
-            {cursos.map((curso) => (
-              <option key={curso._id} value={curso._id}>
-                {curso.titulatura}
-              </option>
-            ))}
+            {cursos && <>
+              {cursos.map((curso) => (
+                <option key={curso._id} value={JSON.stringify(curso.materias)}>
+                  {curso.titulatura}
+                </option>
+              ))
+              }
+            </>
+            }
           </select>
-          <button type="submit">Crear</button>
-        </form>
-      </ModalWindow>
+        </>
+          }
+        <button type="submit">Crear</button>
+      </form>
+    </ModalWindow >
     </>
   )
 }

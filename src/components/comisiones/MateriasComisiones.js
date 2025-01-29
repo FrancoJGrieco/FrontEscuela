@@ -2,15 +2,18 @@ import comisionesStore from '../../stores/comisionesStore'
 import Materia from '../materias/Materia'
 import { useGetCursos } from '../../hooks/cursos/useGetCursos'
 import { Button } from '@mui/material'
+import { useContext } from 'react'
+import { FormVisibilityContext } from '../../hooks/global/filters'
 
-export default function MateriasComisiones () {
+export default function MateriasComisiones() {
   const store = comisionesStore()
   const { cursos } = useGetCursos()
+  const { formVisibility } = useContext(FormVisibilityContext)
 
-  if (!store.materiasVisibility) return <></>
+  if (formVisibility !== 'materias') return <></>
   return (
     <>
-    <Button onClick={store.cerrarForm}>x</Button>
+      <Button onClick={store.cerrarForm}>x</Button>
       <h2>{store.updateForm.numero}</h2>
       <h3>Año: {store.updateForm.year}</h3>
       <label>Materias</label>

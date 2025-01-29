@@ -1,8 +1,8 @@
 import { createContext, useState } from 'react'
 
-export const ComisionFormContext = createContext()
+export const FormContext = createContext()
 
-export function ComisionFormProvider({ children }) {
+export function FormProvider({ children }) {
   const [updateForm, setUpdateForm] = useState({})
 
   const [createForm, setCreateForm] = useState({})
@@ -18,7 +18,14 @@ export function ComisionFormProvider({ children }) {
 
   const handleCreateFieldChange = ({ e }) => {
     const { name, value } = e.target
-
+    console.log(name, value)
+    setCreateForm((prevState) => ({
+      ...prevState,
+      [name]: value
+    }))
+  }
+  const handleCreateFieldChangeManual = ({ name, value }) => {
+    console.log(name, value)
     setCreateForm((prevState) => ({
       ...prevState,
       [name]: value
@@ -26,16 +33,17 @@ export function ComisionFormProvider({ children }) {
   }
 
   return (
-    <ComisionFormContext.Provider value={{
+    <FormContext.Provider value={{
       updateForm,
       setUpdateForm,
       createForm,
       setCreateForm,
       handleUpdateFieldChange,
-      handleCreateFieldChange
+      handleCreateFieldChange,
+      handleCreateFieldChangeManual
     }}>
       {children}
-    </ComisionFormContext.Provider>
+    </FormContext.Provider>
   )
 
 }
