@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import comisionesStore from '../../stores/comisionesStore'
 import ModalWindow from '../general/ModalWindow'
 import { useGetCursos } from '../../hooks/cursos/useGetCursos'
 import { useContext } from 'react'

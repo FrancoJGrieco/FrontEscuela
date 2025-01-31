@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import CeldaTituloTabla from '../general/CeldaTituloTabla'
 import FilaTituloTabla from '../general/FilaTituloTabla'
 import Alumno from './Alumno'
