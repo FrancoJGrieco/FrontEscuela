@@ -1,21 +1,30 @@
-import comisionesStore from '../../stores/comisionesStore'
 import Materia from '../materias/Materia'
 import { useGetCursos } from '../../hooks/cursos/useGetCursos'
 import { Button } from '@mui/material'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { FormVisibilityContext } from '../../hooks/global/filters'
+import { FormContext } from '../../hooks/global/forms'
+import { handleCursoComision } from '../../services/handleCursoComision'
+import { updateData } from '../../services/updateData'
 
 export default function MateriasComisiones() {
-  const store = comisionesStore()
   const { cursos } = useGetCursos()
-  const { formVisibility } = useContext(FormVisibilityContext)
+  const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
+  const { updateForm, handleUpdateFieldChangeManual } = useContext(FormContext)
+  const [materias, setMaterias] = useState({})
+
+  useEffect(() => {
+    if (updateForm._id) {
+      setMaterias(updateForm.materias)
+    }
+  }, [updateForm._id])
 
   if (formVisibility !== 'materias') return <></>
   return (
     <>
-      <Button onClick={store.cerrarForm}>x</Button>
-      <h2>{store.updateForm.numero}</h2>
-      <h3>Año: {store.updateForm.year}</h3>
+      <Button onClick={() => toggleFormVisibility({ formName: 'materias' })}>x</Button>
+      <h2>{updateForm.numero}</h2>
+      <h3>Año: {updateForm.year}</h3>
       <label>Materias</label>
       <table>
         <thead>
@@ -26,8 +35,8 @@ export default function MateriasComisiones() {
           </tr>
         </thead>
         <tbody>
-          {store.updateForm.materias.length > 0 &&
-            store.updateForm.materias.map((materia) => {
+          {materias.length > 0 &&
+            materias.map((materia) => {
               return (
                 <tr>
                   <Materia key={materia._id} materia={materia} />
@@ -37,15 +46,20 @@ export default function MateriasComisiones() {
           }
         </tbody>
       </table>
-      <select onChange={store.handleCursoSeleccionado} name="cursoSeleccionado" >
-        <option value=''> </option>
-        {cursos.map((cursos) => (
-          <option key={cursos._id} value={cursos._id}>
-            {cursos.titulatura}
-          </option>
-        ))}
+      <label>Agregar curso</label>
+      <select onChange={(e) => handleUpdateFieldChangeManual({ name: 'materias', value: handleCursoComision({ e, year: updateForm.year }) })} name="curso" >
+        <option value=""> </option>
+        {cursos && <>
+          {cursos.map((curso) => (
+            <option key={curso._id} value={JSON.stringify(curso.materias)}>
+              {curso.titulatura}
+            </option>
+          ))
+          }
+        </>
+        }
       </select>
-      <button onClick={store.updateComision}>Agregar</button><br />
+      <button onClick={(e) => updateData({ e, type: 'comisiones', _id: updateForm._id, data: updateForm})}>Agregar</button><br />
     </>
   )
 }

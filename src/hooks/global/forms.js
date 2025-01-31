@@ -10,6 +10,14 @@ export function FormProvider({ children }) {
   const handleUpdateFieldChange = ({ e }) => {
     const { name, value } = e.target
 
+    console.log(name, value)
+    console.log(updateForm)
+    setUpdateForm((prevState) => ({
+      ...prevState,
+      [name]: value
+    }))
+  }
+  const handleUpdateFieldChangeManual = ({ name, value }) => {
     setUpdateForm((prevState) => ({
       ...prevState,
       [name]: value
@@ -25,7 +33,6 @@ export function FormProvider({ children }) {
     }))
   }
   const handleCreateFieldChangeManual = ({ name, value }) => {
-    console.log(name, value)
     setCreateForm((prevState) => ({
       ...prevState,
       [name]: value
@@ -39,6 +46,7 @@ export function FormProvider({ children }) {
       createForm,
       setCreateForm,
       handleUpdateFieldChange,
+      handleUpdateFieldChangeManual,
       handleCreateFieldChange,
       handleCreateFieldChangeManual
     }}>

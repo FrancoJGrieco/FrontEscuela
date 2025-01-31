@@ -16,8 +16,14 @@ export default function Comision({ comision }) {
     <tr>
       <td>{comision.numero}</td>
       <td>{comision.year}</td>
-      <td><button onClick={() => toggleFormVisibility({ formName: 'alumnos' })}>Agregar</button></td> {/* Al agregar al alumno se crea el boletin */}
-      <td><button onClick={() => toggleFormVisibility({ formName: 'materias' })}>Ver</button></td>
+      <td><button onClick={() => {
+        setUpdateForm(comision)
+        toggleFormVisibility({ formName: 'alumnos' })
+      }}>Agregar</button></td> {/* Al agregar al alumno se crea el boletin */}
+      <td><button onClick={() => {
+        setUpdateForm(comision)
+        toggleFormVisibility({ formName: 'materias' })
+      }}>Ver</button></td>
 
 
       <td><Button onClick={() => deleteData({ type: 'comisiones', _id: comision._id })}>
@@ -25,8 +31,8 @@ export default function Comision({ comision }) {
       </Button></td>
 
       <td><Button onClick={() => {
-        toggleFormVisibility({ formName: 'update' })
         setUpdateForm(comision)
+        toggleFormVisibility({ formName: 'update' })
       }}>
         <SettingsIcon />
       </Button></td>

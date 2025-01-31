@@ -1,29 +1,29 @@
-import { useEffect } from 'react'
-import alumnosStore from '../../stores/alumnosStore'
+import { useContext, useEffect } from 'react'
 import CeldaTituloTabla from '../general/CeldaTituloTabla'
 import FilaTituloTabla from '../general/FilaTituloTabla'
 import Alumno from './Alumno'
+import { FormVisibilityContext } from '../../hooks/global/filters'
+import { useInitializeCreateForm } from '../../hooks/alumnos/useInitializeCreateForm'
+import { useGetAlumnos } from '../../hooks/alumnos/useGetAlumnos'
 
-export default function Alumnos () {
-  const store = alumnosStore()
+export default function Alumnos() {
   const titulos = ['Nombre', 'Apellido', 'Edad', 'DNI', 'Boletin', 'Eliminar', 'Modificar']
+  const { alumnos } = useGetAlumnos()
+  const { toggleFormVisibility } = useContext(FormVisibilityContext)
 
-  useEffect(() => {
-    if (store.alumnos) {
-      store.paginarAlumnos()
-    }
-  }, [store.maxPagina, store.pagina, store.alumnos])
+  useInitializeCreateForm()
+
   return (
     <section>
       <header>
         <h2>Alumnos</h2>
       </header>
       <div>
-        <div className='container-search'>
+        {/* <div className='container-search'>
           <input type='text' placeholder='DNI' onChange={store.updateSearchField} />
           <input type='image' src='/lupa.png' alt='Buscar' onClick={() => store.fetchAlumno()} />
-        </div>
-        <button onClick={() => store.toggleCreate()}>Crear</button>
+        </div> */}
+        <button onClick={() => toggleFormVisibility({ formName: 'create' })}>Crear</button>
         <div>
           <table>
             <thead>
@@ -36,8 +36,8 @@ export default function Alumnos () {
               </FilaTituloTabla>
             </thead>
             <tbody>
-              {store.alumnosFiltrados &&
-                store.alumnosFiltrados.map((alumno) => {
+              {alumnos &&
+                alumnos.map((alumno) => {
                   return (
                     <Alumno key={alumno._id} alumno={alumno} />
                   )
@@ -45,11 +45,6 @@ export default function Alumnos () {
               }
             </tbody>
           </table>
-          <div className='container-pages'>
-            <input type='button' value='<' onClick={store.previousPage} />
-            <label onClick={() => store.toggleGoPage()}>{store.pagina + 1}</label>
-            <input type='button' value='>' onClick={store.nextPage} />
-          </div>
         </div>
       </div>
     </section>

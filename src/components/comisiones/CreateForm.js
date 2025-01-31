@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { Button } from '@mui/material'
 import { FormContext } from '../../hooks/global/forms'
 import { FormVisibilityContext } from '../../hooks/global/filters'
-import { handleCursoComision } from '../../hooks/comisiones/handleCursoComision'
+import { handleCursoComision } from '../../services/handleCursoComision'
 import { createData } from '../../services/createData'
 
 export default function CreateForm() {
@@ -22,30 +22,30 @@ export default function CreateForm() {
         {console.log(formVisibility)}
         <Button onClick={() => toggleFormVisibility('create')}>x</Button>
         <h2>Crear Comision</h2>
-        <form onSubmit={(e) => createData({e, type: 'comisiones', data: createForm})} >
+        <form onSubmit={(e) => createData({ e, type: 'comisiones', data: createForm })} >
           <label>Numero de comisión</label>
           <input onChange={(e) => handleCreateFieldChange({ e })} value={createForm.numero} name="numero" />
           <label>Año de comisión</label>
           <input onChange={(e) => handleCreateFieldChange({ e })} value={createForm.year} name="year" />
           {createForm.year && <>
             <label>Agregar curso</label>
-            <select onChange={(e) => handleCreateFieldChangeManual({ name: 'materias', value: handleCursoComision({ e, year: createForm.year })})} name="curso" >
-            <option value=""> </option>
-            {cursos && <>
-              {cursos.map((curso) => (
-                <option key={curso._id} value={JSON.stringify(curso.materias)}>
-                  {curso.titulatura}
-                </option>
-              ))
+            <select onChange={(e) => handleCreateFieldChangeManual({ name: 'materias', value: handleCursoComision({ e, year: createForm.year }) })} name="curso" >
+              <option value=""> </option>
+              {cursos && <>
+                {cursos.map((curso) => (
+                  <option key={curso._id} value={JSON.stringify(curso.materias)}>
+                    {curso.titulatura}
+                  </option>
+                ))
+                }
+              </>
               }
-            </>
-            }
-          </select>
-        </>
+            </select>
+          </>
           }
-        <button type="submit">Crear</button>
-      </form>
-    </ModalWindow >
+          <button type="submit">Crear</button>
+        </form>
+      </ModalWindow >
     </>
   )
 }
