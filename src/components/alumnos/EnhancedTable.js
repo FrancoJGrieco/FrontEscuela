@@ -28,6 +28,7 @@ import { useInitializeCreateForm } from '../../hooks/alumnos/useInitializeCreate
 import { deleteData } from '../../services/deleteData'
 import { FormContext } from '../../hooks/global/forms'
 import { Link } from 'react-router-dom'
+import { deleteAllData } from '../../services/deleteAllData'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -131,10 +132,10 @@ EnhancedTableHead.propTypes = {
 }
 
 function EnhancedTableToolbar(props) {
-  const { numSelected, alumno } = props
+  // const { numSelected, alumno } = props
+  const { numSelected, alumnos, alumno } = props
   const { toggleFormVisibility } = React.useContext(FormVisibilityContext)
   const { setUpdateForm } = React.useContext(FormContext)
-
   return (
     <Toolbar
       sx={[
@@ -175,30 +176,35 @@ function EnhancedTableToolbar(props) {
       {numSelected > 0
         ? (
           <>
-            <Tooltip title="Eliminar" >
-              <IconButton onClick={() => deleteData({ type: 'alumnos', _id: alumno._id })}>
+            <Tooltip title="Eliminar">
+              {/* <IconButton onClick={() => deleteData({ type: 'alumnos', _id: alumno._id })}> */}
+              <IconButton onClick={() => deleteAllData({ type: 'alumnos', _ids: alumnos })}>
                 <PersonRemoveIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Modificar" >
-              <IconButton onClick={() => {
-                toggleFormVisibility({ formName: 'update' })
-                setUpdateForm(alumno)
-              }}>
-                <SettingsIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip
-              title="Mas Información"
-            >
-              <IconButton
-                component={Link}
-                to={'/alumno/' + alumno._id}
-                variant='contained'
-                disableElevation>
-                <MoreHorizIcon />
-              </IconButton>
-            </Tooltip>
+            {numSelected > 1 ||
+              <>
+                <Tooltip title="Modificar" >
+                  <IconButton onClick={() => {
+                    toggleFormVisibility({ formName: 'update' })
+                    setUpdateForm(alumno)
+                  }}>
+                    <SettingsIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title="Mas Información"
+                >
+                  <IconButton
+                    component={Link}
+                    to={'/alumno/' + alumno._id}
+                    variant='contained'
+                    disableElevation>
+                    <MoreHorizIcon />
+                  </IconButton>
+                </Tooltip>
+              </>
+            }
           </>
         )
         : (
@@ -253,8 +259,6 @@ export default function EnhancedTable() {
     const selectedIndex = selected.indexOf(id)
     let newSelected = []
 
-    console.log(selected)
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id)
     } else if (selectedIndex === 0) {
@@ -303,7 +307,8 @@ export default function EnhancedTable() {
         <>
           <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
-              <EnhancedTableToolbar numSelected={selected.length} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} />
+              {/* <EnhancedTableToolbar numSelected={selected.length} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} /> */}
+              <EnhancedTableToolbar numSelected={selected.length} alumnos={selected} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} />
               <TableContainer>
                 <Table
                   sx={{ minWidth: 750 }}
