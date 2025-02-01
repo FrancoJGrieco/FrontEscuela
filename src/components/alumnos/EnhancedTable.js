@@ -1,49 +1,23 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
-import { alpha } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
-import TableSortLabel from '@mui/material/TableSortLabel'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import Checkbox from '@mui/material/Checkbox'
-import IconButton from '@mui/material/IconButton'
-import Tooltip from '@mui/material/Tooltip'
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove'
-import SettingsIcon from '@mui/icons-material/Settings'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import AddIcon from '@mui/icons-material/Add'
-import { visuallyHidden } from '@mui/utils'
 import { useGetAlumnos } from '../../hooks/alumnos/useGetAlumnos'
-import { FormVisibilityContext } from '../../hooks/global/filters'
 import { useInitializeCreateForm } from '../../hooks/alumnos/useInitializeCreateForm'
-import { FormContext } from '../../hooks/global/forms'
-import { Link } from 'react-router-dom'
-import { deleteAllData } from '../../services/deleteAllData'
-import { Stack, TextField } from '@mui/material'
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1
-  }
-  return 0
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy)
-}
+import { EnhancedTableHead } from '../table/EnhancedTableHead'
+import { getComparator } from '../../services/enhancedTable/getComparator'
+import { EnhancedTableToolbar } from '../table/EnhancedTableToolbar'
+import { useRequestSort } from '../../hooks/table/useRequestSort'
+import { useHandleSelected } from '../../hooks/table/useHandleSelected'
+import { useHandlePages } from '../../hooks/table/useHandlePages'
+import { useVisibleRows } from '../../hooks/table/useVisibleRows'
+import { useGetAlumnosFiltered } from '../../hooks/alumnos/useGetAlumnosFiltered'
 
 const headCells = [
   {
@@ -72,350 +46,107 @@ const headCells = [
   }
 ]
 
-function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, visibleRows } =
-    props
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property)
-  }
-
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === visibleRows.length}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts'
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id
-                ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </Box>
-                )
-                : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  )
-}
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired
-}
-
-function EnhancedTableToolbar(props) {
-  // const { numSelected, alumno } = props
-  const { numSelected, alumnos, alumno, setFilter } = props
-  const { toggleFormVisibility } = React.useContext(FormVisibilityContext)
-  const { setUpdateForm } = React.useContext(FormContext)
-  return (
-    <Toolbar
-      sx={[
-        {
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 }
-        },
-        numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
-        }
-      ]}
-    >
-      {numSelected > 0
-        ? (
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            color="inherit"
-            variant="subtitle1"
-            component="div"
-          >
-            {numSelected} selected
-          </Typography>
-        )
-        : (
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              flex: ' 1 1 100% ',
-              justifyContent: "left",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              variant="h6"
-              id="tableTitle"
-              component="div"
-            >
-              Alumnos
-            </Typography>
-            <TextField size='small' name='search' label='DNI' variant='outlined' onChange={(e) => {
-              setFilter(e.target.value)
-            }}>
-
-            </TextField>
-          </Stack>
-
-        )}
-      {numSelected > 0
-        ? (
-          <>
-            <Tooltip title="Eliminar">
-              {/* <IconButton onClick={() => deleteData({ type: 'alumnos', _id: alumno._id })}> */}
-              <IconButton onClick={() => deleteAllData({ type: 'alumnos', _ids: alumnos })}>
-                <PersonRemoveIcon />
-              </IconButton>
-            </Tooltip>
-            {numSelected > 1 ||
-              <>
-                <Tooltip title="Modificar" >
-                  <IconButton onClick={() => {
-                    toggleFormVisibility({ formName: 'update' })
-                    setUpdateForm(alumno)
-                  }}>
-                    <SettingsIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip
-                  title="Mas Información"
-                >
-                  <IconButton
-                    component={Link}
-                    to={'/alumno/' + alumno._id}
-                    variant='contained'
-                    disableElevation>
-                    <MoreHorizIcon />
-                  </IconButton>
-                </Tooltip>
-              </>
-            }
-          </>
-        )
-        : (
-          <>
-            <Tooltip title="Crear">
-              <IconButton onClick={() => toggleFormVisibility({ formName: 'create' })}>
-                <AddIcon />
-              </IconButton>
-            </Tooltip>
-            {/* <Tooltip title="Filtrar">
-              <IconButton>
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip> */}
-          </>
-        )}
-    </Toolbar>
-  )
-}
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired
-}
-
 export default function EnhancedTable() {
-  const [order, setOrder] = React.useState('asc')
-  const [orderBy, setOrderBy] = React.useState('nombres')
-  const [selected, setSelected] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
-  const [alumnosFiltered, setAlumnosFiltered] = React.useState([])
-  const [filter, setFilter] = React.useState('')
-
   const { alumnos } = useGetAlumnos()
-
-  React.useEffect(() => {
-    if (alumnos)
-      setAlumnosFiltered(alumnos.filter((alumno) => alumno.dni === filter))
-  }, [filter])
+  const { alumnosFiltered, filter, setFilter } = useGetAlumnosFiltered({ alumnos })
+  const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: 'nombres' })
+  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useHandlePages()
+  const { visibleRows } = useVisibleRows({ list: alumnos, filteredList: alumnosFiltered, order, orderBy, page, rowsPerPage, getComparator })
+  const { selected, handleSelectAllClick, handleClick } = useHandleSelected({ visibleRows: visibleRows })
 
   useInitializeCreateForm()
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc'
-    setOrder(isAsc ? 'desc' : 'asc')
-    setOrderBy(property)
-  }
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelected = visibleRows.map((n) => n._id)
-      setSelected(newSelected)
-      return
-    }
-    setSelected([])
-  }
-
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id)
-    let newSelected = []
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id)
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      )
-    }
-    setSelected(newSelected)
-  }
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage)
-  }
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10))
-    setPage(0)
-  }
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - alumnos.length) : 0
 
-  const visibleRows = React.useMemo(
-    () => {
-      if (!alumnos || alumnos.length === 0) { return [] }
-      if (alumnosFiltered.length > 0) {
-        console.log(alumnosFiltered)
-        return alumnosFiltered
-      }
-      setSelected([])
-      return [...alumnos]
-        .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-
-    }, [alumnos, order, orderBy, page, rowsPerPage, alumnosFiltered]
-  )
-
-  // *********************************** 
-  // Muestra la tabla
-  // *********************************** 
   return (
     <>
       {alumnos &&
-        <>
-          <Box sx={{ width: '100%' }}>
-            <Paper sx={{ width: '100%', mb: 2 }}>
-              {/* <EnhancedTableToolbar numSelected={selected.length} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} /> */}
-              <EnhancedTableToolbar numSelected={selected.length} alumnos={selected} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} setFilter={setFilter} filter={filter} />
-              <TableContainer>
-                <Table
-                  sx={{ minWidth: 750 }}
-                  aria-labelledby="tableTitle"
-                  size={'small'}
-                >
-                  <EnhancedTableHead
-                    numSelected={selected.length}
-                    order={order}
-                    orderBy={orderBy}
-                    onSelectAllClick={handleSelectAllClick}
-                    onRequestSort={handleRequestSort}
-                    rowCount={alumnos.length}
-                    visibleRows={visibleRows}
-                  />
-                  <TableBody>
-                    {alumnos &&
-                      <>
-                        {visibleRows.map((alumno, index) => {
-                          const isItemSelected = selected.includes(alumno._id)
-                          const labelId = `enhanced-table-checkbox-${index}`
-
-                          return (
-                            <TableRow
-                              hover
-                              onClick={(event) => handleClick(event, alumno._id)}
-                              role="checkbox"
-                              aria-checked={isItemSelected}
-                              tabIndex={-1}
-                              key={alumno._id}
-                              selected={isItemSelected}
-                              sx={{ cursor: 'pointer' }}
+        <Box sx={{ width: '100%' }}>
+          <Paper sx={{ width: '100%', mb: 2 }}>
+            <EnhancedTableToolbar numSelected={selected.length} alumnos={selected} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} setFilter={setFilter} filter={filter} />
+            <TableContainer>
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={'small'}
+              >
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={alumnos.length}
+                  visibleRows={visibleRows}
+                  headCells={headCells}
+                />
+                <TableBody>
+                  {alumnos &&
+                    <>
+                      {visibleRows.map((alumno, index) => {
+                        const isItemSelected = selected.includes(alumno._id)
+                        const labelId = `enhanced-table-checkbox-${index}`
+                        return (
+                          <TableRow
+                            hover
+                            onClick={(event) => handleClick(event, alumno._id)}
+                            role="checkbox"
+                            aria-checked={isItemSelected}
+                            tabIndex={-1}
+                            key={alumno._id}
+                            selected={isItemSelected}
+                            sx={{ cursor: 'pointer' }}
+                          >
+                            <TableCell padding="checkbox">
+                              <Checkbox
+                                color="primary"
+                                checked={isItemSelected}
+                                inputProps={{
+                                  'aria-labelledby': labelId
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell
+                              component="th"
+                              id={labelId}
+                              scope="row"
+                              padding="none"
                             >
-                              <TableCell padding="checkbox">
-                                <Checkbox
-                                  color="primary"
-                                  checked={isItemSelected}
-                                  inputProps={{
-                                    'aria-labelledby': labelId
-                                  }}
-                                />
-                              </TableCell>
-                              <TableCell
-                                component="th"
-                                id={labelId}
-                                scope="row"
-                                padding="none"
-                              >
-                                {alumno.nombre}
-                              </TableCell>
-                              <TableCell align="left">{alumno.apellido}</TableCell>
-                              <TableCell align="right">{alumno.edad}</TableCell>
-                              <TableCell align="right">{alumno.dni}</TableCell>
-                            </TableRow>
-                          )
-                        })}
-                      </>
-                    }
-
-                    {emptyRows > 0 && (
-                      <TableRow
-                        style={{
-                          height: 33 * emptyRows
-                        }}
-                      >
-                        <TableCell colSpan={6} />
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={alumnos.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Paper>
-          </Box>
-        </>
+                              {alumno.nombre}
+                            </TableCell>
+                            <TableCell align="left">{alumno.apellido}</TableCell>
+                            <TableCell align="right">{alumno.edad}</TableCell>
+                            <TableCell align="right">{alumno.dni}</TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </>
+                  }
+                  {emptyRows > 0 && (
+                    <TableRow
+                      style={{
+                        height: 33 * emptyRows
+                      }}
+                    >
+                      <TableCell colSpan={6} />
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={alumnos.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Box>
       }
     </>
-
   )
 }
