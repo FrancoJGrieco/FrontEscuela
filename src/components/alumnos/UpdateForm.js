@@ -1,8 +1,10 @@
-import { Box, Button, Dialog } from '@mui/material'
+import { Box, Button, Dialog, DialogTitle, FormGroup, IconButton, TextField } from '@mui/material'
 import { useContext } from 'react'
 import { FormVisibilityContext } from '../../hooks/global/filters'
 import { FormContext } from '../../hooks/global/forms'
 import { updateData } from '../../services/updateData'
+import CloseIcon from '@mui/icons-material/Close'
+
 
 export default function UpdateForm() {
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
@@ -17,19 +19,21 @@ export default function UpdateForm() {
         paper: {
           component: 'form',
           onSubmit: ((e) => updateData({ e, type: 'alumnos', _id: updateForm._id, data: updateForm })),
-          style: { padding: '16px', borderRadius: 10 }
+          sx: ({padding:'20px 40px', borderRadius: 5})
         }
       }}
     >
-      <Box>
-        <Button onClick={() => toggleFormVisibility({ formName: 'alumnos' })}>x</Button>
-        <h2>Modificar alumno</h2>
-          <input onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.nombre} name='nombre' /><br />
-          <input onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.apellido} name='apellido' /><br />
-          <input onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.edad} name='edad' /><br />
-          <input onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.dni} name='dni' /><br />
-          <button type='submit'>Modificar</button>
-      </Box>
+      <IconButton onClick={() => toggleFormVisibility({ formName: 'alumnos' })} color='primary' edge='start' sx={{ maxWidth: 35, borderRadius: 1, ml: 0 }}>
+        <CloseIcon />
+      </IconButton>
+      <DialogTitle>Modificar Curso</DialogTitle>
+      <FormGroup>
+        <TextField name='nombre' label='Nombre' variant='standard' size='small' margin='dense' onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.nombre} />
+        <TextField name='apellido' label='Apellido' variant='standard' size='small' margin='dense' onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.apellido} />
+        <TextField name='edad' label='Edad' variant='standard' size='small' margin='dense' onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.edad} />
+        <TextField name='dni' label='DNI' variant='standard' size='small' margin='dense' onChange={(e) => handleUpdateFieldChange({ e })} value={updateForm.dni} />
+        <Button type="submit">Modificar</Button>
+      </FormGroup>
     </Dialog>
   )
 }

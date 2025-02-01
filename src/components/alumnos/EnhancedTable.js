@@ -18,17 +18,16 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove'
 import SettingsIcon from '@mui/icons-material/Settings'
-import FilterListIcon from '@mui/icons-material/FilterList'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import AddIcon from '@mui/icons-material/Add'
 import { visuallyHidden } from '@mui/utils'
 import { useGetAlumnos } from '../../hooks/alumnos/useGetAlumnos'
 import { FormVisibilityContext } from '../../hooks/global/filters'
 import { useInitializeCreateForm } from '../../hooks/alumnos/useInitializeCreateForm'
-import { deleteData } from '../../services/deleteData'
 import { FormContext } from '../../hooks/global/forms'
 import { Link } from 'react-router-dom'
 import { deleteAllData } from '../../services/deleteAllData'
+import { Stack, TextField } from '@mui/material'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -133,7 +132,7 @@ EnhancedTableHead.propTypes = {
 
 function EnhancedTableToolbar(props) {
   // const { numSelected, alumno } = props
-  const { numSelected, alumnos, alumno } = props
+  const { numSelected, alumnos, alumno, setFilter } = props
   const { toggleFormVisibility } = React.useContext(FormVisibilityContext)
   const { setUpdateForm } = React.useContext(FormContext)
   return (
@@ -161,16 +160,28 @@ function EnhancedTableToolbar(props) {
           </Typography>
         )
         : (
-          <>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{
+              flex: ' 1 1 100% ',
+              justifyContent: "left",
+              alignItems: "center",
+            }}
+          >
             <Typography
-              sx={{ flex: '1 1 100%' }}
               variant="h6"
               id="tableTitle"
               component="div"
             >
               Alumnos
             </Typography>
-          </>
+            <TextField size='small' name='search' label='DNI' variant='outlined' onChange={(e) => {
+              setFilter(e.target.value)
+            }}>
+
+            </TextField>
+          </Stack>
 
         )}
       {numSelected > 0
@@ -214,11 +225,11 @@ function EnhancedTableToolbar(props) {
                 <AddIcon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Filtrar">
+            {/* <Tooltip title="Filtrar">
               <IconButton>
                 <FilterListIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
           </>
         )}
     </Toolbar>
@@ -235,8 +246,15 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [alumnosFiltered, setAlumnosFiltered] = React.useState([])
+  const [filter, setFilter] = React.useState('')
 
   const { alumnos } = useGetAlumnos()
+
+  React.useEffect(() => {
+    if (alumnos)
+      setAlumnosFiltered(alumnos.filter((alumno) => alumno.dni === filter))
+  }, [filter])
 
   useInitializeCreateForm()
 
@@ -290,12 +308,16 @@ export default function EnhancedTable() {
   const visibleRows = React.useMemo(
     () => {
       if (!alumnos || alumnos.length === 0) { return [] }
+      if (alumnosFiltered.length > 0) {
+        console.log(alumnosFiltered)
+        return alumnosFiltered
+      }
       setSelected([])
       return [...alumnos]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
-    }, [alumnos, order, orderBy, page, rowsPerPage]
+    }, [alumnos, order, orderBy, page, rowsPerPage, alumnosFiltered]
   )
 
   // *********************************** 
@@ -308,7 +330,7 @@ export default function EnhancedTable() {
           <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
               {/* <EnhancedTableToolbar numSelected={selected.length} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} /> */}
-              <EnhancedTableToolbar numSelected={selected.length} alumnos={selected} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} />
+              <EnhancedTableToolbar numSelected={selected.length} alumnos={selected} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} setFilter={setFilter} filter={filter} />
               <TableContainer>
                 <Table
                   sx={{ minWidth: 750 }}
