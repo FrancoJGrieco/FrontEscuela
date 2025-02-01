@@ -8,7 +8,6 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Checkbox from '@mui/material/Checkbox'
-import { useGetAlumnos } from '../../hooks/alumnos/useGetAlumnos'
 import { useInitializeCreateForm } from '../../hooks/alumnos/useInitializeCreateForm'
 import { EnhancedTableHead } from '../table/EnhancedTableHead'
 import { getComparator } from '../../services/enhancedTable/getComparator'
@@ -17,7 +16,8 @@ import { useRequestSort } from '../../hooks/table/useRequestSort'
 import { useHandleSelected } from '../../hooks/table/useHandleSelected'
 import { useHandlePages } from '../../hooks/table/useHandlePages'
 import { useVisibleRows } from '../../hooks/table/useVisibleRows'
-import { useGetAlumnosFiltered } from '../../hooks/alumnos/useGetAlumnosFiltered'
+import { useGetData } from '../../hooks/useGetData'
+import { useGetFilteredData } from '../../hooks/useGetFilteredData'
 
 const headCells = [
   {
@@ -47,12 +47,13 @@ const headCells = [
 ]
 
 export default function EnhancedTable() {
-  const { alumnos } = useGetAlumnos()
-  const { alumnosFiltered, filter, setFilter } = useGetAlumnosFiltered({ alumnos })
+  const alumnos = useGetData({ type: 'alumnos' })
+  const { filteredData, filter, setFilter } = useGetFilteredData({ arrayToFilter: alumnos, type: 'dni' })
   const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: 'nombres' })
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useHandlePages()
-  const { visibleRows } = useVisibleRows({ list: alumnos, filteredList: alumnosFiltered, order, orderBy, page, rowsPerPage, getComparator })
+  const { visibleRows } = useVisibleRows({ list: alumnos, filteredList: filteredData, order, orderBy, page, rowsPerPage, getComparator })
   const { selected, handleSelectAllClick, handleClick } = useHandleSelected({ visibleRows: visibleRows })
+  
 
   useInitializeCreateForm()
 

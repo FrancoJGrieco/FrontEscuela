@@ -12,9 +12,10 @@ import AddIcon from '@mui/icons-material/Add'
 import PropTypes from "prop-types"
 
 export function EnhancedTableToolbar(props) {
-  const { numSelected, alumnos, alumno, setFilter } = props
+  const { numSelected, alumnos, alumno, setFilter, filter } = props
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
   const { setUpdateForm } = useContext(FormContext)
+
   return (
     <Toolbar
       sx={[
@@ -56,7 +57,7 @@ export function EnhancedTableToolbar(props) {
             >
               Alumnos
             </Typography>
-            <TextField size='small' name='search' label='DNI' variant='outlined' onChange={(e) => {
+            <TextField size='small' name='search' label='DNI' variant='outlined' value={filter} onChange={(e) => {
               setFilter(e.target.value)
             }}>
 

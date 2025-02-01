@@ -23,7 +23,7 @@ export default function AlumnosPage() {
         <FormProvider>
           <UpdateForm />
           <CreateForm />
-          <EnhancedTable />
+            <EnhancedTable />
         </FormProvider>
       </FormVisibilityProvider>
     </main>
