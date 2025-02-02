@@ -8,16 +8,17 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Checkbox from '@mui/material/Checkbox'
-import { useInitializeCreateForm } from '../../hooks/alumnos/useInitializeCreateForm'
-import { EnhancedTableHead } from '../table/EnhancedTableHead'
-import { getComparator } from '../../services/enhancedTable/getComparator'
-import { EnhancedTableToolbar } from '../table/EnhancedTableToolbar'
-import { useRequestSort } from '../../hooks/table/useRequestSort'
-import { useHandleSelected } from '../../hooks/table/useHandleSelected'
-import { useHandlePages } from '../../hooks/table/useHandlePages'
-import { useVisibleRows } from '../../hooks/table/useVisibleRows'
-import { useGetData } from '../../hooks/useGetData'
-import { useGetFilteredData } from '../../hooks/useGetFilteredData'
+import { useInitializeCreateForm } from '../hooks/alumnos/useInitializeCreateForm'
+import { EnhancedTableHead } from './table/EnhancedTableHead'
+import { getComparator } from '../services/enhancedTable/getComparator'
+import { EnhancedTableToolbar } from './table/EnhancedTableToolbar'
+import { useRequestSort } from '../hooks/table/useRequestSort'
+import { useHandleSelected } from '../hooks/table/useHandleSelected'
+import { useHandlePages } from '../hooks/table/useHandlePages'
+import { useVisibleRows } from '../hooks/table/useVisibleRows'
+import { useGetData } from '../hooks/useGetData'
+import { useGetFilteredData } from '../hooks/useGetFilteredData'
+import Data from './Data'
 
 const headCells = [
   {
@@ -34,38 +35,46 @@ const headCells = [
   },
   {
     id: 'edad',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Fecha de Nacimiento'
   },
   {
     id: 'dni',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'DNI'
   }
 ]
 
-export default function EnhancedTable() {
-  const alumnos = useGetData({ type: 'alumnos' })
-  const { filteredData, filter, setFilter } = useGetFilteredData({ arrayToFilter: alumnos, type: 'dni' })
-  const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: 'nombres' })
+export default function EnhancedTable(props) {
+  const { tableName, type, typeFilter, nameOrderBy, keys } = props
+  const data = useGetData({ type: type })
+  const { filteredData, filter, setFilter } = useGetFilteredData({ arrayToFilter: data, type: typeFilter })
+  const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: nameOrderBy })
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useHandlePages()
-  const { visibleRows } = useVisibleRows({ list: alumnos, filteredList: filteredData, order, orderBy, page, rowsPerPage, getComparator })
+  const { visibleRows } = useVisibleRows({ list: data, filteredList: filteredData, order, orderBy, page, rowsPerPage, getComparator })
   const { selected, handleSelectAllClick, handleClick } = useHandleSelected({ visibleRows: visibleRows })
-  
+
 
   useInitializeCreateForm()
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - alumnos.length) : 0
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0
 
   return (
     <>
-      {alumnos &&
+      {data &&
         <Box sx={{ width: '100%' }}>
           <Paper sx={{ width: '100%', mb: 2 }}>
-            <EnhancedTableToolbar numSelected={selected.length} alumnos={selected} alumno={alumnos.filter((alumno) => { return alumno._id === selected[0] })[0]} setFilter={setFilter} filter={filter} />
+            <EnhancedTableToolbar
+              tableName={tableName}
+              numSelected={selected.length}
+              data={selected}
+              alumno={data.filter((alumno) => { return alumno._id === selected[0] })[0]}
+              setFilter={setFilter}
+              filter={filter}
+            />
             <TableContainer>
               <Table
                 sx={{ minWidth: 750 }}
@@ -78,24 +87,24 @@ export default function EnhancedTable() {
                   orderBy={orderBy}
                   onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
-                  rowCount={alumnos.length}
+                  rowCount={data.length}
                   visibleRows={visibleRows}
                   headCells={headCells}
                 />
                 <TableBody>
-                  {alumnos &&
+                  {data &&
                     <>
-                      {visibleRows.map((alumno, index) => {
-                        const isItemSelected = selected.includes(alumno._id)
+                      {visibleRows.map((x, index) => {
+                        const isItemSelected = selected.includes(x._id)
                         const labelId = `enhanced-table-checkbox-${index}`
                         return (
                           <TableRow
                             hover
-                            onClick={(event) => handleClick(event, alumno._id)}
+                            onClick={(event) => handleClick(event, x._id)}
                             role="checkbox"
                             aria-checked={isItemSelected}
                             tabIndex={-1}
-                            key={alumno._id}
+                            key={x._id}
                             selected={isItemSelected}
                             sx={{ cursor: 'pointer' }}
                           >
@@ -108,17 +117,7 @@ export default function EnhancedTable() {
                                 }}
                               />
                             </TableCell>
-                            <TableCell
-                              component="th"
-                              id={labelId}
-                              scope="row"
-                              padding="none"
-                            >
-                              {alumno.nombre}
-                            </TableCell>
-                            <TableCell align="left">{alumno.apellido}</TableCell>
-                            <TableCell align="right">{alumno.edad}</TableCell>
-                            <TableCell align="right">{alumno.dni}</TableCell>
+                            <Data data={x} keys={keys} />
                           </TableRow>
                         )
                       })}
@@ -139,7 +138,7 @@ export default function EnhancedTable() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
-              count={alumnos.length}
+              count={data.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}

@@ -69,15 +69,6 @@ function App () {
                   >
                     Alumnos
                   </Button>
-                  <Button
-                    component={Link}
-                    to='/boletines'
-                    variant='contained'
-                    color='primary'
-                    disableElevation
-                  >
-                    Boletines
-                  </Button>
                 </Box>
               </Toolbar>
             </Container>
@@ -113,11 +104,6 @@ function App () {
           <Route path='/comisiones' element={
             <RequireAuth>
               <ComisionesPage />
-            </RequireAuth>
-          } />
-          <Route path='/boletines' element={
-            <RequireAuth>
-              <BoletinesPage />
             </RequireAuth>
           } />
         </Routes>

@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add'
 import PropTypes from "prop-types"
 
 export function EnhancedTableToolbar(props) {
-  const { numSelected, alumnos, alumno, setFilter, filter } = props
+  const { numSelected, data, alumno, setFilter, filter, tableName } = props
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
   const { setUpdateForm } = useContext(FormContext)
 
@@ -55,7 +55,7 @@ export function EnhancedTableToolbar(props) {
               id="tableTitle"
               component="div"
             >
-              Alumnos
+              {tableName}
             </Typography>
             <TextField size='small' name='search' label='DNI' variant='outlined' value={filter} onChange={(e) => {
               setFilter(e.target.value)
@@ -68,7 +68,7 @@ export function EnhancedTableToolbar(props) {
         ? (
           <>
             <Tooltip title="Eliminar">
-              <IconButton onClick={() => deleteAllData({ type: 'alumnos', _ids: alumnos })}>
+              <IconButton onClick={() => deleteAllData({ type: 'alumnos', _ids: data })}>
                 <PersonRemoveIcon />
               </IconButton>
             </Tooltip>
