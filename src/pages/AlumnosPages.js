@@ -3,6 +3,7 @@ import UpdateForm from '../components/alumnos/UpdateForm'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import { FormProvider } from '../hooks/global/forms'
 import EnhancedTable from '../components/EnhancedTable'
+import { headCells } from '../services/alumnos/headCells'
 
 export default function AlumnosPage() {
   return (
@@ -12,6 +13,8 @@ export default function AlumnosPage() {
           <UpdateForm />
           <CreateForm />
           <EnhancedTable
+            labelSearch='DNI'
+            headCells={headCells}
             tableName='Alumnos'
             type='alumnos'
             typeFilter='dni'

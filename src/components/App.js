@@ -8,9 +8,9 @@ import CursosPage from '../pages/CursosPage'
 import ComisionesPage from '../pages/ComisionesPage'
 import BoletinesPage from '../pages/BoletinesPages'
 import AlumnoInfoPage from '../pages/AlumnoInfoPage'
-import { AppBar, Box, Button, Container, Toolbar } from '@mui/material'
+import { AppBar, Box, Button, Card, CardContent, Container, Grid, Toolbar, Typography } from '@mui/material'
 
-function App () {
+function App() {
   const store = authStore((store) => {
     return {
       loggedIn: store.loggedIn
@@ -77,7 +77,40 @@ function App () {
         <Routes>
           <Route index element={
             <RequireAuth>
-              <AlumnosPage />
+              <main>
+                <Typography variant="h4" gutterBottom>Bienvenido al Sistema de Gestión</Typography>
+
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6">Total Alumnos</Typography>
+                        <Typography variant="h4">150</Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6">Total Cursos</Typography>
+                        <Typography variant="h4">25</Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant="h6">Total Materias</Typography>
+                        <Typography variant="h4">40</Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </Grid>
+
+                <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
+                  Crear Nuevo Alumno
+                </Button>
+              </main>
             </RequireAuth>
           } />
           <Route path='/login' element={<LoginPage />} />

@@ -20,35 +20,8 @@ import { useGetData } from '../hooks/useGetData'
 import { useGetFilteredData } from '../hooks/useGetFilteredData'
 import Data from './Data'
 
-const headCells = [
-  {
-    id: 'nombre',
-    numeric: false,
-    disablePadding: true,
-    label: 'Nombre'
-  },
-  {
-    id: 'apellido',
-    numeric: false,
-    disablePadding: false,
-    label: 'Apellido'
-  },
-  {
-    id: 'edad',
-    numeric: false,
-    disablePadding: false,
-    label: 'Fecha de Nacimiento'
-  },
-  {
-    id: 'dni',
-    numeric: false,
-    disablePadding: false,
-    label: 'DNI'
-  }
-]
-
 export default function EnhancedTable(props) {
-  const { tableName, type, typeFilter, nameOrderBy, keys } = props
+  const { tableName, type, typeFilter, nameOrderBy, keys, headCells, labelSearch } = props
   const data = useGetData({ type: type })
   const { filteredData, filter, setFilter } = useGetFilteredData({ arrayToFilter: data, type: typeFilter })
   const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: nameOrderBy })
@@ -68,6 +41,7 @@ export default function EnhancedTable(props) {
         <Box sx={{ width: '100%' }}>
           <Paper sx={{ width: '100%', mb: 2 }}>
             <EnhancedTableToolbar
+              labelSearch={labelSearch}
               tableName={tableName}
               numSelected={selected.length}
               data={selected}

@@ -6,6 +6,21 @@ import { FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import EnhancedTable from '../components/EnhancedTable'
 
+const headCells = [
+  {
+    id: 'numero',
+    numeric: false,
+    disablePadding: true,
+    label: 'Numero'
+  },
+  {
+    id: 'year',
+    numeric: false,
+    disablePadding: true,
+    label: 'Año'
+  }
+]
+
 export default function ComisionesPage() {
 
   return (
@@ -13,6 +28,8 @@ export default function ComisionesPage() {
       <FormVisibilityProvider>
         <FormProvider>
           <EnhancedTable
+            labelSearch='Numero'
+            headCells={headCells}
             tableName='Comisiones'
             type='comisiones'
             typeFilter='numero'
