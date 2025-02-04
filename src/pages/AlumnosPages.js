@@ -19,6 +19,7 @@ export default function AlumnosPage() {
           <UpdateForm />
           <CreateForm
             headCells={headCells}
+            type='alumnos'
           />
           <EnhancedTable
             data={alumnos}

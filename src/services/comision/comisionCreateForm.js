@@ -1,4 +1,6 @@
 export const comisionCreateForm = {
     numero: '',
-    year: ''
+    year: '',
+    materias: [],
+    alumnos: []
 }

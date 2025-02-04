@@ -24,7 +24,7 @@ export function FormProvider({ children }) {
     }))
   }
 
-  const handleCreateFieldChange = ({ e }) => {
+  const handleCreateFieldChange = ( e ) => {
     const { name, value } = e.target
     console.log(name, value)
     setCreateForm((prevState) => ({

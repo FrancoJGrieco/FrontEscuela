@@ -6,9 +6,9 @@ import { FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import EnhancedTable from '../components/table/EnhancedTable'
 import { comisionCreateForm } from '../services/comision/comisionCreateForm'
-import { useGetData } from '../hooks/useGetData'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
+import { SelectCurso } from '../components/SelectCurso'
 
 const headCells = [
   {
@@ -44,22 +44,11 @@ export default function ComisionesPage() {
             keys={['numero', 'year']}
           />
 
-          {/* meter en un children las materias */}
           <CreateForm
             headCells={headCells}
+            type='comisiones'
           >
-            {/* <select onChange={(e) => handleCreateFieldChangeManual({ name: 'materias', value: handleCursoComision({ e, year: createForm.year }) })} name="curso" >
-                          <option value=""> </option>
-                          {cursos && <>
-                            {cursos.map((curso) => (
-                              <option key={curso._id} value={JSON.stringify(curso.materias)}>
-                                {curso.titulatura}
-                              </option>
-                            ))
-                            }
-                          </>
-                          }
-                        </select> */}
+            <SelectCurso />
           </CreateForm>
           <UpdateForm />
           <AlumnosComisiones />

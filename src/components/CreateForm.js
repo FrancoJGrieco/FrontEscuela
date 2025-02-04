@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { createData } from '../services/createData'
 
 export default function CreateForm(props) {
-  const { headCells, children } = props
+  const { headCells, children, type } = props
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
   const { createForm, handleCreateFieldChange } = useContext(FormContext)
 
@@ -17,7 +17,7 @@ export default function CreateForm(props) {
       slotProps={{
         paper: {
           component: 'form',
-          onSubmit: (e) => createData({ e, type: 'alumnos', data: createForm }),
+          onSubmit: (e) => createData({ e, type, data: createForm }),
           sx: ({ padding: '20px 40px', borderRadius: 5 })
         }
       }}
@@ -34,7 +34,7 @@ export default function CreateForm(props) {
           }}
         >
           {headCells.map((cell) =>
-            <TextField key={cell.id} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={(e) => handleCreateFieldChange({ e })} value={createForm[cell.id]} />
+            <TextField key={cell.id} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={handleCreateFieldChange} value={createForm[cell.id]} />
           )}
           {children}
           <Button type="submit">Crear</Button>
