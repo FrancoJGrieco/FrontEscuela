@@ -1,4 +1,4 @@
-import CreateForm from '../components/cursos/CreateForm'
+import CreateForm from '../components/CreateForm'
 import UpdateForm from '../components/cursos/UpdateForm'
 import MateriasCursoUpdate from '../components/cursos/MateriasCursoUpdate'
 import materiasStore from '../stores/materiasStore'
@@ -8,6 +8,7 @@ import EnhancedTable from '../components/table/EnhancedTable'
 import { headCells } from '../services/cursos/headCells'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
+import { cursoCreateForm } from '../services/cursos/cursoCreateForm'
 
 export default function CursosPage() {
   const storeMaterias = materiasStore((store) => {
@@ -31,11 +32,15 @@ export default function CursosPage() {
             tableName='Cursos'
             type='cursos'
             typeFilter='titulatura'
+            typeCreateForm={cursoCreateForm}
             nameOrderBy='titulatura'
             keys={['titulatura', 'years']}
           />
           <UpdateForm />
-          <CreateForm />
+          <CreateForm
+            headCells={headCells}
+            type='cursos'
+          />
           <MateriasCursoUpdate />
         </FormProvider>
       </FormVisibilityProvider>

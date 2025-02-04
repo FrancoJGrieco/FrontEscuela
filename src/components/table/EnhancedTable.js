@@ -15,13 +15,12 @@ import { useRequestSort } from '../../hooks/table/useRequestSort'
 import { useHandleSelected } from '../../hooks/table/useHandleSelected'
 import { useHandlePages } from '../../hooks/table/useHandlePages'
 import { useVisibleRows } from '../../hooks/table/useVisibleRows'
-import { useGetData } from '../../hooks/useGetData'
 import { useGetFilteredData } from '../../hooks/useGetFilteredData'
 import Data from '../Data'
 import { useInitializeCreateForm } from '../../hooks/useInitializeCreateForm'
 
 export default function EnhancedTable(props) {
-  const { tableName, typeFilter, nameOrderBy, keys, headCells, labelSearch, typeCreateForm, data } = props
+  const { type, tableName, typeFilter, nameOrderBy, keys, headCells, labelSearch, typeCreateForm, data } = props
   const { filteredData, filter, setFilter } = useGetFilteredData({ arrayToFilter: data, type: typeFilter })
   const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: nameOrderBy })
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useHandlePages()
@@ -43,10 +42,11 @@ export default function EnhancedTable(props) {
               labelSearch={labelSearch}
               tableName={tableName}
               numSelected={selected.length}
-              data={selected}
+              selected={selected}
               alumno={data.filter((alumno) => { return alumno._id === selected[0] })[0]}
               setFilter={setFilter}
               filter={filter}
+              type={type}
             />
             <TableContainer>
               <Table
