@@ -1,5 +1,5 @@
 import CreateForm from '../components/CreateForm'
-import UpdateForm from '../components/materias/UpdateForm'
+import UpdateForm from '../components/UpdateForm'
 import EnhancedTable from '../components/table/EnhancedTable'
 import { headCells } from '../services/materias/headCells'
 import { FormVisibilityProvider } from '../hooks/global/filters'
@@ -27,7 +27,10 @@ export default function MateriasPage() {
             nameOrderBy='nombre'
             keys={['nombre', 'descripcion', 'year']}
           />
-          <UpdateForm />
+          <UpdateForm 
+            headCells={headCells}
+            type='materias'
+          />
           <CreateForm
             headCells={headCells}
             type='materias'

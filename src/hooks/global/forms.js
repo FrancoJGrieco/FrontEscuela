@@ -7,7 +7,7 @@ export function FormProvider({ children }) {
 
   const [createForm, setCreateForm] = useState({})
 
-  const handleUpdateFieldChange = ({ e }) => {
+  const handleUpdateFieldChange = ( e ) => {
     const { name, value } = e.target
 
     console.log(name, value)

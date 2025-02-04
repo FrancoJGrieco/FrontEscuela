@@ -3,9 +3,10 @@ import { DataContext } from "../hooks/global/data"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import { FormContext } from "../hooks/global/forms"
 
-export function SelectCurso() {
+export function SelectCurso(props) {
+  const { type } = props
   const { cursos } = useContext(DataContext)
-  const { createForm, handleCreateFieldChange } = useContext(FormContext)
+  const { createForm, updateForm, handleCreateFieldChange, handleUpdateFieldChange } = useContext(FormContext)
 
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -13,10 +14,10 @@ export function SelectCurso() {
       <Select
         id="select-curso"
         labelId="select-curso-label"
-        value={createForm.materias}
+        value={type === 'create' ? createForm.materias : updateForm.materias}
         label="Cursos"
         name='materias'
-        onChange={handleCreateFieldChange}
+        onChange={type === 'create' ? handleCreateFieldChange : handleUpdateFieldChange}
       >
         <MenuItem value="">
           <em>None</em>

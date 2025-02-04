@@ -10,7 +10,6 @@ export default function CreateForm(props) {
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
   const { createForm, handleCreateFieldChange } = useContext(FormContext)
 
-  console.log(createForm)
   return (
     <Dialog
       open={formVisibility === 'create'}

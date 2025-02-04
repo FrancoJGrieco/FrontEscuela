@@ -7,7 +7,7 @@ export default function Data(props) {
       {data &&
         <>
         {keys.map((x)=>
-        <TableCell>{data[x]}</TableCell>
+        <TableCell key={data._id + x}>{data[x]}</TableCell>
         )}
         </>
       }

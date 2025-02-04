@@ -1,5 +1,5 @@
 import CreateForm from '../components/CreateForm'
-import UpdateForm from '../components/alumnos/UpdateForm'
+import UpdateForm from '../components/UpdateForm'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import { FormProvider } from '../hooks/global/forms'
 import EnhancedTable from '../components/table/EnhancedTable'
@@ -11,12 +11,15 @@ import { DataContext } from '../hooks/global/data'
 export default function AlumnosPage() {
 
   const { alumnos } = useContext(DataContext)
-  
+
   return (
     <main>
       <FormVisibilityProvider>
         <FormProvider>
-          <UpdateForm />
+          <UpdateForm
+            headCells={headCells}
+            type='alumnos'
+          />
           <CreateForm
             headCells={headCells}
             type='alumnos'

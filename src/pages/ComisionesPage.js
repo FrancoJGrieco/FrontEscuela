@@ -1,8 +1,8 @@
 import CreateForm from '../components/CreateForm'
-import UpdateForm from '../components/comisiones/UpdateForm'
+import UpdateForm from '../components/UpdateForm'
 import MateriasComisiones from '../components/comisiones/MateriasComisiones'
 import AlumnosComisiones from '../components/comisiones/AlumnosComisiones'
-import { FormProvider } from '../hooks/global/forms'
+import { FormContext, FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import EnhancedTable from '../components/table/EnhancedTable'
 import { comisionCreateForm } from '../services/comision/comisionCreateForm'
@@ -28,6 +28,7 @@ const headCells = [
 export default function ComisionesPage() {
 
   const { comisiones } = useContext(DataContext)
+
   return (
     <main>
       <FormVisibilityProvider>
@@ -48,9 +49,18 @@ export default function ComisionesPage() {
             headCells={headCells}
             type='comisiones'
           >
-            <SelectCurso />
+            <SelectCurso
+              type='create'
+            />
           </CreateForm>
-          <UpdateForm />
+          <UpdateForm
+            headCells={headCells}
+            type='comisiones'
+          >
+            <SelectCurso
+              type='update'
+            />
+          </UpdateForm>
           <AlumnosComisiones />
           <MateriasComisiones />
         </FormProvider>

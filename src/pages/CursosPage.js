@@ -1,5 +1,5 @@
 import CreateForm from '../components/CreateForm'
-import UpdateForm from '../components/cursos/UpdateForm'
+import UpdateForm from '../components/UpdateForm'
 import MateriasCursoUpdate from '../components/cursos/MateriasCursoUpdate'
 import materiasStore from '../stores/materiasStore'
 import { FormVisibilityProvider } from '../hooks/global/filters'
@@ -36,7 +36,10 @@ export default function CursosPage() {
             nameOrderBy='titulatura'
             keys={['titulatura', 'years']}
           />
-          <UpdateForm />
+          <UpdateForm 
+            headCells={headCells}
+            type='cursos'
+          />
           <CreateForm
             headCells={headCells}
             type='cursos'

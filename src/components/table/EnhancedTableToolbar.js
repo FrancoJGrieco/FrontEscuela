@@ -12,7 +12,7 @@ import AddIcon from '@mui/icons-material/Add'
 import PropTypes from "prop-types"
 
 export function EnhancedTableToolbar(props) {
-  const { numSelected, selected, alumno, setFilter, filter, tableName, labelSearch, type } = props
+  const { numSelected, selected, element, setFilter, filter, tableName, labelSearch, type } = props
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
   const { setUpdateForm } = useContext(FormContext)
 
@@ -77,7 +77,7 @@ export function EnhancedTableToolbar(props) {
                 <Tooltip title="Modificar" >
                   <IconButton onClick={() => {
                     toggleFormVisibility({ formName: 'update' })
-                    setUpdateForm(alumno)
+                    setUpdateForm(element)
                   }}>
                     <SettingsIcon />
                   </IconButton>
@@ -87,7 +87,7 @@ export function EnhancedTableToolbar(props) {
                 >
                   <IconButton
                     component={Link}
-                    to={'/alumno/' + alumno._id}
+                    to={`/${type}/` + element._id}
                     variant='contained'
                     disableElevation>
                     <MoreHorizIcon />
