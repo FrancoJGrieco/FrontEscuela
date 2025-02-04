@@ -8,21 +8,20 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Checkbox from '@mui/material/Checkbox'
-import { useInitializeCreateForm } from '../hooks/alumnos/useInitializeCreateForm'
-import { EnhancedTableHead } from './table/EnhancedTableHead'
-import { getComparator } from '../services/enhancedTable/getComparator'
-import { EnhancedTableToolbar } from './table/EnhancedTableToolbar'
-import { useRequestSort } from '../hooks/table/useRequestSort'
-import { useHandleSelected } from '../hooks/table/useHandleSelected'
-import { useHandlePages } from '../hooks/table/useHandlePages'
-import { useVisibleRows } from '../hooks/table/useVisibleRows'
-import { useGetData } from '../hooks/useGetData'
-import { useGetFilteredData } from '../hooks/useGetFilteredData'
-import Data from './Data'
+import { EnhancedTableHead } from './EnhancedTableHead'
+import { getComparator } from '../../services/enhancedTable/getComparator'
+import { EnhancedTableToolbar } from './EnhancedTableToolbar'
+import { useRequestSort } from '../../hooks/table/useRequestSort'
+import { useHandleSelected } from '../../hooks/table/useHandleSelected'
+import { useHandlePages } from '../../hooks/table/useHandlePages'
+import { useVisibleRows } from '../../hooks/table/useVisibleRows'
+import { useGetData } from '../../hooks/useGetData'
+import { useGetFilteredData } from '../../hooks/useGetFilteredData'
+import Data from '../Data'
+import { useInitializeCreateForm } from '../../hooks/useInitializeCreateForm'
 
 export default function EnhancedTable(props) {
-  const { tableName, type, typeFilter, nameOrderBy, keys, headCells, labelSearch } = props
-  const data = useGetData({ type: type })
+  const { tableName, typeFilter, nameOrderBy, keys, headCells, labelSearch, typeCreateForm, data } = props
   const { filteredData, filter, setFilter } = useGetFilteredData({ arrayToFilter: data, type: typeFilter })
   const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: nameOrderBy })
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useHandlePages()
@@ -30,7 +29,7 @@ export default function EnhancedTable(props) {
   const { selected, handleSelectAllClick, handleClick } = useHandleSelected({ visibleRows: visibleRows })
 
 
-  useInitializeCreateForm()
+  useInitializeCreateForm(typeCreateForm)
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0

@@ -57,14 +57,14 @@ export default function AlumnosComisiones() {
           </tbody>
         </table>
       }
-      <select onChange={(e) => handleUpdateFieldChangeManual({ name: 'alumnos', value: handleAlumnosComision({ e, alumnos: updateForm.alumnos }) })} name="alumnoSeleccionado" >
+      {/* <select onChange={(e) => handleUpdateFieldChangeManual({ name: 'alumnos', value: handleAlumnosComision({ e, alumnos: updateForm.alumnos }) })} name="alumnoSeleccionado" >
         <option value=''> </option>
         {alumnos.map((alumno) => (
           <option key={alumno._id} value={alumno._id}>
             {alumno.nombre} {alumno.apellido}
           </option>
         ))}
-      </select>
+      </select> */}
       <button onClick={store.agregarAlumno}>Agregar</button><br />
     </>
   )

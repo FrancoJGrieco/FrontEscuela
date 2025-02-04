@@ -5,10 +5,9 @@ export function useInitializeCreateForm() {
   const { setCreateForm } = useContext(FormContext)
   useEffect(() => {
     setCreateForm({
-      nombre: '',
-      apellido: '',
-      edad: '',
-      dni: ''
+      titulatura: '',
+      years: '',
+      materias: []
     })
   }, [])
 }
