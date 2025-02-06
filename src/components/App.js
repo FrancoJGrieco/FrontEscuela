@@ -9,6 +9,7 @@ import ComisionesPage from '../pages/ComisionesPage'
 import AlumnoInfoPage from '../pages/AlumnoInfoPage'
 import { AppBar, Box, Button, Card, CardContent, Container, Grid, Toolbar, Typography } from '@mui/material'
 import ComisionInfoPage from '../pages/ComisionInfoPage'
+import CursoInfoPage from '../pages/CursoInfoPage'
 
 function App() {
   const store = authStore((store) => {
@@ -132,6 +133,11 @@ function App() {
           <Route path='/cursos' element={
             <RequireAuth>
               <CursosPage />
+            </RequireAuth>
+          } />
+          <Route path='/cursos/:_id' element={
+            <RequireAuth>
+              <CursoInfoPage />
             </RequireAuth>
           } />
           <Route path='/comisiones' element={

@@ -1,7 +1,5 @@
 import CreateForm from '../components/CreateForm'
 import UpdateForm from '../components/UpdateForm'
-import MateriasComisiones from '../components/comisionInfo/MateriasComisiones'
-import AlumnosComisiones from '../components/comisionInfo/AlumnosComisiones'
 import { FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import EnhancedTable from '../components/table/EnhancedTable'
@@ -61,8 +59,6 @@ export default function ComisionesPage() {
               type='update'
             />
           </UpdateForm>
-          <AlumnosComisiones />
-          <MateriasComisiones />
         </FormProvider>
       </FormVisibilityProvider>
     </main>

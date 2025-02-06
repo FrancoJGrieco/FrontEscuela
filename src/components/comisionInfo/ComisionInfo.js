@@ -3,7 +3,7 @@ import '@fontsource/roboto/500.css'
 import { Button, Container, Typography } from '@mui/material'
 import { Datos } from './Datos'
 
-export default function AlumnoInfo(props) {
+export default function ComisionInfo(props) {
   const { comision } = props
   if (!comision) return <>Error al encontrar la comision</>
   return (
