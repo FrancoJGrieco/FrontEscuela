@@ -18,11 +18,20 @@ function App() {
     }
   })
   return (
-    <div className="App">
+    <Box
+      className="App"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        backgroundColor: "background.default",
+      }}
+    >
       <BrowserRouter>
         {store.loggedIn &&
           <AppBar position='static'>
-            <Container>
+            <Container
+            >
               <Toolbar>
                 <Box>
                   <Button
@@ -153,8 +162,19 @@ function App() {
         </Routes>
       </BrowserRouter>
 
-      <footer>Creado por Franco Grieco</footer>
-    </div>
+      <Box
+          component="footer"
+          sx={{
+            backgroundColor: "primary.main",
+            color: "white",
+            textAlign: "center",
+            padding: 2,
+            marginTop: "auto"
+          }}
+        >
+        <Typography variant="body2">2025 Creado por Franco Grieco</Typography>
+      </Box>
+    </Box>
   )
 }
 

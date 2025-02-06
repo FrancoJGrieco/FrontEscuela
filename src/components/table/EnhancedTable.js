@@ -36,7 +36,7 @@ export default function EnhancedTable(props) {
   return (
     <>
       {data &&
-        <Box sx={{ width: '100%' }}>
+        <Box component="main" sx={{ flexGrow: 1, padding: 2 }}>
           <Paper sx={{ width: '100%', mb: 2 }}>
             <EnhancedTableToolbar
               labelSearch={labelSearch}
