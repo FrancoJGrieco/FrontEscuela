@@ -119,7 +119,7 @@ function App() {
               <AlumnosPage />
             </RequireAuth>
           } />
-          <Route path='/alumno/:_id' element={
+          <Route path='/alumnos/:_id' element={
             <RequireAuth>
               <AlumnoInfoPage />
             </RequireAuth>

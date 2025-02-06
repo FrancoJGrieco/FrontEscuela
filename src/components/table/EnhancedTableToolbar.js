@@ -87,7 +87,8 @@ export function EnhancedTableToolbar(props) {
                 >
                   <IconButton
                     component={Link}
-                    to={`/${type}/` + element._id}
+                    to={`/${type}/${element._id}`}
+                    state={{ element: element }}
                     variant='contained'
                     disableElevation>
                     <MoreHorizIcon />
@@ -105,8 +106,9 @@ export function EnhancedTableToolbar(props) {
               </IconButton>
             </Tooltip>
           </>
-        )}
-    </Toolbar>
+        )
+      }
+    </Toolbar >
   )
 }
 

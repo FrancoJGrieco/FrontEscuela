@@ -2,8 +2,6 @@ import { Button, Container, Dialog, FormGroup, IconButton, TextField, Typography
 import CloseIcon from '@mui/icons-material/Close'
 import alumnosInfoStore from '../../stores/alumnoInfoStore'
 
-// falta eliminar la nota
-
 export default function ModificarForm () {
   const store = alumnosInfoStore()
   const medidas = { padding: '16px', borderRadius: 10 }

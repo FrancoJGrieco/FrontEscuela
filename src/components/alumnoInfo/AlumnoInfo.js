@@ -2,10 +2,17 @@ import { Link } from 'react-router-dom'
 import alumnosInfoStore from '../../stores/alumnoInfoStore'
 import '@fontsource/roboto/500.css'
 import { Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { useContext } from 'react'
+import { FormVisibilityContext } from '../../hooks/global/filters'
+import { ResourcesContext } from '../../hooks/alumnos/resources'
 
-export default function AlumnoInfo () {
+export default function AlumnoInfo(props) {
   const store = alumnosInfoStore()
-  if (!store.alumno) return <>Error al encontrar el alumno</>
+  const { toggleFormVisibility } = useContext(FormVisibilityContext)
+  const { setMateria } = useContext(ResourcesContext)
+  const { alumno } = props
+  console.log(alumno)
+  if (!alumno) return <>Error al encontrar el alumno</>
   return (
     <Container>
       <Button
@@ -17,19 +24,19 @@ export default function AlumnoInfo () {
       >
         Atras
       </Button>
-      {store.alumno &&
+      {alumno &&
         <Container>
-          <Typography variant='subtitle2'>Nombre: {store.alumno.nombre}</Typography>
-          <Typography variant='subtitle2'>Apellido: {store.alumno.Apellido}</Typography>
-          <Typography variant='subtitle2'>Edad: {store.alumno.Edad}</Typography>
-          <Typography variant='subtitle2'>ID Alumno: {store.alumno._id}</Typography>
+          <Typography variant='subtitle2'>Nombre: {alumno.nombre}</Typography>
+          <Typography variant='subtitle2'>Apellido: {alumno.apellido}</Typography>
+          <Typography variant='subtitle2'>Edad: {alumno.edad}</Typography>
+          <Typography variant='subtitle2'>ID Alumno: {alumno._id}</Typography>
         </Container>
       }
-      {!store.alumno.boletines && <span>No se ha encontrado un boletin</span>}
-      {store.alumno.boletines &&
+      {!alumno.boletines && <span>No se ha encontrado un boletin</span>}
+      {alumno.boletines &&
         <Container>
-          {store.alumno.boletines.length > 0 &&
-            store.alumno.boletines.map((boletin) => {
+          {alumno.boletines.length > 0 &&
+            alumno.boletines.map((boletin) => {
               return <Container key={boletin._id}>
                 <Typography variant='h5'>Comision: {boletin.comision.numero}</Typography>
                 <Table>
@@ -44,7 +51,10 @@ export default function AlumnoInfo () {
                       return <TableRow>
                         <TableCell>{materia.materia.nombre}</TableCell>
                         <TableCell>{materia.notas && materia.notas.map((nota) => { return <TableCell>{nota}</TableCell> })}</TableCell>
-                        <TableCell><Button onClick={() => store.toggleNota(materia)}>Agregar</Button></TableCell>
+                        <TableCell><Button onClick={() => {
+                          setMateria(materia)
+                          toggleFormVisibility({ formName: 'add' })
+                        }}>Agregar</Button></TableCell>
                         <TableCell><Button onClick={() => store.toggleUpdate(materia, boletin._id)}>Modificar</Button></TableCell>
                       </TableRow>
                     })
