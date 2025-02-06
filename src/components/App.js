@@ -6,9 +6,9 @@ import authStore from '../stores/authStore'
 import MateriasPage from '../pages/MateriasPage'
 import CursosPage from '../pages/CursosPage'
 import ComisionesPage from '../pages/ComisionesPage'
-import BoletinesPage from '../pages/BoletinesPages'
 import AlumnoInfoPage from '../pages/AlumnoInfoPage'
 import { AppBar, Box, Button, Card, CardContent, Container, Grid, Toolbar, Typography } from '@mui/material'
+import ComisionInfoPage from '../pages/ComisionInfoPage'
 
 function App() {
   const store = authStore((store) => {
@@ -137,6 +137,11 @@ function App() {
           <Route path='/comisiones' element={
             <RequireAuth>
               <ComisionesPage />
+            </RequireAuth>
+          } />
+          <Route path='/comisiones/:_id' element={
+            <RequireAuth>
+              <ComisionInfoPage />
             </RequireAuth>
           } />
         </Routes>
