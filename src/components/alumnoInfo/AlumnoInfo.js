@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import alumnosInfoStore from '../../stores/alumnoInfoStore'
 import '@fontsource/roboto/500.css'
 import { Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { useContext } from 'react'
@@ -7,11 +6,9 @@ import { FormVisibilityContext } from '../../hooks/global/filters'
 import { ResourcesContext } from '../../hooks/alumnos/resources'
 
 export default function AlumnoInfo(props) {
-  const store = alumnosInfoStore()
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
-  const { setMateria } = useContext(ResourcesContext)
+  const { setMateria, setNotas } = useContext(ResourcesContext)
   const { alumno } = props
-  console.log(alumno)
   if (!alumno) return <>Error al encontrar el alumno</>
   return (
     <Container>
@@ -55,7 +52,11 @@ export default function AlumnoInfo(props) {
                           setMateria(materia)
                           toggleFormVisibility({ formName: 'add' })
                         }}>Agregar</Button></TableCell>
-                        <TableCell><Button onClick={() => store.toggleUpdate(materia, boletin._id)}>Modificar</Button></TableCell>
+                        <TableCell><Button onClick={() => {
+                          setNotas(materia.notas)
+                          setMateria(materia)
+                          toggleFormVisibility({ formName: 'update' })
+                        }}>Modificar</Button></TableCell>
                       </TableRow>
                     })
                     }

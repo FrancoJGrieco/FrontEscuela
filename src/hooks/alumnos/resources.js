@@ -6,10 +6,21 @@ export function ResourcesProvider({ children }) {
 
   const [materia, setMateria] = useState({})
   const [nota, setNota] = useState('')
+  const [notas, setNotas] = useState([])
 
   const handleNotaFieldChange = (e) => {
     setNota(e.target.value)
     console.log(e.target.value)
+  }
+  const handleNotasFieldChange = (e) => {
+    const { name, value } = e.target
+
+    const nameInt = parseInt(name, 10)
+
+    console.log(name, value)
+
+    setNotas((prevNotas) =>
+      prevNotas.map((nota, i) => (i === nameInt ? value : nota)))
   }
 
   return (
@@ -18,7 +29,10 @@ export function ResourcesProvider({ children }) {
       setMateria,
       nota,
       setNota,
-      handleNotaFieldChange
+      handleNotaFieldChange,
+      notas,
+      setNotas,
+      handleNotasFieldChange
     }}>
       {children}
     </ResourcesContext.Provider>
