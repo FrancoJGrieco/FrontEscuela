@@ -1,4 +1,4 @@
-# 📌 Proyecto: [Nombre del Módulo]
+# 📌 Proyecto: Final Programacion III (Escuela)
 
 ## 📖 Descripción
 Escuela
