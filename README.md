@@ -1,4 +1,4 @@
-# 📌 Proyecto: Final Programacion III (Escuela)
+# 📌 Proyecto: Final Programacion III (Frontend)
 
 ## 📖 Descripción
 Escuela
