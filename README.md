@@ -1,7 +1,13 @@
 # 📌 Proyecto: [Nombre del Módulo]
 
 ## 📖 Descripción
-[Nombre del Módulo] es un [breve descripción del proyecto]. Proporciona [funcionalidades principales] para [objetivo del módulo].
+Escuela
+
+El sistema a implementar debe contemplar las funcionalidades:
+-	Administración de alumnos: se registran los alumnos que asisten a la entidad y se asocian a un curso determinado (comisión).
+-	Administración de cursos: las materias ya ingresadas en el sistema, deberán estar asociadas a un año y a un curso determinado (o un curso deberá tener materias asignadas)
+-	Generación de “boletín” de calificaciones asociado a cada alumno
+
 
 ## 🚀 Tecnologías Utilizadas
 - React.js
@@ -28,8 +34,8 @@ Para ejecutar el proyecto localmente, sigue estos pasos:
 
 ### 1️⃣ Clonar el repositorio
 ```bash
-git clone https://github.com/usuario/repositorio.git
-cd nombre-del-repositorio
+git clone https://github.com/FrancoJGrieco/FrontEscuela.git
+cd FrontEscuela
 ```
 
 ### 2️⃣ Instalar dependencias
@@ -39,7 +45,7 @@ npm install
 
 ### 3️⃣ Ejecutar el proyecto en modo desarrollo
 ```bash
-npm run dev
+npm start
 ```
 
 ### 4️⃣ Abrir en el navegador
@@ -52,10 +58,7 @@ http://localhost:3000
 - 📌 [Funcionalidad 2]
 - 📌 [Funcionalidad 3]
 
-## 📄 Licencia
-Este proyecto está bajo la licencia [MIT / GPL / Otro].
-
 ---
 
-👨‍💻 **Desarrollado por [Tu Nombre]**
+👨‍💻 **Desarrollado por Franco Grieco**
 
