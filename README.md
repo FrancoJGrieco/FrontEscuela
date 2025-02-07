@@ -5,10 +5,8 @@
 
 ## 🚀 Tecnologías Utilizadas
 - React.js
-- Node.js
-- Express.js (si aplica)
-- MongoDB / PostgreSQL (si aplica)
-- Material UI / TailwindCSS (si aplica)
+- Axios
+- Material UI
 
 ## 📂 Estructura del Proyecto
 ```
@@ -17,9 +15,7 @@
 │   ├── components/        # Componentes reutilizables
 │   ├── pages/             # Páginas principales
 │   ├── hooks/             # Custom Hooks
-│   ├── context/           # Context API
 │   ├── services/          # Llamadas a API
-│   ├── assets/            # Imágenes, iconos, estilos
 │   ├── App.js             # Componente principal
 │   └── index.js           # Punto de entrada
 ├── package.json
