@@ -1,7 +1,14 @@
 # 📌 Proyecto: Final Programacion III (Frontend)
 
 ## 📖 Descripción
-Escuela
+Proporciona una interfaz gráfica para la gestión de:
+- Alumnos
+- Boletines
+- Comisiones
+- Cursos
+- Materias
+
+Este módulo se conecta con la API backend para realizar operaciones de CRUD (Crear, Leer, Actualizar y Eliminar) y manejar la autenticación del inicio de sesion mediante JWT.
 
 
 
