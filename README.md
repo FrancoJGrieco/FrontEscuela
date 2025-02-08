@@ -1,7 +1,7 @@
 # 📌 Proyecto: Final Programacion III (Frontend)
 
 ## 📖 Descripción
-Proporciona una interfaz gráfica para la gestión de:
+FrontEscuela es el módulo frontend del sistema de gestión escolar. Proporciona una interfaz gráfica para la gestión de:
 - Alumnos
 - Boletines
 - Comisiones
