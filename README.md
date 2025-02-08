@@ -3,16 +3,6 @@
 ## 📖 Descripción
 Escuela
 
-BackEscuela es el módulo backend de un sistema de gestión escolar. 
-Proporciona una API para administrar:
-
-- Alumnos
-- Boletines
-- Comisiones
-- Cursos
-- Materias
-
-Permitiendo la creación, modificación, eliminación y consulta de información académica.
 
 
 ## 🚀 Tecnologías Utilizadas
