@@ -55,12 +55,6 @@ npm start
 ```
 http://localhost:3000
 ```
-
-## ✅ Características Principales
-- 📌 [Funcionalidad 1]
-- 📌 [Funcionalidad 2]
-- 📌 [Funcionalidad 3]
-
 ---
 
 👨‍💻 **Desarrollado por Franco Grieco**
