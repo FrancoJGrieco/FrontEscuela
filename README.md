@@ -3,10 +3,14 @@
 ## 📖 Descripción
 Escuela
 
-El sistema a implementar debe contemplar las funcionalidades:
--	Administración de alumnos: se registran los alumnos que asisten a la entidad y se asocian a un curso determinado (comisión).
--	Administración de cursos: las materias ya ingresadas en el sistema, deberán estar asociadas a un año y a un curso determinado (o un curso deberá tener materias asignadas)
--	Generación de “boletín” de calificaciones asociado a cada alumno
+BackEscuela es el módulo backend de un sistema de gestión escolar. 
+Proporciona una API para administrar:
+- Alumnos
+- Boletines
+- Comisiones
+- Cursos
+- Materias
+Permitiendo la creación, modificación, eliminación y consulta de información académica.
 
 
 ## 🚀 Tecnologías Utilizadas
