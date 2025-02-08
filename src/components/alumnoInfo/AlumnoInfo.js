@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom'
 import '@fontsource/roboto/500.css'
-import { Button, Container, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
-import { useContext } from 'react'
+import { Button, Container, FormControl, InputLabel, MenuItem, Select, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { useContext, useState } from 'react'
 import { FormVisibilityContext } from '../../hooks/global/filters'
 import { ResourcesContext } from '../../hooks/alumnos/resources'
+import { useBoletines } from '../../hooks/alumnos/useBoletines'
 
 export default function AlumnoInfo(props) {
+  const { alumno } = props
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
   const { setMateria, setNotas } = useContext(ResourcesContext)
-  const { alumno } = props
+  const { boletinSelected, handleBoletinChangeField } = useBoletines({ alumno: alumno })
+
   if (!alumno) return <>Error al encontrar el alumno</>
   return (
     <Container>
@@ -29,13 +32,70 @@ export default function AlumnoInfo(props) {
           <Typography variant='subtitle2'>ID Alumno: {alumno._id}</Typography>
         </Container>
       }
-      {!alumno.boletines && <span>No se ha encontrado un boletin</span>}
+      {alumno.boletines.length > 0 &&
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="select-boletin-label">Boletines</InputLabel>
+          <Select
+            id="select-boletin"
+            labelId="select-boletin-label"
+            value={boletinSelected._id}
+            label="Boletines"
+            name='boletines'
+            onChange={handleBoletinChangeField}
+          >
+            <MenuItem value=''>
+              <em>None</em>
+            </MenuItem>
+            {alumno.boletines?.map((boletin) => (
+              <MenuItem key={boletin._id} value={boletin._id}>
+                {boletin.year + ' ' + boletin.comision.numero}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      }
+
+      {boletinSelected._id !== '' &&
+        < Container>
+          {console.log(boletinSelected)}
+          <Typography variant='h5'>Comision: {boletinSelected.comision.numero}</Typography>
+
+          <Table>
+            <TableHead>
+              <TableCell>Materia</TableCell>
+              <TableCell>Notas</TableCell>
+              <TableCell>Agregar</TableCell>
+              <TableCell>Modificar</TableCell>
+            </TableHead>
+            <TableBody>
+              {boletinSelected.materias.map((materia) => {
+                return <TableRow>
+                  <TableCell>{materia.materia.nombre}</TableCell>
+                  <TableCell>{materia.notas && materia.notas.map((nota) => { return <TableCell>{nota}</TableCell> })}</TableCell>
+                  <TableCell><Button onClick={() => {
+                    setMateria(materia)
+                    toggleFormVisibility({ formName: 'add' })
+                  }}>Agregar</Button></TableCell>
+                  <TableCell><Button onClick={() => {
+                    setNotas(materia.notas)
+                    setMateria(materia)
+                    toggleFormVisibility({ formName: 'update' })
+                  }}>Modificar</Button></TableCell>
+                </TableRow>
+              })
+              }
+            </TableBody>
+          </Table>
+        </Container>
+      }
+      {/* {!alumno.boletines && <span>No se ha encontrado un boletin</span>}
       {alumno.boletines &&
         <Container>
           {alumno.boletines.length > 0 &&
             alumno.boletines.map((boletin) => {
               return <Container key={boletin._id}>
                 <Typography variant='h5'>Comision: {boletin.comision.numero}</Typography>
+
                 <Table>
                   <TableHead>
                     <TableCell>Materia</TableCell>
@@ -66,7 +126,7 @@ export default function AlumnoInfo(props) {
             })
           }
         </Container>
-      }
-    </Container>
+      } */}
+    </Container >
   )
 }
