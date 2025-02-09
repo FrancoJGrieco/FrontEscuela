@@ -6,6 +6,7 @@ import AlumnoInfo from '../components/alumnoInfo/AlumnoInfo'
 import { FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import { ResourcesProvider } from '../hooks/alumnos/resources'
+import { Container } from '@mui/material'
 
 export default function AlumnoInfoPage() {
 
@@ -13,16 +14,18 @@ export default function AlumnoInfoPage() {
   const alumno = location.state.element
 
   return (
-    <FormVisibilityProvider>
-      <FormProvider>
-        <ResourcesProvider>
-          <AlumnoInfo
-            alumno={alumno}
-          />
-          <ModificarForm />
-          <AgregarForm />
-        </ResourcesProvider>
-      </FormProvider>
-    </FormVisibilityProvider>
+    <Container type='main'>
+      <FormVisibilityProvider>
+        <FormProvider>
+          <ResourcesProvider>
+            <AlumnoInfo
+              alumno={alumno}
+            />
+            <ModificarForm />
+            <AgregarForm />
+          </ResourcesProvider>
+        </FormProvider>
+      </FormVisibilityProvider>
+    </Container>
   )
 }

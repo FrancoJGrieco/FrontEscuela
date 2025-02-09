@@ -2,5 +2,6 @@ export const alumnoCreateForm = {
   nombre: '',
   apellido: '',
   edad: '',
-  dni: ''
+  dni: '',
+  nacimiento: ''
 }

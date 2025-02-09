@@ -35,7 +35,7 @@ export default function UpdateForm(props) {
         }}
       >
         {headCells.map((cell) =>
-          <TextField key={cell.id} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={handleUpdateFieldChange} value={updateForm[cell.id]} />
+          <TextField key={cell.id} type= {cell.type} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={handleUpdateFieldChange} value={updateForm[cell.id]} required />
         )}
         {children}
         <Button type="submit">Modificar</Button>

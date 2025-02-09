@@ -11,8 +11,6 @@ export default function ModificarForm() {
   const { materia, notas, handleNotasFieldChange } = useContext(ResourcesContext)
   const { updateNotas } = useUpdateNotas()
 
-  console.log(notas)
-
   return (
     <Dialog
       open={formVisibility === 'update'}
@@ -27,7 +25,7 @@ export default function ModificarForm() {
       <IconButton onClick={() => toggleFormVisibility({ formName: 'update' })} color='primary' edge='start' sx={{ maxWidth: 35, borderRadius: 1, ml: 0 }}>
         <CloseIcon />
       </IconButton>
-      <Typography variant='h4' component='h5'>{materia.materia?.nombre}</Typography>
+      <Typography variant='h4' component='h5'>{materia?.materia?.nombre}</Typography>
       <Typography variant='h5' component='h6'>Notas</Typography>
       <FormGroup>
         {notas &&

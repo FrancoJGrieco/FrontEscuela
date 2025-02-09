@@ -8,6 +8,8 @@ import { FormVisibilityContext } from '../../hooks/global/filters'
 export default function CursoInfo(props) {
   const { curso } = props
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
+
+  // Eliminar materia de curso
   if (!curso) return <>Error al encontrar el curso</>
   return (
     <Container>

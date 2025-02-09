@@ -9,6 +9,7 @@ import { headCells } from '../services/cursos/headCells'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
 import { cursoCreateForm } from '../services/cursos/cursoCreateForm'
+import { Container } from '@mui/material'
 
 export default function CursosPage() {
   const storeMaterias = materiasStore((store) => {
@@ -21,7 +22,7 @@ export default function CursosPage() {
 
 
   return (
-    <main>
+    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           {/* Agregar ver materias */}
@@ -47,6 +48,6 @@ export default function CursosPage() {
           <MateriasCursoUpdate />
         </FormProvider>
       </FormVisibilityProvider>
-    </main>
+    </Container>
   )
 }

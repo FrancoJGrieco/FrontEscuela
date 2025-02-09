@@ -1,5 +1,11 @@
 export const headCells = [
   {
+    id: 'dni',
+    numeric: false,
+    disablePadding: false,
+    label: 'DNI'
+  },
+  {
     id: 'nombre',
     numeric: false,
     disablePadding: true,
@@ -12,15 +18,16 @@ export const headCells = [
     label: 'Apellido'
   },
   {
-    id: 'edad',
+    id: 'nacimiento',
     numeric: false,
     disablePadding: false,
-    label: 'Fecha de Nacimiento'
+    label: 'Fecha de Nacimiento',
+    type: 'Date'
   },
   {
-    id: 'dni',
+    id: 'mail',
     numeric: false,
     disablePadding: false,
-    label: 'DNI'
+    label: 'Mail'
   }
 ]

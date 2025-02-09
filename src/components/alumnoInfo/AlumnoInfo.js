@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import '@fontsource/roboto/500.css'
 import { Button, Container, FormControl, InputLabel, MenuItem, Select, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { FormVisibilityContext } from '../../hooks/global/filters'
 import { ResourcesContext } from '../../hooks/alumnos/resources'
 import { useBoletines } from '../../hooks/alumnos/useBoletines'
@@ -12,6 +12,8 @@ export default function AlumnoInfo(props) {
   const { setMateria, setNotas } = useContext(ResourcesContext)
   const { boletinSelected, handleBoletinChangeField } = useBoletines({ alumno: alumno })
 
+  //borrar boletin y eliminar alumno de la comision
+  
   if (!alumno) return <>Error al encontrar el alumno</>
   return (
     <Container>
@@ -32,6 +34,7 @@ export default function AlumnoInfo(props) {
           <Typography variant='subtitle2'>ID Alumno: {alumno._id}</Typography>
         </Container>
       }
+      {alumno.boletines.length === 0 && <Typography>No se han cargado boletines a {alumno.nombre + ' ' + alumno.apellido}</Typography>}
       {alumno.boletines.length > 0 &&
         <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
           <InputLabel id="select-boletin-label">Boletines</InputLabel>
@@ -70,6 +73,7 @@ export default function AlumnoInfo(props) {
             <TableBody>
               {boletinSelected.materias.map((materia) => {
                 return <TableRow>
+                  {console.log(materia)}
                   <TableCell>{materia.materia.nombre}</TableCell>
                   <TableCell>{materia.notas && materia.notas.map((nota) => { return <TableCell>{nota}</TableCell> })}</TableCell>
                   <TableCell><Button onClick={() => {

@@ -89,8 +89,8 @@ function App() {
             <RequireAuth>
               <main>
                 <Typography variant="h4" gutterBottom>Bienvenido al Sistema de Gestión</Typography>
-
-                <Grid container spacing={3}>
+                {/* cantidad de alumnos y promedio si se puede */}
+                <Container spacing={3}>
                   <Grid item xs={12} md={3}>
                     <Card>
                       <CardContent>
@@ -115,7 +115,7 @@ function App() {
                       </CardContent>
                     </Card>
                   </Grid>
-                </Grid>
+                </Container>
 
                 <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
                   Crear Nuevo Alumno

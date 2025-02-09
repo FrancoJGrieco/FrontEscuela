@@ -6,6 +6,7 @@ import { FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import { ResourcesProvider } from '../hooks/alumnos/resources'
 import CursoInfo from '../components/cursoInfo/CursoInfo'
+import { Container } from '@mui/material'
 
 export default function ComisionInfoPage() {
 
@@ -13,16 +14,18 @@ export default function ComisionInfoPage() {
   const curso = location.state.element
 
   return (
-    <FormVisibilityProvider>
-      <FormProvider>
-        <ResourcesProvider>
-          <CursoInfo
-            curso={curso}
-          />
-          <ModificarForm />
-          <AgregarForm />
-        </ResourcesProvider>
-      </FormProvider>
-    </FormVisibilityProvider>
+    <Container type='main'>
+      <FormVisibilityProvider>
+        <FormProvider>
+          <ResourcesProvider>
+            <CursoInfo
+              curso={curso}
+            />
+            <ModificarForm />
+            <AgregarForm />
+          </ResourcesProvider>
+        </FormProvider>
+      </FormVisibilityProvider>
+    </Container>
   )
 }

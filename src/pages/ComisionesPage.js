@@ -7,6 +7,7 @@ import { comisionCreateForm } from '../services/comision/comisionCreateForm'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
 import { SelectCurso } from '../components/SelectCurso'
+import { Container } from '@mui/material'
 
 const headCells = [
   {
@@ -28,7 +29,7 @@ export default function ComisionesPage() {
   const { comisiones } = useContext(DataContext)
 
   return (
-    <main>
+    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <EnhancedTable
@@ -61,6 +62,6 @@ export default function ComisionesPage() {
           </UpdateForm>
         </FormProvider>
       </FormVisibilityProvider>
-    </main>
+    </Container>
   )
 }

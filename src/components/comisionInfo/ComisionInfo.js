@@ -5,6 +5,8 @@ import { Datos } from './Datos'
 
 export default function ComisionInfo(props) {
   const { comision } = props
+
+  // Eliminar alumno
   if (!comision) return <>Error al encontrar la comision</>
   return (
     <Container>

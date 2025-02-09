@@ -10,14 +10,11 @@ export function ResourcesProvider({ children }) {
 
   const handleNotaFieldChange = (e) => {
     setNota(e.target.value)
-    console.log(e.target.value)
   }
   const handleNotasFieldChange = (e) => {
     const { name, value } = e.target
 
     const nameInt = parseInt(name, 10)
-
-    console.log(name, value)
 
     setNotas((prevNotas) =>
       prevNotas.map((nota, i) => (i === nameInt ? value : nota)))

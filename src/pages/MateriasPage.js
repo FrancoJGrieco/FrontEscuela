@@ -7,13 +7,14 @@ import { FormProvider } from '../hooks/global/forms'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
 import { materiasCreateForm } from '../services/materias/materiasCreateForm'
+import { Container } from '@mui/material'
 
 export default function MateriasPage() {
 
   const { materias } = useContext(DataContext)
 
   return (
-    <main>
+    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <EnhancedTable
@@ -27,7 +28,7 @@ export default function MateriasPage() {
             nameOrderBy='nombre'
             keys={['nombre', 'descripcion', 'year']}
           />
-          <UpdateForm 
+          <UpdateForm
             headCells={headCells}
             type='materias'
           />
@@ -37,6 +38,6 @@ export default function MateriasPage() {
           />
         </FormProvider>
       </FormVisibilityProvider>
-    </main>
+    </Container>
   )
 }

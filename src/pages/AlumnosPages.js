@@ -7,23 +7,26 @@ import { headCells } from '../services/alumnos/headCells'
 import { alumnoCreateForm } from '../services/alumnos/alumnoCreateForm'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
+import { Container } from '@mui/material'
 
 export default function AlumnosPage() {
 
   const { alumnos } = useContext(DataContext)
 
   return (
-    <main>
+    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <UpdateForm
             headCells={headCells}
             type='alumnos'
-          />
+          >
+          </UpdateForm>
           <CreateForm
             headCells={headCells}
             type='alumnos'
-          />
+          >
+          </CreateForm>
           <EnhancedTable
             data={alumnos}
             labelSearch='DNI'
@@ -33,10 +36,10 @@ export default function AlumnosPage() {
             typeFilter='dni'
             typeCreateForm={alumnoCreateForm}
             nameOrderBy='nombre'
-            keys={['nombre', 'apellido', 'edad', 'dni']}
+            keys={['dni', 'nombre', 'apellido', 'nacimiento', 'mail']}
           />
         </FormProvider>
       </FormVisibilityProvider>
-    </main>
+    </Container>
   )
 }
