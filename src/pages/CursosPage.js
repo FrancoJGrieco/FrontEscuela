@@ -1,6 +1,5 @@
 import CreateForm from '../components/CreateForm'
 import UpdateForm from '../components/UpdateForm'
-import MateriasCursoUpdate from '../components/cursos/MateriasCursoUpdate'
 import materiasStore from '../stores/materiasStore'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import { FormProvider } from '../hooks/global/forms'
@@ -9,7 +8,6 @@ import { headCells } from '../services/cursos/headCells'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
 import { cursoCreateForm } from '../services/cursos/cursoCreateForm'
-import { Container } from '@mui/material'
 
 export default function CursosPage() {
   const storeMaterias = materiasStore((store) => {
@@ -43,7 +41,6 @@ export default function CursosPage() {
             headCells={headCells}
             type='cursos'
           />
-          <MateriasCursoUpdate />
         </FormProvider>
       </FormVisibilityProvider>
   )
