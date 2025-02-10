@@ -14,7 +14,7 @@ export function Datos(props) {
             <TableHead>
               <TableRow>
                 {keys?.map((x) =>
-                  <TableCell component="th" scope="row">
+                  <TableCell key={x} component="th" scope="row">
                     {x}
                   </TableCell>
 
@@ -23,13 +23,15 @@ export function Datos(props) {
             </TableHead>
             <TableBody>
               {data.map((element) => (
-                <TableRow>
+                <TableRow key={element._id}>
                   <Data
                     data={element}
                     keys={keys} />
-                  <IconButton onClick={() => deleteElement(element, contenedor)}>
-                    <DeleteIcon />
-                  </IconButton>
+                  <TableCell>
+                    <IconButton onClick={() => deleteElement(element, contenedor)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

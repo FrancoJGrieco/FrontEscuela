@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 export function useHandleMateria(){
-  const [materias, setMaterias] = useState('')
+  const [materia, setMateria] = useState('')
 
-  const handleChange = (event) => {
-    setMaterias(event.target.value);
+  const handleMateriaFieldChange = (event) => {
+    setMateria(event.target.value);
   }
 
-  return {materias, handleChange}
+  return {materia, handleMateriaFieldChange}
 }

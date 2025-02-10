@@ -3,7 +3,6 @@ import { FormContext } from "../../hooks/global/forms"
 import { FormVisibilityContext } from "../../hooks/global/filters"
 import { IconButton, Stack, TextField, Toolbar, Tooltip, Typography } from "@mui/material"
 import { alpha } from '@mui/material/styles'
-import { deleteAllData } from "../../services/deleteAllData"
 import { Link } from "react-router-dom"
 import DeleteIcon from '@mui/icons-material/Delete'
 import SettingsIcon from '@mui/icons-material/Settings'

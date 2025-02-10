@@ -8,19 +8,18 @@ import { DataContext } from '../../hooks/global/data'
 import { addMateriaCurso } from '../../services/cursos/addMateriaCurso'
 import { FormContext } from '../../hooks/global/forms'
 import { deleteMateriaCurso } from '../../services/cursos/deleteMateriaCurso'
+import { useHandleMateria } from '../../hooks/useHandleMateria'
 
 
 export default function CursoInfo(props) {
   const { curso } = props
   const { data } = useContext(DataContext)
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
-  const { updateForm, setUpdateForm, handleUpdateFieldChange } = useContext(FormContext)
 
-  useEffect(() => {
-    setUpdateForm({ materia: '' })
-  }, [])
+  const {materia, handleMateriaFieldChange} = useHandleMateria()
 
-  // Eliminar materia de curso
+  console.log(materia)
+
   if (!curso) return <>Error al encontrar el curso</>
   return (
     <Container>
@@ -38,29 +37,27 @@ export default function CursoInfo(props) {
           <Container>
             <Typography variant='subtitle2'>Comision: {curso.titulatura}</Typography>
             <Typography variant='subtitle2'>Años: {curso.years}</Typography>
-            {/*  */}
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-              <InputLabel id="select-materia-label">Materias</InputLabel>
-              <Select
-                id="select-materia"
-                labelId="select-materia-label"
-                value={updateForm._id}
-                label="Materias"
-                name='materia'
-                onChange={handleUpdateFieldChange}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {data.materias?.map((materia) => (
-                  <MenuItem key={materia._id} value={materia._id}>
-                    {materia.nombre}
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <InputLabel id="select-materia-label">Materias</InputLabel>
+                <Select
+                  id="select-materia"
+                  labelId="select-materia-label"
+                  value={materia}
+                  label="Materias"
+                  name='materia'
+                  onChange={handleMateriaFieldChange}
+                >
+                  <MenuItem value=''>
+                    <em>None</em>
                   </MenuItem>
-                ))}
-              </Select>
-              <Button onClick={() => addMateriaCurso({ curso: curso, _id: updateForm.materia })}>Agregar Materia</Button>
-            </FormControl>
-            {/*  */}
+                  {data.materias?.map((materia) => (
+                    <MenuItem key={materia._id} value={materia._id}>
+                      {materia.nombre}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Button onClick={() => addMateriaCurso({ curso: curso, _id: materia })}>Agregar Materia</Button>
+              </FormControl>
           </Container>
           <Button onClick={() => toggleFormVisibility({ formName: 'materias' })}>Ver Materias</Button>
           {formVisibility === 'materias' &&
