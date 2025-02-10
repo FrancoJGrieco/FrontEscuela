@@ -6,7 +6,6 @@ import ComisionInfo from '../components/comisionInfo/ComisionInfo'
 import { FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import { ResourcesProvider } from '../hooks/alumnos/resources'
-import { Container } from '@mui/material'
 
 export default function ComisionInfoPage() {
 
@@ -14,7 +13,6 @@ export default function ComisionInfoPage() {
   const comision = location.state.element
 
   return (
-    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <ResourcesProvider>
@@ -26,6 +24,5 @@ export default function ComisionInfoPage() {
           </ResourcesProvider>
         </FormProvider>
       </FormVisibilityProvider>
-    </Container>
   )
 }

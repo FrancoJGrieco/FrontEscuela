@@ -12,7 +12,7 @@ import { deleteMateriaCurso } from '../../services/cursos/deleteMateriaCurso'
 
 export default function CursoInfo(props) {
   const { curso } = props
-  const { materias } = useContext(DataContext)
+  const { data } = useContext(DataContext)
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
   const { updateForm, setUpdateForm, handleUpdateFieldChange } = useContext(FormContext)
 
@@ -52,7 +52,7 @@ export default function CursoInfo(props) {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {materias?.map((materia) => (
+                {data.materias?.map((materia) => (
                   <MenuItem key={materia._id} value={materia._id}>
                     {materia.nombre}
                   </MenuItem>

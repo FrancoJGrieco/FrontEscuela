@@ -10,11 +10,13 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import AddIcon from '@mui/icons-material/Add'
 import PropTypes from "prop-types"
+import { useDeleteData } from "../../hooks/useDeleteData"
 
 export function EnhancedTableToolbar(props) {
   const { numSelected, selected, element, setFilter, filter, tableName, labelSearch, type } = props
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
   const { setUpdateForm } = useContext(FormContext)
+  const { deleteDB } = useDeleteData()
 
   return (
     <Toolbar
@@ -68,7 +70,7 @@ export function EnhancedTableToolbar(props) {
         ? (
           <>
             <Tooltip title="Eliminar">
-              <IconButton onClick={() => deleteAllData({ type: type, _ids: selected })}>
+              <IconButton onClick={() => deleteDB({ typeDB: type, _ids: selected })}>
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
@@ -87,7 +89,7 @@ export function EnhancedTableToolbar(props) {
                 >
                   <IconButton
                     component={Link}
-                    to={`/${type}/${element._id}`}
+                    to={`/${type}/${element?._id}`}
                     state={{ element: element }}
                     variant='contained'
                     disableElevation>

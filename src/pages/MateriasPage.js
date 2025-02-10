@@ -7,7 +7,6 @@ import { FormProvider } from '../hooks/global/forms'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
 import { materiasCreateForm } from '../services/materias/materiasCreateForm'
-import { Container } from '@mui/material'
 
 export default function MateriasPage() {
 

@@ -7,5 +7,7 @@ export async function deleteAllData({ type, _ids }) {
     withCredentials: true,
     data: { _ids }
   })
+
+  console.log(res)
   return { res: res.data }
 }

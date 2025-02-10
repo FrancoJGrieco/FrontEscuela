@@ -6,11 +6,10 @@ import { useContext, useState } from 'react'
 import { DataContext } from '../../hooks/global/data'
 import axios from 'axios'
 import { FormContext } from '../../hooks/global/forms'
-import { SelectCurso } from '../SelectCurso'
 
 export default function ComisionInfo(props) {
   const { comision } = props
-  const { alumnos, cursos } = useContext(DataContext)
+  const { data } = useContext(DataContext)
   const { updateForm, setUpdateForm, handleUpdateChangeField } = useContext(FormContext)
   const [alumnoDNI, setAlumnoDNI] = useState('')
 
@@ -27,7 +26,7 @@ export default function ComisionInfo(props) {
   }
 
   const addAlumnoComision = async ({ alumno, comision }) => {
-    const alumnoFilter = (alumnos.filter((alumno) => alumno.dni === alumnoDNI))[0]
+    const alumnoFilter = (data.alumnos.filter((alumno) => alumno.dni === alumnoDNI))[0]
     comision.alumnos.push(alumnoFilter)
     await axios.put(`${URL_FETCH_DATA}comisiones/${comision._id}`, comision, { withCredentials: true })
 
@@ -84,12 +83,10 @@ export default function ComisionInfo(props) {
             <Typography variant='subtitle2'>Comision: {comision.numero}</Typography>
             <Typography variant='subtitle2'>Curso: {comision.curso?.titulatura}</Typography>
             <Typography variant='subtitle2'>Año: {comision.year}</Typography>
-            {/*  */}
             <Container>
               <TextField label='DNI Alumno' size='small' value={alumnoDNI} onChange={handleAlumnoChangeField} ></TextField>
               <Button onClick={() => { addAlumnoComision({ alumnoDNI, comision: updateForm }) }}>Agregar Alumno</Button>
             </Container>
-            {/*  */}
           </Container>
           <Datos
             data={comision.alumnos}

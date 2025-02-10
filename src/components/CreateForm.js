@@ -3,12 +3,13 @@ import { FormContext } from '../hooks/global/forms'
 import { FormVisibilityContext } from '../hooks/global/filters'
 import { Button, Container, Dialog, DialogTitle, IconButton, TextField } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import { createData } from '../services/createData'
+import { useCreateData } from '../hooks/useCreateData'
 
 export default function CreateForm(props) {
-  const { headCells, children, type } = props
+  const { headCells, children, typeDB, typeElement } = props
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
   const { createForm, handleCreateFieldChange } = useContext(FormContext)
+  const { createDB } = useCreateData()
 
   return (
     <Dialog
@@ -16,7 +17,7 @@ export default function CreateForm(props) {
       slotProps={{
         paper: {
           component: 'form',
-          onSubmit: (e) => createData({ e, type, data: createForm }),
+          onSubmit: (e) => createDB({ e, typeDB, datos: createForm, typeElement }),
           sx: ({ padding: '20px 40px', borderRadius: 5 })
         }
       }}

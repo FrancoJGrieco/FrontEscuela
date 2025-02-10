@@ -2,14 +2,15 @@ import { Button, Container, Dialog, DialogTitle, FormGroup, IconButton, TextFiel
 import { useContext } from 'react'
 import { FormVisibilityContext } from '../hooks/global/filters'
 import { FormContext } from '../hooks/global/forms'
-import { updateData } from '../services/updateData'
 import CloseIcon from '@mui/icons-material/Close'
+import { useUpdateData } from '../hooks/useUpdateData'
 
 
 export default function UpdateForm(props) {
-  const { headCells, children, type } = props
+  const { headCells, children, typeDB, typeElement } = props
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
   const { updateForm, handleUpdateFieldChange } = useContext(FormContext)
+  const { updateDB } = useUpdateData()
 
   if (formVisibility !== 'update') return <></>
 
@@ -19,7 +20,7 @@ export default function UpdateForm(props) {
       slotProps={{
         paper: {
           component: 'form',
-          onSubmit: ((e) => updateData({ e, type: type, _id: updateForm._id, data: updateForm })),
+          onSubmit: ((e) => updateDB({ e, typeDB: typeDB, _id: updateForm._id, datos: updateForm, typeElement: typeElement })),
           sx: ({ padding: '20px 40px', borderRadius: 5 })
         }
       }}
@@ -35,7 +36,7 @@ export default function UpdateForm(props) {
         }}
       >
         {headCells.map((cell) =>
-          <TextField key={cell.id} type= {cell.type} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={handleUpdateFieldChange} value={updateForm[cell.id]} required />
+          <TextField key={cell.id} type={cell.type} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={handleUpdateFieldChange} value={updateForm[cell.id]} required />
         )}
         {children}
         <Button type="submit">Modificar</Button>

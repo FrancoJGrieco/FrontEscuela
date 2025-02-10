@@ -17,12 +17,14 @@ export default function AlumnosPage() {
         <FormProvider>
           <UpdateForm
             headCells={headCells}
-            type='alumnos'
+            typeDB='alumnos'
+            typeElement='alumno'
           >
           </UpdateForm>
           <CreateForm
             headCells={headCells}
-            type='alumnos'
+            typeDB='alumnos'
+            typeElement='alumno'
           >
           </CreateForm>
           <EnhancedTable

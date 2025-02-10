@@ -43,7 +43,7 @@ export default function EnhancedTable(props) {
               tableName={tableName}
               numSelected={selected.length}
               selected={selected}
-              element={data.filter((element) => { return element._id === selected[0] })[0]}
+              element={selected ? data.filter((element) => { return element._id === selected[0] })[0] : []}
               setFilter={setFilter}
               filter={filter}
               type={type}
