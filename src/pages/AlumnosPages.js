@@ -7,14 +7,12 @@ import { headCells } from '../services/alumnos/headCells'
 import { alumnoCreateForm } from '../services/alumnos/alumnoCreateForm'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
-import { Container } from '@mui/material'
 
 export default function AlumnosPage() {
 
   const { alumnos } = useContext(DataContext)
 
   return (
-    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <UpdateForm
@@ -40,6 +38,5 @@ export default function AlumnosPage() {
           />
         </FormProvider>
       </FormVisibilityProvider>
-    </Container>
   )
 }

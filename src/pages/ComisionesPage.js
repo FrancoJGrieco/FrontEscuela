@@ -3,33 +3,19 @@ import UpdateForm from '../components/UpdateForm'
 import { FormProvider } from '../hooks/global/forms'
 import { FormVisibilityProvider } from '../hooks/global/filters'
 import EnhancedTable from '../components/table/EnhancedTable'
-import { comisionCreateForm } from '../services/comision/comisionCreateForm'
+import { comisionCreateForm } from '../services/comisiones/comisionCreateForm'
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
 import { SelectCurso } from '../components/SelectCurso'
-import { Container } from '@mui/material'
+import { headCells } from '../services/comisiones/headCells'
 
-const headCells = [
-  {
-    id: 'numero',
-    numeric: false,
-    disablePadding: true,
-    label: 'Numero'
-  },
-  {
-    id: 'year',
-    numeric: false,
-    disablePadding: true,
-    label: 'Año'
-  }
-]
+
 
 export default function ComisionesPage() {
 
   const { comisiones } = useContext(DataContext)
 
   return (
-    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <EnhancedTable
@@ -62,6 +48,5 @@ export default function ComisionesPage() {
           </UpdateForm>
         </FormProvider>
       </FormVisibilityProvider>
-    </Container>
   )
 }

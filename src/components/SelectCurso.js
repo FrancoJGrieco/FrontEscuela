@@ -14,20 +14,41 @@ export function SelectCurso(props) {
       <Select
         id="select-curso"
         labelId="select-curso-label"
-        value={type === 'create' ? createForm.materias : updateForm.materias}
+        value={type === 'create' ? createForm.curso : updateForm.curso}
         label="Cursos"
-        name='materias'
+        name='curso'
         onChange={type === 'create' ? handleCreateFieldChange : handleUpdateFieldChange}
       >
-        <MenuItem value="">
+        <MenuItem value=''>
           <em>None</em>
         </MenuItem>
         {cursos?.map((curso) => (
-          <MenuItem key={curso._id} value={curso.materias}>
+          <MenuItem key={curso._id} value={curso._id}>
             {curso.titulatura}
           </MenuItem>
         ))}
       </Select>
     </FormControl>
   )
+  //   <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+  //     <InputLabel id="select-curso-label">Cursos</InputLabel>
+  //     <Select
+  //       id="select-curso"
+  //       labelId="select-curso-label"
+  //       value={type === 'create' ? createForm.materias : updateForm.materias}
+  //       label="Cursos"
+  //       name='materias'
+  //       onChange={type === 'create' ? handleCreateFieldChange : handleUpdateFieldChange}
+  //     >
+  //       <MenuItem value="">
+  //         <em>None</em>
+  //       </MenuItem>
+  //       {cursos?.map((curso) => (
+  //         <MenuItem key={curso._id} value={curso.materias}>
+  //           {curso.titulatura}
+  //         </MenuItem>
+  //       ))}
+  //     </Select>
+  //   </FormControl>
+  // )
 }

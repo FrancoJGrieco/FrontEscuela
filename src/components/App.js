@@ -87,7 +87,7 @@ function App() {
         <Routes>
           <Route index element={
             <RequireAuth>
-              <main>
+              <Box component='main'>
                 <Typography variant="h4" gutterBottom>Bienvenido al Sistema de Gestión</Typography>
                 {/* cantidad de alumnos y promedio si se puede */}
                 <Container spacing={3}>
@@ -120,7 +120,7 @@ function App() {
                 <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
                   Crear Nuevo Alumno
                 </Button>
-              </main>
+              </Box>
             </RequireAuth>
           } />
           <Route path='/login' element={<LoginPage />} />
@@ -163,15 +163,15 @@ function App() {
       </BrowserRouter>
 
       <Box
-          component="footer"
-          sx={{
-            backgroundColor: "primary.main",
-            color: "white",
-            textAlign: "center",
-            padding: 2,
-            marginTop: "auto"
-          }}
-        >
+        component="footer"
+        sx={{
+          backgroundColor: "primary.main",
+          color: "white",
+          textAlign: "center",
+          padding: 2,
+          marginTop: "auto"
+        }}
+      >
         <Typography variant="body2">2025 Creado por Franco Grieco</Typography>
       </Box>
     </Box>

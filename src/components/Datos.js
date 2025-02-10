@@ -1,8 +1,10 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import Data from "../Data";
+import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import Data from "./Data";
+import DeleteIcon from '@mui/icons-material/Delete'
+import { deleteAllData } from "../services/deleteAllData";
 
 export function Datos(props) {
-  const { data, type, keys } = props
+  const { data, type, keys, contenedor, deleteElement } = props
 
   if (data.length === 0) return <>No hay {type}</>
   return (
@@ -26,25 +28,15 @@ export function Datos(props) {
                   <Data
                     data={element}
                     keys={keys} />
+                  <IconButton onClick={() => deleteElement(element, contenedor)}>
+                    <DeleteIcon />
+                  </IconButton>
                 </TableRow>
-                // <TableRow
-                //   key={element._id}
-                //   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                // >
-                //   <TableCell component="th" scope="row">
-                //     {alumno.nombre}
-                //   </TableCell>
-                //   <TableCell>{alumno.apellido}</TableCell>
-                //   <TableCell>{alumno.dni}</TableCell>
-                // </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer >
-
       )
-
-
       }
     </>
   )

@@ -14,7 +14,6 @@ export default function MateriasPage() {
   const { materias } = useContext(DataContext)
 
   return (
-    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <EnhancedTable
@@ -38,6 +37,5 @@ export default function MateriasPage() {
           />
         </FormProvider>
       </FormVisibilityProvider>
-    </Container>
   )
 }

@@ -5,7 +5,7 @@ import { IconButton, Stack, TextField, Toolbar, Tooltip, Typography } from "@mui
 import { alpha } from '@mui/material/styles'
 import { deleteAllData } from "../../services/deleteAllData"
 import { Link } from "react-router-dom"
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove'
+import DeleteIcon from '@mui/icons-material/Delete'
 import SettingsIcon from '@mui/icons-material/Settings'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import AddIcon from '@mui/icons-material/Add'
@@ -69,7 +69,7 @@ export function EnhancedTableToolbar(props) {
           <>
             <Tooltip title="Eliminar">
               <IconButton onClick={() => deleteAllData({ type: type, _ids: selected })}>
-                <PersonRemoveIcon />
+                <DeleteIcon />
               </IconButton>
             </Tooltip>
             {numSelected > 1 ||

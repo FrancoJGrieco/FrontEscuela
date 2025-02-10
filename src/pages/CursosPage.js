@@ -22,10 +22,8 @@ export default function CursosPage() {
 
 
   return (
-    <Container type='main'>
       <FormVisibilityProvider>
         <FormProvider>
-          {/* Agregar ver materias */}
           <EnhancedTable
             data={cursos}
             labelSearch='Titulatura'
@@ -48,6 +46,5 @@ export default function CursosPage() {
           <MateriasCursoUpdate />
         </FormProvider>
       </FormVisibilityProvider>
-    </Container>
   )
 }

@@ -14,7 +14,7 @@ export default function ComisionInfoPage() {
   const curso = location.state.element
 
   return (
-    <Container type='main'>
+    <Container component='main'>
       <FormVisibilityProvider>
         <FormProvider>
           <ResourcesProvider>
