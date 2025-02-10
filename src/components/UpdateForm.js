@@ -36,7 +36,21 @@ export default function UpdateForm(props) {
         }}
       >
         {headCells.map((cell) =>
-          <TextField key={cell.id} type={cell.type} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={handleUpdateFieldChange} value={updateForm[cell.id]} required />
+          <TextField
+            key={cell.id}
+            type={cell.type}
+            name={cell.id}
+            label={cell.label}
+            variant='standard'
+            size='small'
+            margin='dense'
+            onChange={handleUpdateFieldChange}
+            value={updateForm[cell.id]}
+            required
+            slotProps={{
+              inputLabel: { shrink: true }
+            }}
+          />
         )}
         {children}
         <Button type="submit">Modificar</Button>

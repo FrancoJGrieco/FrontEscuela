@@ -92,7 +92,7 @@ export function EnhancedTableToolbar(props) {
                     to={`/${type}/${element?._id}`}
                     state={{ element: element }}
                     variant='contained'
-                    disableElevation>
+                  >
                     <MoreHorizIcon />
                   </IconButton>
                 </Tooltip>

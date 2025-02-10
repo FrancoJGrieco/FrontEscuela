@@ -34,7 +34,20 @@ export default function CreateForm(props) {
           }}
         >
           {headCells.map((cell) =>
-            <TextField key={cell.id} type={cell.type} name={cell.id} label={cell.label} variant='standard' size='small' margin='dense' onChange={handleCreateFieldChange} value={createForm[cell.id]} required />
+            <TextField
+              key={cell.id}
+              type={cell.type} name={cell.id}
+              label={cell.label}
+              variant='standard'
+              size='small'
+              margin='dense'
+              onChange={handleCreateFieldChange}
+              value={createForm[cell.id]}
+              required
+              slotProps={{
+                inputLabel: { shrink: true }
+              }}
+            />
           )}
           {children}
           <Button type="submit">Crear</Button>

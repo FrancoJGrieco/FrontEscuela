@@ -1,7 +1,6 @@
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import Data from "./Data";
 import DeleteIcon from '@mui/icons-material/Delete'
-import { deleteAllData } from "../services/deleteAllData";
 
 export function Datos(props) {
   const { data, type, keys, contenedor, deleteElement } = props

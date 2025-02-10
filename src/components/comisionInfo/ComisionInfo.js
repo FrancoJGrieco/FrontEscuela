@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import '@fontsource/roboto/500.css'
-import { Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Button, Container, TextField, Typography } from '@mui/material'
 import { Datos } from '../Datos'
 import { useContext, useState } from 'react'
 import { DataContext } from '../../hooks/global/data'
@@ -10,7 +10,7 @@ import { FormContext } from '../../hooks/global/forms'
 export default function ComisionInfo(props) {
   const { comision } = props
   const { data } = useContext(DataContext)
-  const { updateForm, setUpdateForm, handleUpdateChangeField } = useContext(FormContext)
+  const { updateForm, setUpdateForm} = useContext(FormContext)
   const [alumnoDNI, setAlumnoDNI] = useState('')
 
   setUpdateForm(comision)
