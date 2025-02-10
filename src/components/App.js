@@ -2,7 +2,6 @@ import AlumnosPage from '../pages/AlumnosPages'
 import LoginPage from '../pages/LoginPage'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import RequireAuth from './RequireAuth'
-import authStore from '../stores/authStore'
 import MateriasPage from '../pages/MateriasPage'
 import CursosPage from '../pages/CursosPage'
 import ComisionesPage from '../pages/ComisionesPage'
@@ -10,13 +9,12 @@ import AlumnoInfoPage from '../pages/AlumnoInfoPage'
 import { AppBar, Box, Button, Card, CardContent, Container, Grid, Toolbar, Typography } from '@mui/material'
 import ComisionInfoPage from '../pages/ComisionInfoPage'
 import CursoInfoPage from '../pages/CursoInfoPage'
+import { useContext } from 'react'
+import { AuthContext } from '../hooks/global/auth'
 
 function App() {
-  const store = authStore((store) => {
-    return {
-      loggedIn: store.loggedIn
-    }
-  })
+  const { loggedIn } = useContext(AuthContext)
+
   return (
     <Box
       className="App"
@@ -28,7 +26,7 @@ function App() {
       }}
     >
       <BrowserRouter>
-        {store.loggedIn &&
+        {loggedIn &&
           <AppBar position='static'>
             <Container
             >
@@ -89,7 +87,7 @@ function App() {
             <RequireAuth>
               <Box component='main'>
                 <Typography variant="h4" gutterBottom>Bienvenido al Sistema de Gestión</Typography>
-                {/* cantidad de alumnos y promedio si se puede */}
+                {/* cantidad de alumnos, comisiones, cursos y materias si se puede */}
                 <Container spacing={3}>
                   <Grid item xs={12} md={3}>
                     <Card>
