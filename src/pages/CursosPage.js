@@ -9,13 +9,13 @@ import { DataContext } from '../hooks/global/data'
 import { cursoCreateForm } from '../services/cursos/cursoCreateForm'
 
 export default function CursosPage() {
-  const { cursos } = useContext(DataContext)
+  const { data } = useContext(DataContext)
 
   return (
     <FormVisibilityProvider>
       <FormProvider>
         <EnhancedTable
-          data={cursos}
+          data={data.cursos}
           labelSearch='Titulatura'
           headCells={headCells}
           tableName='Cursos'

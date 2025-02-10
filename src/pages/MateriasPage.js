@@ -11,13 +11,13 @@ import { Container } from '@mui/material'
 
 export default function MateriasPage() {
 
-  const { materias } = useContext(DataContext)
+  const { data } = useContext(DataContext)
 
   return (
       <FormVisibilityProvider>
         <FormProvider>
           <EnhancedTable
-            data={materias}
+            data={data.materias}
             labelSearch='Nombre'
             headCells={headCells}
             tableName='Materias'

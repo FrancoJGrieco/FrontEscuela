@@ -1,21 +1,43 @@
-import { createContext } from "react";
-import { useGetData } from "../useGetData";
+import { createContext, useContext, useEffect, useState } from "react"
+import { AuthContext } from "./auth"
+import { getData } from "../../services/getData"
 
 export const DataContext = createContext()
 
 export function DataProvider({ children }) {
+  const { loggedIn } = useContext(AuthContext)
+  const [data, setData] = useState({
+    alumnos: [],
+    materias: [],
+    cursos: [],
+    comisiones: [],
+  });
 
-  const alumnos = useGetData({ type: 'alumnos' })
-  const materias = useGetData({ type: 'materias' })
-  const cursos = useGetData({ type: 'cursos' })
-  const comisiones = useGetData({ type: 'comisiones' })
+  const fetchData = async () => {
+    try {
+      const [alumnos, materias, cursos, comisiones] = await Promise.all([
+        getData({ type: "alumnos" }),
+        getData({ type: "materias" }),
+        getData({ type: "cursos" }),
+        getData({ type: "comisiones" }),
+      ])
+
+      setData({ alumnos, materias, cursos, comisiones })
+    } catch (error) {
+      console.error("Error cargando datos:", error)
+    }
+  }
+
+  useEffect(() => {
+    if (!loggedIn) return
+
+    fetchData()
+  }, [loggedIn])
 
   return (
     <DataContext.Provider value={{
-      alumnos,
-      materias,
-      cursos,
-      comisiones
+      data,
+      setData
     }}>
       {children}
     </DataContext.Provider>

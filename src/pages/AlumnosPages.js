@@ -10,7 +10,7 @@ import { DataContext } from '../hooks/global/data'
 
 export default function AlumnosPage() {
 
-  const { alumnos } = useContext(DataContext)
+  const { data } = useContext(DataContext)
 
   return (
       <FormVisibilityProvider>
@@ -26,7 +26,7 @@ export default function AlumnosPage() {
           >
           </CreateForm>
           <EnhancedTable
-            data={alumnos}
+            data={data.alumnos}
             labelSearch='DNI'
             headCells={headCells}
             tableName='Alumnos'

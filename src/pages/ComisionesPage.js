@@ -13,13 +13,13 @@ import { headCells } from '../services/comisiones/headCells'
 
 export default function ComisionesPage() {
 
-  const { comisiones } = useContext(DataContext)
+  const { data } = useContext(DataContext)
 
   return (
       <FormVisibilityProvider>
         <FormProvider>
           <EnhancedTable
-            data={comisiones}
+            data={data.comisiones}
             labelSearch='Numero'
             headCells={headCells}
             tableName='Comisiones'
