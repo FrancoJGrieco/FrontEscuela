@@ -13,28 +13,30 @@ export default function MateriasPage() {
   const { data } = useContext(DataContext)
 
   return (
-      <FormVisibilityProvider>
-        <FormProvider>
-          <EnhancedTable
-            data={data.materias}
-            labelSearch='Nombre'
-            headCells={headCells}
-            tableName='Materias'
-            type='materias'
-            typeFilter='nombre'
-            typeCreateForm={materiasCreateForm}
-            nameOrderBy='nombre'
-            keys={['nombre', 'descripcion', 'year']}
-          />
-          <UpdateForm
-            headCells={headCells}
-            type='materias'
-          />
-          <CreateForm
-            headCells={headCells}
-            type='materias'
-          />
-        </FormProvider>
-      </FormVisibilityProvider>
+    <FormVisibilityProvider>
+      <FormProvider>
+        <EnhancedTable
+          data={data.materias}
+          labelSearch='Nombre'
+          headCells={headCells}
+          tableName='Materias'
+          type='materias'
+          typeFilter='nombre'
+          typeCreateForm={materiasCreateForm}
+          nameOrderBy='nombre'
+          keys={['nombre', 'descripcion', 'year']}
+        />
+        <UpdateForm
+          headCells={headCells}
+          typeDB='materias'
+          typeElement='materia'
+        />
+        <CreateForm
+          headCells={headCells}
+          typeDB='materias'
+          typeElement='materia'
+        />
+      </FormProvider>
+    </FormVisibilityProvider>
   )
 }

@@ -9,15 +9,15 @@ export function useUpdateData() {
 
   const updateDB = async ({ e, typeDB, _id, datos, typeElement }) => {
     const updatedElement = await updateData({ e, typeDB: typeDB, _id: _id, data: datos })
-    
+
     console.log(updatedElement)
     setData((prevState) => ({
       ...prevState,
       [typeDB]: prevState[typeDB].map((item) =>
         item._id === _id ? updatedElement[typeElement] : item
-    )
-  }))
-  toggleFormVisibility({formName: 'update'})
+      )
+    }))
+    toggleFormVisibility({ formName: 'update' })
   }
   return { updateDB }
 }

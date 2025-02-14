@@ -27,11 +27,13 @@ export default function CursosPage() {
         />
         <UpdateForm
           headCells={headCells}
-          type='cursos'
+          typeDB='cursos'
+          typeElement='curso'
         />
         <CreateForm
           headCells={headCells}
-          type='cursos'
+          typeDB='cursos'
+          typeElement='curso'
         />
       </FormProvider>
     </FormVisibilityProvider>

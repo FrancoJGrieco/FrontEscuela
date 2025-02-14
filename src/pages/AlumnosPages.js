@@ -13,32 +13,32 @@ export default function AlumnosPage() {
   const { data } = useContext(DataContext)
 
   return (
-      <FormVisibilityProvider>
-        <FormProvider>
-          <UpdateForm
-            headCells={headCells}
-            typeDB='alumnos'
-            typeElement='alumno'
-          >
-          </UpdateForm>
-          <CreateForm
-            headCells={headCells}
-            typeDB='alumnos'
-            typeElement='alumno'
-          >
-          </CreateForm>
-          <EnhancedTable
-            data={data.alumnos}
-            labelSearch='DNI'
-            headCells={headCells}
-            tableName='Alumnos'
-            type='alumnos'
-            typeFilter='dni'
-            typeCreateForm={alumnoCreateForm}
-            nameOrderBy='nombre'
-            keys={['dni', 'nombre', 'apellido', 'nacimiento', 'mail']}
-          />
-        </FormProvider>
-      </FormVisibilityProvider>
+    <FormVisibilityProvider>
+      <FormProvider>
+        <UpdateForm
+          headCells={headCells}
+          typeDB='alumnos'
+          typeElement='alumno'
+        >
+        </UpdateForm>
+        <CreateForm
+          headCells={headCells}
+          typeDB='alumnos'
+          typeElement='alumno'
+        >
+        </CreateForm>
+        <EnhancedTable
+          data={data.alumnos}
+          labelSearch='DNI'
+          headCells={headCells}
+          tableName='Alumnos'
+          type='alumnos'
+          typeFilter='dni'
+          typeCreateForm={alumnoCreateForm}
+          nameOrderBy='nombre'
+          keys={['dni', 'nombre', 'apellido', 'nacimiento', 'mail']}
+        />
+      </FormProvider>
+    </FormVisibilityProvider>
   )
 }

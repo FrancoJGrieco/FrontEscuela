@@ -16,37 +16,39 @@ export default function ComisionesPage() {
   const { data } = useContext(DataContext)
 
   return (
-      <FormVisibilityProvider>
-        <FormProvider>
-          <EnhancedTable
-            data={data.comisiones}
-            labelSearch='Numero'
-            headCells={headCells}
-            tableName='Comisiones'
-            type='comisiones'
-            typeFilter='numero'
-            typeCreateForm={comisionCreateForm}
-            nameOrderBy='numero'
-            keys={['numero', 'year']}
-          />
+    <FormVisibilityProvider>
+      <FormProvider>
+        <EnhancedTable
+          data={data.comisiones}
+          labelSearch='Numero'
+          headCells={headCells}
+          tableName='Comisiones'
+          type='comisiones'
+          typeFilter='numero'
+          typeCreateForm={comisionCreateForm}
+          nameOrderBy='numero'
+          keys={['numero', 'year']}
+        />
 
-          <CreateForm
-            headCells={headCells}
-            type='comisiones'
-          >
-            <SelectCurso
-              type='create'
-            />
-          </CreateForm>
-          <UpdateForm
-            headCells={headCells}
-            type='comisiones'
-          >
-            <SelectCurso
-              type='update'
-            />
-          </UpdateForm>
-        </FormProvider>
-      </FormVisibilityProvider>
+        <CreateForm
+          headCells={headCells}
+          typeDB='comisiones'
+          typeElement='comision'
+        >
+          <SelectCurso
+            type='create'
+          />
+        </CreateForm>
+        <UpdateForm
+          headCells={headCells}
+          typeDB='comisiones'
+          typeElement='comision'
+        >
+          <SelectCurso
+            type='update'
+          />
+        </UpdateForm>
+      </FormProvider>
+    </FormVisibilityProvider>
   )
 }

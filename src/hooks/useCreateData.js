@@ -8,8 +8,10 @@ export function useCreateData() {
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
 
   const createDB = async ({ e, typeDB, datos, typeElement }) => {
-    const createdElement = await createData({ e, typeDB: typeDB,  data: datos })
+    console.log(datos)
+    const createdElement = await createData({ e, typeDB: typeDB, data: datos })
 
+    console.log(createdElement)
     setData((prevState) => ({
       ...prevState,
       [typeDB]: [...prevState[typeDB], createdElement[typeElement]]
