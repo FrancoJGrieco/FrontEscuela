@@ -11,6 +11,7 @@ import ComisionInfoPage from '../pages/ComisionInfoPage'
 import CursoInfoPage from '../pages/CursoInfoPage'
 import { useContext } from 'react'
 import { AuthContext } from '../hooks/global/auth'
+import HomePage from '../pages/HomePage'
 
 function App() {
   const { loggedIn } = useContext(AuthContext)
@@ -85,40 +86,7 @@ function App() {
         <Routes>
           <Route index element={
             <RequireAuth>
-              <Box component='main'>
-                <Typography variant="h4" gutterBottom>Bienvenido al Sistema de Gestión</Typography>
-                {/* cantidad de alumnos, comisiones, cursos y materias si se puede */}
-                <Container spacing={3}>
-                  <Grid item xs={12} md={3}>
-                    <Card>
-                      <CardContent>
-                        <Typography variant="h6">Total Alumnos</Typography>
-                        <Typography variant="h4">150</Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <Card>
-                      <CardContent>
-                        <Typography variant="h6">Total Cursos</Typography>
-                        <Typography variant="h4">25</Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <Card>
-                      <CardContent>
-                        <Typography variant="h6">Total Materias</Typography>
-                        <Typography variant="h4">40</Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                </Container>
-
-                <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
-                  Crear Nuevo Alumno
-                </Button>
-              </Box>
+              <HomePage />
             </RequireAuth>
           } />
           <Route path='/login' element={<LoginPage />} />
