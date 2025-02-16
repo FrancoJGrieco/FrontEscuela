@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
 import { Box, Card, CardContent, Container, Typography } from '@mui/material'
 import Grid from '@mui/material/Grid2'
+import GridInfo from '../components/home/GridInfo'
 
 export default function HomePage() {
 
@@ -10,7 +11,6 @@ export default function HomePage() {
   return (
     <Box component='main'>
       <Typography variant="h4" gutterBottom>Bienvenido al Sistema de Gestión</Typography>
-      {/* cantidad de alumnos, comisiones, cursos y materias si se puede */}
       <Container spacing={2}
         sx={{
           display: 'flex',
@@ -20,38 +20,10 @@ export default function HomePage() {
           height: '50vh'
         }}
       >
-        <Grid item xs={10} md={3}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Total Alumnos</Typography>
-              <Typography variant="h4">{data.alumnos.length}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Total Cursos</Typography>
-              <Typography variant="h4">{data.cursos.length}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Total Materias</Typography>
-              <Typography variant="h4">{data.materias.length}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Total Comisiones</Typography>
-              <Typography variant="h4">{data.comisiones.length}</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+        <GridInfo title='Total Alumnos' data={data.alumnos.length} />
+        <GridInfo title='Total Cursos' data={data.cursos.length} />
+        <GridInfo title='Total Materias' data={data.materias.length} />
+        <GridInfo title='Total Comisiones' data={data.comisiones.length} />
       </Container>
     </Box>
   )

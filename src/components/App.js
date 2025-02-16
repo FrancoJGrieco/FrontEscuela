@@ -6,7 +6,7 @@ import MateriasPage from '../pages/MateriasPage'
 import CursosPage from '../pages/CursosPage'
 import ComisionesPage from '../pages/ComisionesPage'
 import AlumnoInfoPage from '../pages/AlumnoInfoPage'
-import { AppBar, Box, Button, Card, CardContent, Container, Grid, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import ComisionInfoPage from '../pages/ComisionInfoPage'
 import CursoInfoPage from '../pages/CursoInfoPage'
 import { useContext } from 'react'
@@ -138,7 +138,7 @@ function App() {
           marginTop: "auto"
         }}
       >
-        <Typography variant="body2">2025 Creado por Franco Grieco</Typography>
+        <Typography>2025 Creado por Franco Grieco</Typography>
       </Box>
     </Box>
   )
