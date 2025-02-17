@@ -51,17 +51,25 @@ export default function ComisionInfo(props) {
       {
         curso: comision.curso._id,
         comision: comision._id,
-        year: '2025',
+        year: new Date().getFullYear(),
         materias: materiasBoletin,
         alumno: alumnoFilter
       })
 
-    console.log(resBoletin.data.boletin._id)
-    alumnoFilter.boletines.push(resBoletin.data.boletin._id)
+    const idBoletin = resBoletin.data.boletin._id
+
+    console.log(resBoletin)
+
+    await Promise.all(
+      materiasBoletin.map((materia) =>
+        axios.put('http://localhost:3030/materias_boletin/' + materia, { boletin: idBoletin, materia, notas: [] })
+      )
+    )
+    alumnoFilter.boletines.push(resBoletin.data.boletin)
 
     const resAlumno = await axios.put('http://localhost:3030/alumnos/' + alumnoFilter._id, alumnoFilter)
 
-    console.log(resAlumno)
+    console.log(alumnoFilter)
   }
 
   // Eliminar alumno

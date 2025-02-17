@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
-import { Box, Card, CardContent, Container, Typography } from '@mui/material'
-import Grid from '@mui/material/Grid2'
+import { Box, Container, Typography } from '@mui/material'
 import GridInfo from '../components/home/GridInfo'
 
 export default function HomePage() {
