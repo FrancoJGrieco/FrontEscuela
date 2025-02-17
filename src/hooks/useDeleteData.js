@@ -7,6 +7,8 @@ export function useDeleteData() {
 
   const deleteDB = async ({ typeDB, _ids }) => {
     console.log(typeDB, _ids)
+    const confirmar = window.confirm(`¿Estás seguro de que quieres eliminar ${typeDB}?\n Cuando elimine ${typeDB} se eliminaran ses referencias`);
+    if (!confirmar) return;
     await deleteAllData({ type: typeDB, _ids: _ids })
 
 
@@ -26,7 +28,7 @@ export function useDeleteData() {
       ...prevState,
       comisiones: prevState.comisiones.map((comision) => ({
         ...comision,
-        alumnos: comision.alumnos.filter((alumno) => !_ids.includes(alumno._id)) // Filtra los alumnos eliminados
+        alumnos: comision.alumnos.filter((alumno) => !_ids.includes(alumno._id))
       }))
     }))
   }
