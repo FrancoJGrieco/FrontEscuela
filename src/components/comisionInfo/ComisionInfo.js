@@ -58,8 +58,6 @@ export default function ComisionInfo(props) {
 
     const idBoletin = resBoletin.data.boletin._id
 
-    console.log(resBoletin)
-
     await Promise.all(
       materiasBoletin.map((materia) =>
         axios.put('http://localhost:3030/materias_boletin/' + materia, { boletin: idBoletin, materia, notas: [] })

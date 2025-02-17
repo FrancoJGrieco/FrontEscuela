@@ -15,6 +15,21 @@ export function useDeleteData() {
       [typeDB]: prevState[typeDB].filter((item) => !_ids.includes(item._id)),
     }))
 
+    if (typeDB === 'alumnos') {
+      deleteAlumnosComision({ _ids })
+    }
+
   }
+
+  const deleteAlumnosComision = ({ _ids }) => {
+    setData((prevState) => ({
+      ...prevState,
+      comisiones: prevState.comisiones.map((comision) => ({
+        ...comision,
+        alumnos: comision.alumnos.filter((alumno) => !_ids.includes(alumno._id)) // Filtra los alumnos eliminados
+      }))
+    }))
+  }
+
   return { deleteDB }
 }
