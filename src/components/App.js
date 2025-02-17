@@ -12,6 +12,7 @@ import CursoInfoPage from '../pages/CursoInfoPage'
 import { useContext } from 'react'
 import { AuthContext } from '../hooks/global/auth'
 import HomePage from '../pages/HomePage'
+import MateriaInfoPage from '../pages/MateriaInfoPage'
 
 function App() {
   const { loggedIn } = useContext(AuthContext)
@@ -103,6 +104,11 @@ function App() {
           <Route path='/materias' element={
             <RequireAuth>
               <MateriasPage />
+            </RequireAuth>
+          } />
+          <Route path='/materias/:_id' element={
+            <RequireAuth>
+              <MateriaInfoPage />
             </RequireAuth>
           } />
           <Route path='/cursos' element={

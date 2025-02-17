@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import '@fontsource/roboto/500.css'
-import { Button, Container, FormControl, InputLabel, MenuItem, Select, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Button, Card, CardContent, Container, FormControl, InputLabel, MenuItem, Select, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { useContext } from 'react'
 import { FormVisibilityContext } from '../../hooks/global/filters'
 import { ResourcesContext } from '../../hooks/alumnos/resources'
@@ -12,11 +12,9 @@ export default function AlumnoInfo(props) {
   const { setMateria, setNotas } = useContext(ResourcesContext)
   const { boletinSelected, handleBoletinChangeField } = useBoletines({ alumno: alumno })
 
-  //borrar boletin y eliminar alumno de la comision
-  
   if (!alumno) return <>Error al encontrar el alumno</>
   return (
-    <Container>
+    <Container maxWidth='md' sx={{ mt: 4 }}>
       <Button
         component={Link}
         to='/alumnos'
@@ -28,13 +26,17 @@ export default function AlumnoInfo(props) {
       </Button>
       {alumno &&
         <Container>
-          <Typography variant='subtitle2'>Nombre: {alumno.nombre}</Typography>
-          <Typography variant='subtitle2'>Apellido: {alumno.apellido}</Typography>
-          <Typography variant='subtitle2'>Edad: {alumno.edad}</Typography>
-          <Typography variant='subtitle2'>ID Alumno: {alumno._id}</Typography>
+          <Card sx={{ mt: 3, p: 2 }}>
+            <CardContent>
+              <Typography variant='h5'>Nombre: {alumno.nombre} {alumno.apellido}</Typography>
+              <Typography variant='subtitle1'>Fecha de Nacimiento: {alumno.nacimiento}</Typography>
+              <Typography variant='subtitle1'>Mail: {alumno.mail}</Typography>
+              <Typography variant='subtitle1'>ID Alumno: {alumno._id}</Typography>
+            </CardContent>
+          </Card>
         </Container>
       }
-      {alumno.boletines.length === 0 && <Typography>No se han cargado boletines a {alumno.nombre + ' ' + alumno.apellido}</Typography>}
+      {alumno.boletines.length === 0 && <Typography sx={{margin: '10px 0px'}}>No se han cargado boletines a {alumno.nombre + ' ' + alumno.apellido}</Typography>}
       {alumno.boletines.length > 0 &&
         <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
           <InputLabel id="select-boletin-label">Boletines</InputLabel>
@@ -92,45 +94,6 @@ export default function AlumnoInfo(props) {
           </Table>
         </Container>
       }
-      {/* {!alumno.boletines && <span>No se ha encontrado un boletin</span>}
-      {alumno.boletines &&
-        <Container>
-          {alumno.boletines.length > 0 &&
-            alumno.boletines.map((boletin) => {
-              return <Container key={boletin._id}>
-                <Typography variant='h5'>Comision: {boletin.comision.numero}</Typography>
-
-                <Table>
-                  <TableHead>
-                    <TableCell>Materia</TableCell>
-                    <TableCell>Notas</TableCell>
-                    <TableCell>Agregar</TableCell>
-                    <TableCell>Modificar</TableCell>
-                  </TableHead>
-                  <TableBody>
-                    {boletin.materias.map((materia) => {
-                      return <TableRow>
-                        <TableCell>{materia.materia.nombre}</TableCell>
-                        <TableCell>{materia.notas && materia.notas.map((nota) => { return <TableCell>{nota}</TableCell> })}</TableCell>
-                        <TableCell><Button onClick={() => {
-                          setMateria(materia)
-                          toggleFormVisibility({ formName: 'add' })
-                        }}>Agregar</Button></TableCell>
-                        <TableCell><Button onClick={() => {
-                          setNotas(materia.notas)
-                          setMateria(materia)
-                          toggleFormVisibility({ formName: 'update' })
-                        }}>Modificar</Button></TableCell>
-                      </TableRow>
-                    })
-                    }
-                  </TableBody>
-                </Table>
-              </Container>
-            })
-          }
-        </Container>
-      } */}
     </Container >
   )
 }
