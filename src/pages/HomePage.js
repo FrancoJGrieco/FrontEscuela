@@ -8,7 +8,7 @@ export default function HomePage() {
   const { data } = useContext(DataContext)
 
   return (
-    <Box component='main'>
+    <Container maxWidth='md' sx={{ mt: 4 }}>
       <Typography variant="h4" gutterBottom>Bienvenido al Sistema de Gestión</Typography>
       <Container spacing={2}
         sx={{
@@ -24,6 +24,6 @@ export default function HomePage() {
         <GridInfo title='Total Materias' data={data.materias.length} />
         <GridInfo title='Total Comisiones' data={data.comisiones.length} />
       </Container>
-    </Box>
+    </Container>
   )
 }
