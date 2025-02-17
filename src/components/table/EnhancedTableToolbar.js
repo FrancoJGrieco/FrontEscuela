@@ -8,7 +8,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import SettingsIcon from '@mui/icons-material/Settings'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import AddIcon from '@mui/icons-material/Add'
-import PropTypes from "prop-types"
 import { useDeleteData } from "../../hooks/useDeleteData"
 
 export function EnhancedTableToolbar(props) {
@@ -114,8 +113,4 @@ export function EnhancedTableToolbar(props) {
       }
     </Toolbar >
   )
-}
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired
 }

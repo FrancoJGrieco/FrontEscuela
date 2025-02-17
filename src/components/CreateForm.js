@@ -25,7 +25,7 @@ export default function CreateForm(props) {
       <IconButton onClick={() => toggleFormVisibility({ formName: 'create' })} color='primary' edge='start' sx={{ maxWidth: 35, borderRadius: 1, ml: 0 }}>
         <CloseIcon />
       </IconButton>
-      <DialogTitle>Crear Curso</DialogTitle>
+      <DialogTitle>Crear {typeElement}</DialogTitle>
       {createForm &&
         <Container
           sx={{
