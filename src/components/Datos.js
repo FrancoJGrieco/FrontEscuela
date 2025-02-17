@@ -9,13 +9,13 @@ export function Datos(props) {
   return (
     <>
       {data.length !== 0 && (
-        < TableContainer component={Paper} >
+        < TableContainer component={Paper} sx={{ mt: 2 }}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 {keys?.map((x) =>
                   <TableCell key={x} component="th" scope="row">
-                    {x}
+                    <b>{x}</b>
                   </TableCell>
 
                 )}

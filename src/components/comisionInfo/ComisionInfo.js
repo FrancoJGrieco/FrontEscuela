@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom'
 import '@fontsource/roboto/500.css'
-import { Button, Container, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardContent, Container, TextField, Typography } from '@mui/material'
 import { Datos } from '../Datos'
 import { useContext, useEffect, useState } from 'react'
 import { DataContext } from '../../hooks/global/data'
 import axios from 'axios'
 import { FormContext } from '../../hooks/global/forms'
+import { FormVisibilityContext } from '../../hooks/global/filters'
 
 export default function ComisionInfo(props) {
   const { comision } = props
   const { data } = useContext(DataContext)
   const { updateForm, setUpdateForm } = useContext(FormContext)
   const [alumnoDNI, setAlumnoDNI] = useState('')
+  const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
 
   useEffect(() => {
     setUpdateForm(comision)
@@ -65,15 +67,14 @@ export default function ComisionInfo(props) {
     )
     alumnoFilter.boletines.push(resBoletin.data.boletin)
 
-    const resAlumno = await axios.put('http://localhost:3030/alumnos/' + alumnoFilter._id, alumnoFilter)
+    await axios.put('http://localhost:3030/alumnos/' + alumnoFilter._id, alumnoFilter)
 
-    console.log(alumnoFilter)
   }
 
   // Eliminar alumno
   if (!comision) return <>Error al encontrar la comision</>
   return (
-    <Container>
+    <Container maxWidth='md' sx={{ mt: 4 }}>
       <Button
         component={Link}
         to='/comisiones'
@@ -86,24 +87,46 @@ export default function ComisionInfo(props) {
       {comision &&
         <Container>
           <Container>
-            <Typography variant='subtitle2'>Comision: {comision.numero}</Typography>
-            <Typography variant='subtitle2'>Curso: {comision.curso?.titulatura}</Typography>
-            <Typography variant='subtitle2'>Año: {comision.year}</Typography>
-            <Container>
-              <TextField label='DNI Alumno' size='small' value={alumnoDNI} onChange={handleAlumnoChangeField} ></TextField>
-              <Button onClick={() => { addAlumnoComision({ alumnoDNI, comision: updateForm }) }}>Agregar Alumno</Button>
-            </Container>
+            <Card sx={{ mt: 3, p: 2 }}>
+              <CardContent>
+                <Typography variant='h5'>Comision: {comision.numero}</Typography>
+                <Typography variant='subtitle1'>Curso: {comision.curso?.titulatura}</Typography>
+                <Typography variant='subtitle1'>Año: {comision.year}</Typography>
+              </CardContent>
+              <Box mt={2} display='flex' alignItems='center' gap={2}>
+                <TextField label='DNI Alumno' size='small' value={alumnoDNI} onChange={handleAlumnoChangeField} ></TextField>
+                <Button onClick={() => { addAlumnoComision({ alumnoDNI, comision: updateForm }) }}>Agregar Alumno</Button>
+              </Box>
+            </Card>
           </Container>
-          <Datos
-            data={comision.alumnos}
-            type='alumnos'
-            keys={['nombre', 'apellido', 'dni']}
-          />
-          <Datos
-            data={comision.materias}
-            type='materias'
-            keys={['nombre', 'descripcion']}
-          />
+          <Container sx={{ display: 'flex', gap: '5px' }}>
+
+            <Button variant='contained' color='info' sx={{ mt: 2 }} onClick={() => toggleFormVisibility({ formName: 'alumnos' })}>
+              {(formVisibility === 'alumnos') ? 'Ocultar Alumnos' : 'Mostrar Alumnos'}
+            </Button>
+            <Button variant='contained' color='info' sx={{ mt: 2 }} onClick={() => toggleFormVisibility({ formName: 'materias' })}>
+              {(formVisibility === 'materias') ? 'Ocultar Materias' : 'Mostrar Materias'}
+            </Button>
+          </Container>
+          {(formVisibility === 'alumnos') ? (
+            <Datos
+              data={comision.alumnos}
+              type='alumnos'
+              keys={['nombre', 'apellido', 'dni']}
+            />
+          ) :
+            <></>
+          }
+
+          {(formVisibility === 'materias') ? (
+            <Datos
+              data={comision.materias}
+              type='materias'
+              keys={['nombre', 'descripcion']}
+            />
+          ) :
+            <></>
+          }
         </Container>
       }
     </Container>

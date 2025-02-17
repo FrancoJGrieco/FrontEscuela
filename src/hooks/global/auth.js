@@ -19,8 +19,17 @@ export function AuthProvider({ children }) {
   }
 
   const login = async () => {
-    await axios.post('http://localhost:3030/login', loginForm, { withCredentials: true })
+    await axios.post('http://localhost:3030/logout', loginForm, { withCredentials: true })
     setLoggedIn(true)
+    setLoginForm({
+      user: '',
+      password: ''
+    })
+  }
+
+  const logout = async () => {
+    await axios.post('http://localhost:3030/logout', { withCredentials: true })
+    setLoggedIn(false)
     setLoginForm({
       user: '',
       password: ''
@@ -29,7 +38,7 @@ export function AuthProvider({ children }) {
 
   const checkAuth = async () => {
     try {
-      await axios.get('/check-auth', { withCredentials: true })
+      await axios.get('http://localhost:3030/check-auth', { withCredentials: true })
       setLoggedIn(true)
     } catch (err) {
       console.log(err)
@@ -42,6 +51,7 @@ export function AuthProvider({ children }) {
       loginForm,
       loggedIn,
       login,
+      logout,
       updateLoginFormField,
       checkAuth
     }}>
