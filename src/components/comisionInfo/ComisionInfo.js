@@ -10,7 +10,7 @@ import { FormVisibilityContext } from '../../hooks/global/filters'
 
 export default function ComisionInfo(props) {
   const { comision } = props
-  const { data } = useContext(DataContext)
+  const { data, setData } = useContext(DataContext)
   const { updateForm, setUpdateForm } = useContext(FormContext)
   const [alumnoDNI, setAlumnoDNI] = useState('')
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
@@ -30,6 +30,13 @@ export default function ComisionInfo(props) {
   const addAlumnoComision = async ({ alumno, comision }) => {
     const alumnoFilter = (data.alumnos.filter((alumno) => alumno.dni === alumnoDNI))[0]
     comision.alumnos.push(alumnoFilter)
+
+    setData((prevState) => ({
+      ...prevState,
+      comisiones: prevState.comisiones.map((item) =>
+        item._id === comision._id ? comision : item
+      )
+    }))
     await axios.put(`${URL_FETCH_DATA}comisiones/${comision._id}`, comision, { withCredentials: true })
 
     let materiasBoletin = []
