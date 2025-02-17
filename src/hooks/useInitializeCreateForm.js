@@ -1,9 +1,12 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { FormContext } from "./global/forms"
 
-export function useInitializeCreateForm(typeCreateForm) {
+export function useInitializeCreateForm() {
   const { setCreateForm } = useContext(FormContext)
-  useEffect(() => {
+
+  const InitializeForm = ({ typeCreateForm }) => {
     setCreateForm(typeCreateForm)
-  }, [])
+  }
+
+  return { InitializeForm }
 }

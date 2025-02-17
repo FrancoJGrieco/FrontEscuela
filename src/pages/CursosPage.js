@@ -27,6 +27,7 @@ export default function CursosPage() {
         />
         <UpdateForm
           headCells={headCells}
+          typeCreateForm={cursoCreateForm}
           typeDB='cursos'
           typeElement='curso'
         />

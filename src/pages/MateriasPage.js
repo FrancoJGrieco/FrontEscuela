@@ -28,6 +28,7 @@ export default function MateriasPage() {
         />
         <UpdateForm
           headCells={headCells}
+          typeCreateForm={materiasCreateForm}
           typeDB='materias'
           typeElement='materia'
         />

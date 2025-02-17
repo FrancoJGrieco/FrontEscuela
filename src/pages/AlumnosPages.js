@@ -23,6 +23,7 @@ export default function AlumnosPage() {
         </UpdateForm>
         <CreateForm
           headCells={headCells}
+          typeCreateForm={alumnoCreateForm}
           typeDB='alumnos'
           typeElement='alumno'
         >

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -21,6 +21,7 @@ import { useInitializeCreateForm } from '../../hooks/useInitializeCreateForm'
 
 export default function EnhancedTable(props) {
   const { type, tableName, typeFilter, nameOrderBy, keys, headCells, labelSearch, typeCreateForm, data } = props
+  const { InitializeForm } = useInitializeCreateForm()
   const { filteredData, filter, setFilter } = useGetFilteredData({ arrayToFilter: data, type: typeFilter })
   const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: nameOrderBy })
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useHandlePages()
@@ -28,7 +29,9 @@ export default function EnhancedTable(props) {
   const { selected, handleSelectAllClick, handleClick } = useHandleSelected({ visibleRows: visibleRows })
 
 
-  useInitializeCreateForm(typeCreateForm)
+  useEffect(() => {
+    InitializeForm({ typeCreateForm })
+  }, [])
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0

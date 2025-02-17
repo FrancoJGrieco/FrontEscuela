@@ -14,14 +14,11 @@ export function SelectCurso(props) {
       <Select
         id="select-curso"
         labelId="select-curso-label"
-        value={type === 'create' ? createForm.curso : updateForm.curso}
+        value={type === 'create' ? createForm?.curso || '' : updateForm?.curso || ''}
         label="Cursos"
         name='curso'
         onChange={type === 'create' ? handleCreateFieldChange : handleUpdateFieldChange}
       >
-        <MenuItem value=''>
-          <em>None</em>
-        </MenuItem>
         {data.cursos?.map((curso) => (
           <MenuItem key={curso._id} value={curso._id}>
             {curso.titulatura}

@@ -10,7 +10,6 @@ export default function LoginForm() {
   const handleLogin = async (e) => {
     e.preventDefault()
     await login()
-    console.log('hola', loginForm)
     navigate('/')
   }
   return (

@@ -32,6 +32,7 @@ export default function ComisionesPage() {
 
         <CreateForm
           headCells={headCells}
+          typeCreateForm={comisionCreateForm}
           typeDB='comisiones'
           typeElement='comision'
         >
