@@ -26,7 +26,7 @@ export default function EnhancedTable(props) {
   const { order, orderBy, handleRequestSort } = useRequestSort({ defaultOrderBy: nameOrderBy })
   const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } = useHandlePages()
   const { visibleRows } = useVisibleRows({ list: data, filteredList: filteredData, order, orderBy, page, rowsPerPage, getComparator })
-  const { selected, handleSelectAllClick, handleClick } = useHandleSelected({ visibleRows: visibleRows })
+  const { selected, setSelected, handleSelectAllClick, handleClick } = useHandleSelected({ visibleRows: visibleRows })
 
 
   useEffect(() => {
@@ -43,8 +43,8 @@ export default function EnhancedTable(props) {
           <Paper sx={{ width: '100%', mb: 2 }}>
             <EnhancedTableToolbar
               labelSearch={labelSearch}
+              setSelected={setSelected}
               tableName={tableName}
-              numSelected={selected.length}
               selected={selected}
               element={selected ? data.filter((element) => { return element._id === selected[0] })[0] : []}
               setFilter={setFilter}
@@ -58,7 +58,7 @@ export default function EnhancedTable(props) {
                 size={'small'}
               >
                 <EnhancedTableHead
-                  numSelected={selected.length}
+                  selected={selected}
                   order={order}
                   orderBy={orderBy}
                   onSelectAllClick={handleSelectAllClick}

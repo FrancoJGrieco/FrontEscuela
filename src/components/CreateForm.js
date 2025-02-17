@@ -4,7 +4,6 @@ import { FormVisibilityContext } from '../hooks/global/filters'
 import { Button, Container, Dialog, DialogTitle, IconButton, TextField } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { useCreateData } from '../hooks/useCreateData'
-import { useInitializeCreateForm } from '../hooks/useInitializeCreateForm'
 
 export default function CreateForm(props) {
   const { headCells, children, typeDB, typeElement, typeCreateForm } = props

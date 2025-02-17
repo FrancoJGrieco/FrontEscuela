@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { DataContext } from "./global/data"
 import { deleteAllData } from "../services/deleteAllData"
+import { useHandleSelected } from "./table/useHandleSelected"
 
 export function useDeleteData() {
   const { setData } = useContext(DataContext)
@@ -20,7 +21,6 @@ export function useDeleteData() {
     if (typeDB === 'alumnos') {
       deleteAlumnosComision({ _ids })
     }
-
   }
 
   const deleteAlumnosComision = ({ _ids }) => {

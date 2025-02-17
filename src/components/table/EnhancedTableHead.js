@@ -3,7 +3,7 @@ import { visuallyHidden } from '@mui/utils'
 import PropTypes from 'prop-types'
 
 export function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, visibleRows, headCells } =
+  const { onSelectAllClick, order, orderBy, selected, rowCount, onRequestSort, visibleRows, headCells } =
     props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
@@ -15,8 +15,8 @@ export function EnhancedTableHead(props) {
         <TableCell padding="checkbox">
           <Checkbox
             color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === visibleRows.length}
+            indeterminate={selected.length > 0 && selected.length < rowCount}
+            checked={rowCount > 0 && selected.length === visibleRows.length}
             onChange={onSelectAllClick}
             inputProps={{
               'aria-label': 'select all desserts'

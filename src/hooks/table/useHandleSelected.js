@@ -30,5 +30,5 @@ export function useHandleSelected({ visibleRows }) {
     setSelected(newSelected)
   }
 
-  return { selected, handleClick, handleSelectAllClick }
+  return { selected, setSelected, handleClick, handleSelectAllClick }
 }

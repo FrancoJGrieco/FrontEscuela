@@ -12,7 +12,7 @@ import PropTypes from "prop-types"
 import { useDeleteData } from "../../hooks/useDeleteData"
 
 export function EnhancedTableToolbar(props) {
-  const { numSelected, selected, element, setFilter, filter, tableName, labelSearch, type } = props
+  const { selected, element, setFilter, filter, tableName, labelSearch, type, setSelected } = props
   const { toggleFormVisibility } = useContext(FormVisibilityContext)
   const { setUpdateForm } = useContext(FormContext)
   const { deleteDB } = useDeleteData()
@@ -24,13 +24,13 @@ export function EnhancedTableToolbar(props) {
           pl: { sm: 2 },
           pr: { xs: 1, sm: 1 }
         },
-        numSelected > 0 && {
+        selected.length > 0 && {
           bgcolor: (theme) =>
             alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
         }
       ]}
     >
-      {numSelected > 0
+      {selected.length > 0
         ? (
           <Typography
             sx={{ flex: '1 1 100%' }}
@@ -38,7 +38,7 @@ export function EnhancedTableToolbar(props) {
             variant="subtitle1"
             component="div"
           >
-            {numSelected} selected
+            {selected.length} selected
           </Typography>
         )
         : (
@@ -65,15 +65,18 @@ export function EnhancedTableToolbar(props) {
             </TextField>
           </Stack>
         )}
-      {numSelected > 0
+      {selected.length > 0
         ? (
           <>
             <Tooltip title="Eliminar">
-              <IconButton onClick={() => deleteDB({ typeDB: type, _ids: selected })}>
+              <IconButton onClick={() => {
+                deleteDB({ typeDB: type, _ids: selected })
+                setSelected([])
+              }}>
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
-            {numSelected > 1 ||
+            {selected.length > 1 ||
               <>
                 <Tooltip title="Modificar" >
                   <IconButton onClick={() => {
