@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { DataContext } from "./global/data";
-import { addMateriaCurso } from "../services/cursos/addMateriaCurso";
-import { deleteMateriaCurso } from "../services/cursos/deleteMateriaCurso";
+import { DataContext } from "../global/data";
+import { addMateriaCurso } from "../../services/cursos/addMateriaCurso";
+import { deleteMateriaCurso } from "../../services/cursos/deleteMateriaCurso";
 
 export function useHandleMateriaCurso({ curso }) {
   const { setData } = useContext(DataContext)

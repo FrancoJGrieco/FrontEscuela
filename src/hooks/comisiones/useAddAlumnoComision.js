@@ -8,9 +8,21 @@ export function useAddAlumnoComision() {
 
   const addAlumnoComision = async ({ comision, alumnoDNI }) => {
     const alumnoFilter = (data.alumnos.filter((alumno) => alumno.dni === alumnoDNI))[0]
-
+    
     if(!alumnoFilter){
-      console.error('Error: No se encontro el alumno con DNI:', alumnoDNI)
+      alert(`Error: No se encontro el alumno con DNI: ${alumnoDNI}`)
+      return
+    }
+    
+    const index = comision.alumnos.findIndex((alumno) => alumno.dni === alumnoDNI)
+    
+    if(index >= 0){
+      alert(`Error: El alumno ${comision.alumnos[index].nombre + ' ' + comision.alumnos[index].apellido} ya pertenece a la comision`)
+      return
+    }
+
+    if(!comision.curso){
+      alert(`Error: La comision no tiene curso. \nAgrege un curso en Modificar comision.`)
       return
     }
     
