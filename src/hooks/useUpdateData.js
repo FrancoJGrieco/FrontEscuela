@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { DataContext } from "./global/data";
 import { updateData } from "../services/updateData";
 import { FormVisibilityContext } from "./global/filters";
+import { dataRevision } from "../services/dataRevision";
 
 export function useUpdateData() {
   const { setData } = useContext(DataContext)
@@ -10,7 +11,8 @@ export function useUpdateData() {
   const updateDB = async ({ e, typeDB, _id, datos, typeElement }) => {
     const updatedElement = await updateData({ e, typeDB: typeDB, _id: _id, data: datos })
 
-    console.log(updatedElement)
+    dataRevision(updatedElement)
+
     setData((prevState) => ({
       ...prevState,
       [typeDB]: prevState[typeDB].map((item) =>
@@ -19,5 +21,7 @@ export function useUpdateData() {
     }))
     toggleFormVisibility({ formName: 'update' })
   }
+
+
   return { updateDB }
 }

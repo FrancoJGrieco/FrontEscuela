@@ -8,6 +8,12 @@ export function useAddAlumnoComision() {
 
   const addAlumnoComision = async ({ comision, alumnoDNI }) => {
     const alumnoFilter = (data.alumnos.filter((alumno) => alumno.dni === alumnoDNI))[0]
+
+    if(!alumnoFilter){
+      console.error('Error: No se encontro el alumno con DNI:', alumnoDNI)
+      return
+    }
+    
     comision.alumnos.push(alumnoFilter)
 
     setData((prevState) => ({

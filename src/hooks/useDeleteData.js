@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { DataContext } from "./global/data"
 import { deleteAllData } from "../services/deleteAllData"
-import { useHandleSelected } from "./table/useHandleSelected"
+import { dataRevision } from "../services/dataRevision"
 
 export function useDeleteData() {
   const { setData } = useContext(DataContext)
@@ -9,9 +9,12 @@ export function useDeleteData() {
   const deleteDB = async ({ typeDB, _ids }) => {
     console.log(typeDB, _ids)
     const confirmar = window.confirm(`¿Estás seguro de que quieres eliminar ${typeDB}?\n Cuando elimine ${typeDB} se eliminaran ses referencias`);
-    if (!confirmar) return;
-    await deleteAllData({ type: typeDB, _ids: _ids })
 
+    if (!confirmar) return
+
+    const dataDeleted = await deleteAllData({ type: typeDB, _ids: _ids })
+
+    dataRevision(dataDeleted)
 
     setData((prevState) => ({
       ...prevState,
