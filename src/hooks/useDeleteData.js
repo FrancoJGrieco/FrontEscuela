@@ -4,13 +4,22 @@ import { deleteAllData } from "../services/deleteAllData"
 import { dataRevision } from "../services/dataRevision"
 
 export function useDeleteData() {
-  const { setData } = useContext(DataContext)
+  const { data, setData } = useContext(DataContext)
 
   const deleteDB = async ({ typeDB, _ids }) => {
     console.log(typeDB, _ids)
     const confirmar = window.confirm(`¿Estás seguro de que quieres eliminar ${typeDB}?\n Cuando elimine ${typeDB} se eliminaran ses referencias`);
 
     if (!confirmar) return
+
+    if (typeDB === 'alumnos') {
+      deleteAlumnosComision({ _ids })
+    }
+
+    if (typeDB === 'comisiones') {
+      revisarAlumnos(_ids)
+      return
+    }
 
     const dataDeleted = await deleteAllData({ type: typeDB, _ids: _ids })
 
@@ -21,9 +30,8 @@ export function useDeleteData() {
       [typeDB]: prevState[typeDB].filter((item) => !_ids.includes(item._id)),
     }))
 
-    if (typeDB === 'alumnos') {
-      deleteAlumnosComision({ _ids })
-    }
+
+
   }
 
   const deleteAlumnosComision = ({ _ids }) => {
@@ -34,6 +42,17 @@ export function useDeleteData() {
         alumnos: comision.alumnos.filter((alumno) => !_ids.includes(alumno._id))
       }))
     }))
+  }
+
+  const revisarAlumnos = async (_ids) => {
+    const resComisiones = data.comisiones.filter((comision) => _ids.includes(comision._id))
+
+    const tienenAlumnos = resComisiones.map((comision) => comision.alumnos.length !== 0)
+
+    if (tienenAlumnos) {
+      alert(`Error: No se pueden eliminar comisiones con alumnos`)
+      return
+    }
   }
 
   return { deleteDB }

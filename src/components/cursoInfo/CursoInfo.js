@@ -4,7 +4,6 @@ import { Datos } from '../Datos'
 import { useContext, useEffect, useState } from 'react'
 import { FormVisibilityContext } from '../../hooks/global/filters'
 import { DataContext } from '../../hooks/global/data'
-import { deleteMateriaCurso } from '../../services/cursos/deleteMateriaCurso'
 import { useHandleMateria } from '../../hooks/cursos/useHandleMateria'
 import { useHandleMateriaCurso } from '../../hooks/cursos/useHandleMateriaCurso'
 
