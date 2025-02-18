@@ -7,8 +7,14 @@ export function useDeleteData() {
   const { setData } = useContext(DataContext)
 
   const deleteDB = async ({ typeDB, _ids }) => {
-    const confirmar = window.confirm(`¿Estás seguro de que quieres eliminar ${typeDB}?\n Cuando elimine ${typeDB} se eliminaran ses referencias`);
+
+    if (typeDB === 'materias'){
+      alert(`Error: No se pueden eliminar materias`)
+      return
+    }
     
+    const confirmar = window.confirm(`¿Estás seguro de que quieres eliminar ${typeDB}?\n Cuando elimine ${typeDB} se eliminaran ses referencias`);
+
     if (!confirmar) return
 
     const dataDeleted = await deleteAllData({ type: typeDB, _ids: _ids })
