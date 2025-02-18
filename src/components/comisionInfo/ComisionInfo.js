@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import '@fontsource/roboto/500.css'
 import { Box, Button, Card, CardContent, Container, TextField, Typography } from '@mui/material'
 import { Datos } from '../Datos'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { FormContext } from '../../hooks/global/forms'
 import { FormVisibilityContext } from '../../hooks/global/filters'
 import { useAddAlumnoComision } from '../../hooks/comisiones/useAddAlumnoComision'
@@ -16,12 +16,18 @@ export default function ComisionInfo(props) {
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
   const { addAlumnoComision } = useAddAlumnoComision()
   const { deleteAlumno } = useDeleteAlumno()
+  const [comisionState, setComisionState] = useState(comision)
+
 
   useEffect(() => {
     setUpdateForm(comision)
   }, [])
 
-  if (!comision) return <>Error al encontrar la comision</>
+  useEffect(()=>{
+    setComisionState(comision)
+  },[comision])
+
+  if (!comisionState) return <>Error al encontrar la comision</>
   return (
     <Container maxWidth='md' sx={{ mt: 4 }}>
       <Button
@@ -33,14 +39,14 @@ export default function ComisionInfo(props) {
       >
         Atras
       </Button>
-      {comision &&
+      {comisionState &&
         <Container>
           <Container>
             <Card sx={{ mt: 3, p: 2 }}>
               <CardContent>
-                <Typography variant='h5'>Comision: {comision.numero}</Typography>
-                <Typography variant='subtitle1'>Curso: {comision.curso?.titulatura}</Typography>
-                <Typography variant='subtitle1'>Año: {comision.year}</Typography>
+                <Typography variant='h5'>Comision: {comisionState.numero}</Typography>
+                <Typography variant='subtitle1'>Curso: {comisionState.curso?.titulatura}</Typography>
+                <Typography variant='subtitle1'>Año: {comisionState.year}</Typography>
               </CardContent>
               <Box mt={2} display='flex' alignItems='center' gap={2}>
                 <TextField label='DNI Alumno' size='small' value={alumnoDNI} onChange={handleAlumnoChangeField} ></TextField>
@@ -59,11 +65,12 @@ export default function ComisionInfo(props) {
           </Container>
           {(formVisibility === 'alumnos') ? (
             <Datos
-              data={comision.alumnos}
-              contenedor={comision}
+              data={comisionState.alumnos}
+              contenedor={comisionState}
               deleteElement={deleteAlumno}
-              type='alumnos'
+              type='materias en comision'
               keys={['nombre', 'apellido', 'dni']}
+              
             />
           ) :
             <></>
@@ -71,8 +78,8 @@ export default function ComisionInfo(props) {
 
           {(formVisibility === 'materias') ? (
             <Datos
-              data={comision.materias}
-              type='materias'
+              data={comisionState.materias}
+              type='materias en comision'
               keys={['nombre', 'descripcion']}
             />
           ) :

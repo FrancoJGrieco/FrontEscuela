@@ -9,7 +9,7 @@ export function Datos(props) {
   return (
     <>
       {data.length !== 0 && (
-        < TableContainer component={Paper} sx={{ mt: 2 }}>
+        < TableContainer component={Paper} sx={{ mt: 5, mb: 5 }}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -28,9 +28,11 @@ export function Datos(props) {
                     data={element}
                     keys={keys} />
                   <TableCell>
-                    <IconButton onClick={() => deleteElement(element, contenedor)}>
-                      <DeleteIcon />
-                    </IconButton>
+                    {type !== 'materias en comision' &&
+                      < IconButton onClick={() => deleteElement(element, contenedor)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    }
                   </TableCell>
                 </TableRow>
               ))}
