@@ -13,7 +13,6 @@ export function useAddAlumnoComision() {
       return
     }
 
-    console.log(comision.materias.length)
     if (comision.materias.length === 0) {
       alert(`Error: La comision no tiene materias. \nAgrege materias al curso y vuelva a modificar la comision.`)
       return

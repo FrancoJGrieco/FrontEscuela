@@ -75,9 +75,8 @@ export default function AlumnoInfo(props) {
             <TableBody>
               {boletinSelected.materias.map((materia) => {
                 return <TableRow>
-                  {console.log(materia)}
-                  <TableCell>{materia.materia.nombre}</TableCell>
-                  <TableCell>{materia.notas && materia.notas.map((nota) => { return <TableCell>{nota}</TableCell> })}</TableCell>
+                  <TableCell>{materia?.materia?.nombre}</TableCell>
+                  <TableCell>{materia?.notas && materia.notas.map((nota) => { return <TableCell>{nota}</TableCell> })}</TableCell>
                   <TableCell><Button onClick={() => {
                     setMateria(materia)
                     toggleFormVisibility({ formName: 'add' })
