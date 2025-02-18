@@ -8,8 +8,11 @@ export async function createData({ e, typeDB, data }) {
   try {
     const res = await axios.post(`${URL_FETCH_DATA}${typeDB}`, data, { withCredentials: true })
 
+    console.log(res)
+
     return res.data
   } catch (err) {
+    console.log('hola')
     showError({ err })
   }
 }

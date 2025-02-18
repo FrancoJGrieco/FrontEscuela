@@ -8,6 +8,8 @@ export async function updateData({ e, typeDB, _id, data }) {
   try {
     const res = await axios.put(`${URL_FETCH_DATA}${typeDB}/${_id}`, data, { withCredentials: true })
 
+    console.log(res)
+
     return res.data
   } catch (err) {
     showError({ err })

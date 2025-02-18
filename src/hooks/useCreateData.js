@@ -13,6 +13,7 @@ export function useCreateData() {
   const createDB = async ({ e, typeDB, datos, typeElement, typeCreateForm }) => {
     const createdElement = await createData({ e, typeDB: typeDB, data: datos })
 
+    console.log(createdElement)
     dataRevision(createdElement)
 
     setData((prevState) => ({
