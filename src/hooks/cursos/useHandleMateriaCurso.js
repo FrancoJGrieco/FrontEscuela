@@ -9,17 +9,19 @@ export function useHandleMateriaCurso({ curso }) {
 
   const handleUpdateMateriaCurso = async ({ curso, _id }) => {
     const res = await addMateriaCurso({ curso, _id })
+    
     setData((prevState) => ({
       ...prevState,
       cursos: prevState.cursos.map((item) =>
         item._id === curso._id ? res : item
       )
     }))
+
     setNewCurso(res)
   }
 
-  const handleDeleteMateriaCurso = async ({ element, contenedor }) => {
-    const res = await deleteMateriaCurso({ element: element, contenedor: contenedor })
+  const handleDeleteMateriaCurso = async ( element, contenedor ) => {
+    const res = await deleteMateriaCurso(element, contenedor)
 
     setNewCurso(res)
   }

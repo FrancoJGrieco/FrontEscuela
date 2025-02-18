@@ -2,13 +2,13 @@ export const headCells = [
   {
     id: 'numero',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Numero'
   },
   {
     id: 'year',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Año'
   }
 ]

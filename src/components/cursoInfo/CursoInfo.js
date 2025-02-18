@@ -15,7 +15,7 @@ export default function CursoInfo(props) {
   const { data } = useContext(DataContext)
   const { formVisibility, toggleFormVisibility } = useContext(FormVisibilityContext)
   const { materia, handleMateriaFieldChange } = useHandleMateria()
-  const { newCurso, handleUpdateMateriaCurso } = useHandleMateriaCurso({ curso })
+  const { newCurso, handleUpdateMateriaCurso, handleDeleteMateriaCurso } = useHandleMateriaCurso({ curso })
   const [cursoState, setCursoState] = useState(curso)
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function CursoInfo(props) {
               type='materias'
               keys={['nombre', 'descripcion']}
               contenedor={cursoState}
-              deleteElement={deleteMateriaCurso}
+              deleteElement={handleDeleteMateriaCurso}
             />
 
           }

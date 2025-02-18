@@ -7,25 +7,32 @@ export function useAddAlumnoComision() {
   const { data, setData } = useContext(DataContext)
 
   const addAlumnoComision = async ({ comision, alumnoDNI }) => {
+
+    if (!comision.curso) {
+      alert(`Error: La comision no tiene curso. \nAgrege un curso en modificar comision.`)
+      return
+    }
+
+    console.log(comision.materias.length)
+    if (comision.materias.length === 0) {
+      alert(`Error: La comision no tiene materias. \nAgrege materias al curso y vuelva a modificar la comision.`)
+      return
+    }
+
     const alumnoFilter = (data.alumnos.filter((alumno) => alumno.dni === alumnoDNI))[0]
-    
-    if(!alumnoFilter){
+
+    if (!alumnoFilter) {
       alert(`Error: No se encontro el alumno con DNI: ${alumnoDNI}`)
       return
     }
-    
+
     const index = comision.alumnos.findIndex((alumno) => alumno.dni === alumnoDNI)
-    
-    if(index >= 0){
+
+    if (index >= 0) {
       alert(`Error: El alumno ${comision.alumnos[index].nombre + ' ' + comision.alumnos[index].apellido} ya pertenece a la comision`)
       return
     }
 
-    if(!comision.curso){
-      alert(`Error: La comision no tiene curso. \nAgrege un curso en Modificar comision.`)
-      return
-    }
-    
     comision.alumnos.push(alumnoFilter)
 
     setData((prevState) => ({
@@ -34,7 +41,7 @@ export function useAddAlumnoComision() {
         item._id === comision._id ? comision : item
       )
     }))
-    await axios.put(`${URL_FETCH_DATA}comisiones/${comision._id}`, comision, { withCredentials: true })
+    
 
     let materiasBoletin = []
 
@@ -50,7 +57,6 @@ export function useAddAlumnoComision() {
     } catch (err) {
       console.error('Error en una de las solicitudes: ' + err)
     }
-
 
     const resBoletin = await axios.post(
       'http://localhost:3030/boletines',
@@ -72,6 +78,8 @@ export function useAddAlumnoComision() {
     alumnoFilter.boletines.push(resBoletin.data.boletin)
 
     await axios.put('http://localhost:3030/alumnos/' + alumnoFilter._id, alumnoFilter)
+
+    await axios.put(`${URL_FETCH_DATA}comisiones/${comision._id}`, comision, { withCredentials: true })
 
   }
 

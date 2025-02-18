@@ -2,7 +2,7 @@ export const headCells = [
   {
     id: 'nombre',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Nombre'
   },
   {
