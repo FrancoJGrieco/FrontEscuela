@@ -8,6 +8,7 @@ import { FormVisibilityContext } from '../../hooks/global/filters'
 import { useAddAlumnoComision } from '../../hooks/comisiones/useAddAlumnoComision'
 import { useDeleteAlumno } from '../../hooks/comisiones/useDeleteAlumno'
 import { useHandleAlumno } from '../../hooks/comisiones/useHandleAlumno'
+import { DataContext } from '../../hooks/global/data'
 
 export default function ComisionInfo(props) {
   const { comision } = props
@@ -17,15 +18,17 @@ export default function ComisionInfo(props) {
   const { addAlumnoComision } = useAddAlumnoComision()
   const { deleteAlumno } = useDeleteAlumno()
   const [comisionState, setComisionState] = useState(comision)
+  const { data } = useContext(DataContext)
 
+  console.log(data.comisiones)
 
   useEffect(() => {
     setUpdateForm(comision)
   }, [])
 
-  useEffect(()=>{
-    setComisionState(comision)
-  },[comision])
+  useEffect(() => {
+    setComisionState(data.comisiones.filter((comisionData) => comisionData._id === comision._id)[0])
+  }, [comision, data])
 
   if (!comisionState) return <>Error al encontrar la comision</>
   return (
@@ -68,9 +71,9 @@ export default function ComisionInfo(props) {
               data={comisionState.alumnos}
               contenedor={comisionState}
               deleteElement={deleteAlumno}
-              type='materias en comision'
+              type='alumnos'
               keys={['nombre', 'apellido', 'dni']}
-              
+
             />
           ) :
             <></>

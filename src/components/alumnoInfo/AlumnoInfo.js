@@ -53,7 +53,7 @@ export default function AlumnoInfo(props) {
             </MenuItem>
             {alumno.boletines?.map((boletin) => (
               <MenuItem key={boletin._id} value={boletin._id}>
-                {boletin.year + ' ' + boletin.comision.numero}
+                {boletin.year + ' ' + boletin?.comision?.numero}
               </MenuItem>
             ))}
           </Select>
