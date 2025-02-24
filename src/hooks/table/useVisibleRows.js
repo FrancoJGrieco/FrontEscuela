@@ -5,7 +5,6 @@ export function useVisibleRows({ list, filteredList, order, orderBy, page, rowsP
     () => {
       if (!list || list.length === 0) { return [] }
       if (filteredList.length > 0) {
-        console.log(filteredList)
         return filteredList
       }
       return [...list]

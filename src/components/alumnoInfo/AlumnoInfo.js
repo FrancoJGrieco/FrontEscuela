@@ -62,7 +62,6 @@ export default function AlumnoInfo(props) {
 
       {boletinSelected._id !== '' &&
         < Container>
-          {console.log(boletinSelected)}
           <Typography variant='h5'>Comision: {boletinSelected.comision.numero}</Typography>
 
           <Table>

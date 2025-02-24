@@ -20,8 +20,6 @@ export default function ComisionInfo(props) {
   const [comisionState, setComisionState] = useState(comision)
   const { data } = useContext(DataContext)
 
-  console.log(data.comisiones)
-
   useEffect(() => {
     setUpdateForm(comision)
   }, [])

@@ -11,7 +11,6 @@ export async function deleteAllData({ type, _ids }) {
     })
     return  res.data 
   } catch (err) {
-    console.log('hola')
     showError({ err })
   }
 
