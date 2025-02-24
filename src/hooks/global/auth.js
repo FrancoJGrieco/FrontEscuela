@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
   }
 
   const login = async () => {
-    await axios.post('http://localhost:3030/logout', loginForm, { withCredentials: true })
+    await axios.post('http://localhost:3030/login', loginForm, { withCredentials: true })
     setLoggedIn(true)
     setLoginForm({
       user: '',
@@ -41,7 +41,6 @@ export function AuthProvider({ children }) {
       await axios.get('http://localhost:3030/check-auth', { withCredentials: true })
       setLoggedIn(true)
     } catch (err) {
-      console.log(err)
       setLoggedIn(false)
     }
   }
