@@ -36,7 +36,7 @@ export default function AlumnoInfo(props) {
           </Card>
         </Container>
       }
-      {alumno.boletines.length === 0 && <Typography sx={{margin: '10px 0px'}}>No se han cargado boletines a {alumno.nombre + ' ' + alumno.apellido}</Typography>}
+      {alumno.boletines.length === 0 && <Typography sx={{ margin: '10px 0px' }}>No se han cargado boletines a {alumno.nombre + ' ' + alumno.apellido}</Typography>}
       {alumno.boletines.length > 0 &&
         <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
           <InputLabel id="select-boletin-label">Boletines</InputLabel>
@@ -68,6 +68,7 @@ export default function AlumnoInfo(props) {
             <TableHead>
               <TableCell>Materia</TableCell>
               <TableCell>Notas</TableCell>
+              <TableCell>Promedio</TableCell>
               <TableCell>Agregar</TableCell>
               <TableCell>Modificar</TableCell>
             </TableHead>
@@ -76,6 +77,7 @@ export default function AlumnoInfo(props) {
                 return <TableRow>
                   <TableCell>{materia?.materia?.nombre}</TableCell>
                   <TableCell>{materia?.notas && materia.notas.map((nota) => { return <TableCell>{nota}</TableCell> })}</TableCell>
+                  <TableCell>{materia.promedio}</TableCell>
                   <TableCell><Button onClick={() => {
                     setMateria(materia)
                     toggleFormVisibility({ formName: 'add' })

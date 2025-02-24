@@ -10,9 +10,19 @@ export function useUpdateNotas() {
   const updateNotas = async (e) => {
     e.preventDefault()
 
-    await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas })
+    const mayorDiez = notas.filter((nota) => (parseInt(nota) > 10)).length
+    const menorUno = notas.filter((nota) => (parseInt(nota) < 1)).length
+    if (mayorDiez > 0 || menorUno > 0) {
+      alert('Ingrese una nota entre 1 - 10.')
+      toggleFormVisibility({ formName: 'update' })
+      return
+    }
 
-    materia.notas = notas
+    const res = await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas })
+
+    materia.notas = res.data.materiaBoletin.notas
+    materia.promedio = res.data.materiaBoletin.promedio
+
     toggleFormVisibility({ formName: 'update' })
   }
 
