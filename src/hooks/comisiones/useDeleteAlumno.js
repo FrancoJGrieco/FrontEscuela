@@ -3,7 +3,7 @@ import { DataContext } from "../global/data";
 import { useContext } from "react";
 
 export function useDeleteAlumno() {
-  const URL_FETCH_DATA = process.env.REACT_APP_API_URL || "http://localhost:3030/";
+  const URL_FETCH_DATA = process.env.REACT_APP_API_URL;
 
   const { setData } = useContext(DataContext)
 

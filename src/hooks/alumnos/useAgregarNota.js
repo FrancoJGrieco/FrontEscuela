@@ -24,7 +24,7 @@ export function useAgregarNota() {
     materia.notas.push(nota)
     const notas = materia.notas
 
-    const resMateria = await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas })
+    const resMateria = await axios.put(process.env.REACT_APP_API_URL +'/materias_boletin/' + materia._id, { notas })
 
     materia.promedio = resMateria.data.materiaBoletin.promedio
 

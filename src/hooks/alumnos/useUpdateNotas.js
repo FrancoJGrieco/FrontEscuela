@@ -18,7 +18,7 @@ export function useUpdateNotas() {
       return
     }
 
-    const res = await axios.put('http://localhost:3030/materias_boletin/' + materia._id, { notas })
+    const res = await axios.put(process.env.REACT_APP_API_URL + '/materias_boletin/' + materia._id, { notas })
 
     materia.notas = res.data.materiaBoletin.notas
     materia.promedio = res.data.materiaBoletin.promedio

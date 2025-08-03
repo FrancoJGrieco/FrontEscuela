@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
   }
 
   const login = async () => {
-    await axios.post('http://localhost:3030/login', loginForm, { withCredentials: true })
+    await axios.post(process.env.REACT_APP_API_URL +'/login', loginForm, { withCredentials: true })
     setLoggedIn(true)
     setLoginForm({
       user: '',
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
   }
 
   const logout = async () => {
-    await axios.post('http://localhost:3030/logout', { withCredentials: true })
+    await axios.post(process.env.REACT_APP_API_URL +'/logout', { withCredentials: true })
     setLoggedIn(false)
     setLoginForm({
       user: '',
@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
 
   const checkAuth = async () => {
     try {
-      await axios.get('http://localhost:3030/check-auth', { withCredentials: true })
+      await axios.get(process.env.REACT_APP_API_URL +'/check-auth', { withCredentials: true })
       setLoggedIn(true)
     } catch (err) {
       setLoggedIn(false)

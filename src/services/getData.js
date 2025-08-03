@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-const URL_FETCH_DATA = 'http://localhost:3030/'
-
 export async function getData ({ type }) {
-  const res = await axios.get(`${URL_FETCH_DATA}${type}`, { withCredentials: true })
+  const res = await axios.get(`${process.env.REACT_APP_API_URL}/${type}`, { withCredentials: true })
   return res.data[type] 
 }

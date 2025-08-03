@@ -3,7 +3,6 @@ import { DataContext } from "../global/data"
 import { useContext } from "react"
 
 export function useAddAlumnoComision() {
-  const URL_FETCH_DATA = 'http://localhost:3030/'
   const { data, setData } = useContext(DataContext)
 
   const addAlumnoComision = async ({ comision, alumnoDNI }) => {
@@ -40,14 +39,14 @@ export function useAddAlumnoComision() {
         item._id === comision._id ? comision : item
       )
     }))
-    
+
 
     let materiasBoletin = []
 
     try {
       const resMaterias = await Promise.all(
         comision.materias.map((materia) =>
-          axios.post('http://localhost:3030/materias_boletin', { materia, notas: [] })
+          axios.post(process.env.REACT_APP_API_URL + '/materias_boletin', { materia, notas: [] })
         )
       )
       resMaterias.forEach(resMateria => {
@@ -58,7 +57,7 @@ export function useAddAlumnoComision() {
     }
 
     const resBoletin = await axios.post(
-      'http://localhost:3030/boletines',
+      process.env.REACT_APP_API_URL + '/boletines',
       {
         curso: comision.curso._id,
         comision: comision._id,
@@ -71,14 +70,14 @@ export function useAddAlumnoComision() {
 
     await Promise.all(
       materiasBoletin.map((materia) =>
-        axios.put('http://localhost:3030/materias_boletin/' + materia, { boletin: idBoletin, materia, notas: [] })
+        axios.put(process.env.REACT_APP_API_URL + '/materias_boletin/' + materia, { boletin: idBoletin, materia, notas: [] })
       )
     )
     alumnoFilter.boletines.push(resBoletin.data.boletin)
 
-    await axios.put('http://localhost:3030/alumnos/' + alumnoFilter._id, alumnoFilter)
+    await axios.put(process.env.REACT_APP_API_URL + '/alumnos/' + alumnoFilter._id, alumnoFilter)
 
-    await axios.put(`${URL_FETCH_DATA}comisiones/${comision._id}`, comision, { withCredentials: true })
+    await axios.put(`${process.env.REACT_APP_API_URL}comisiones/${comision._id}`, comision, { withCredentials: true })
 
   }
 

@@ -15,7 +15,6 @@ export function useDeleteData() {
 
     if (typeDB === 'comisiones') {
       revisarAlumnos(_ids)
-      return
     }
 
     const confirmar = window.confirm(`¿Estás seguro de que quieres eliminar ${typeDB}?\n Cuando elimine ${typeDB} se eliminaran ses referencias`);
@@ -49,8 +48,9 @@ export function useDeleteData() {
 
   const revisarAlumnos = async (_ids) => {
     const resComisiones = data.comisiones.filter((comision) => _ids.includes(comision._id))
-    const tienenAlumnos = resComisiones.map((comision) => comision.alumnos.length !== 0)
-    if (tienenAlumnos) {
+    console.log(resComisiones[0].materias.length)
+    const sinAlumnos = resComisiones[0].materias.length === 0
+    if (!sinAlumnos) {
       alert(`Error: No se pueden eliminar comisiones con alumnos`)
       return
     }
