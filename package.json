@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "serve": "^14.2.4",
     "standard": "^17.1.0"
   }
 }
