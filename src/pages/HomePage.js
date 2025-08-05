@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { DataContext } from '../hooks/global/data'
-import { Box, Container, Typography } from '@mui/material'
+import { Container, Typography } from '@mui/material'
 import GridInfo from '../components/home/GridInfo'
 
 export default function HomePage() {

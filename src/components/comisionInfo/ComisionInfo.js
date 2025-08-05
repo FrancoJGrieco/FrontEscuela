@@ -22,7 +22,7 @@ export default function ComisionInfo(props) {
 
   useEffect(() => {
     setUpdateForm(comision)
-  }, [])
+  }, [comision, setUpdateForm])
 
   useEffect(() => {
     setComisionState(data.comisiones.filter((comisionData) => comisionData._id === comision._id)[0])

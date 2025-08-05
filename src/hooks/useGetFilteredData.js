@@ -8,7 +8,7 @@ export function useGetFilteredData({ arrayToFilter, type }) {
   useEffect(() => {
     if (arrayToFilter)
       setFilteredData(arrayToFilter.filter((data) => data[type] === filter))
-  }, [filter])
+  }, [arrayToFilter, filter, type])
 
   return { filteredData, filter, setFilter }
 }

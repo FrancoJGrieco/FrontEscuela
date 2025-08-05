@@ -11,7 +11,7 @@ export function useVisibleRows({ list, filteredList, order, orderBy, page, rowsP
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
-    }, [list, order, orderBy, page, rowsPerPage, filteredList]
+    }, [list, filteredList, getComparator, order, orderBy, page, rowsPerPage]
   )
 
   return { visibleRows }

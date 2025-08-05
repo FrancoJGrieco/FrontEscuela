@@ -7,7 +7,7 @@ export default function RequireAuth(props) {
 
   useEffect(() => {
     checkAuth()
-  }, [])
+  }, [checkAuth])
   
   if (loggedIn === null) {
     return <h2>Loading</h2>
