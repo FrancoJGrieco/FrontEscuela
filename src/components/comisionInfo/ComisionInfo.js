@@ -22,7 +22,8 @@ export default function ComisionInfo(props) {
 
   useEffect(() => {
     setUpdateForm(comision)
-  }, [comision, setUpdateForm])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     setComisionState(data.comisiones.filter((comisionData) => comisionData._id === comision._id)[0])

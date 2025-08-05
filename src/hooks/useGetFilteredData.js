@@ -8,7 +8,8 @@ export function useGetFilteredData({ arrayToFilter, type }) {
   useEffect(() => {
     if (arrayToFilter)
       setFilteredData(arrayToFilter.filter((data) => data[type] === filter))
-  }, [arrayToFilter, filter, type])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return { filteredData, filter, setFilter }
 }

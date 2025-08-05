@@ -7,7 +7,8 @@ export default function RequireAuth(props) {
 
   useEffect(() => {
     checkAuth()
-  }, [checkAuth])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   
   if (loggedIn === null) {
     return <h2>Loading</h2>

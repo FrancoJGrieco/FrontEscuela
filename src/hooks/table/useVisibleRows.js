@@ -11,7 +11,8 @@ export function useVisibleRows({ list, filteredList, order, orderBy, page, rowsP
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
-    }, [list, filteredList, getComparator, order, orderBy, page, rowsPerPage]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [list, order, orderBy, page, rowsPerPage, filteredList]
   )
 
   return { visibleRows }

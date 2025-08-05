@@ -31,7 +31,8 @@ export default function EnhancedTable(props) {
 
   useEffect(() => {
     InitializeForm({ typeCreateForm })
-  }, [InitializeForm, typeCreateForm])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0
