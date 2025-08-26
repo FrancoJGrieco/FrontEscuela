@@ -13,6 +13,7 @@ import { useContext } from 'react'
 import { AuthContext } from '../hooks/global/auth'
 import HomePage from '../pages/HomePage'
 import MateriaInfoPage from '../pages/MateriaInfoPage'
+import CrearUsuarioPage from '../pages/CrearUsuarioPage'
 
 function App() {
   const { loggedIn, logout } = useContext(AuthContext)
@@ -81,7 +82,7 @@ function App() {
                   </Button>
                   <Button
                     component={Link}
-                    to='/'
+                    to='/crear_usuario'
                     variant='contained'
                     color='primary'
                     disableElevation
@@ -146,6 +147,11 @@ function App() {
           <Route path='/comisiones/:_id' element={
             <RequireAuth>
               <ComisionInfoPage />
+            </RequireAuth>
+          } />
+          <Route path='/crear_usuario' element={
+            <RequireAuth>
+              <CrearUsuarioPage />
             </RequireAuth>
           } />
         </Routes>

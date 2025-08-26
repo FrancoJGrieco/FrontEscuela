@@ -10,12 +10,35 @@ export function AuthProvider({ children }) {
     password: ''
   })
 
+  const [createForm, setCreateForm] = useState({
+    user: '',
+    password: ''
+  })
+
+  const updateCreateFormField = async (e) => {
+    const { value, name } = e.target
+    setCreateForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }))
+  }
+
   const updateLoginFormField = (e) => {
     const { name, value } = e.target
     setLoginForm((prevData) => ({
       ...prevData,
       [name]: value.trim()
     }))
+  }
+
+  const signup = async () => {
+    try {
+      await axios.post(process.env.REACT_APP_API_URL + '/signup', createForm, { withCredentials: true })
+      setCreateForm({ user: '', password: '' })
+    } catch (err) {
+      console.log('(signup):', err)
+      throw new Error('Error al crear el usuario', err)
+    }
   }
 
   const login = async () => {
@@ -52,10 +75,13 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       loginForm,
+      createForm,
       loggedIn,
+      signup,
       login,
       logout,
       updateLoginFormField,
+      updateCreateFormField,
       checkAuth
     }}>
       {children}
