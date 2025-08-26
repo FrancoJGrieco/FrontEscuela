@@ -15,7 +15,7 @@ import HomePage from '../pages/HomePage'
 import MateriaInfoPage from '../pages/MateriaInfoPage'
 
 function App() {
-  const { loggedIn } = useContext(AuthContext)
+  const { loggedIn, logout } = useContext(AuthContext)
 
   return (
     <Box
@@ -78,6 +78,23 @@ function App() {
                     disableElevation
                   >
                     Alumnos
+                  </Button>
+                  <Button
+                    component={Link}
+                    to='/'
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    CREAR USUARIO
+                  </Button>
+                  <Button
+                    onClick={() => logout()}
+                    variant='contained'
+                    color='primary'
+                    disableElevation
+                  >
+                    CERRAR SESION
                   </Button>
                 </Box>
               </Toolbar>

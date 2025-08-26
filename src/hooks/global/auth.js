@@ -18,21 +18,21 @@ export function AuthProvider({ children }) {
     }))
   }
 
-const login = async () => {
-  try {
-    await axios.post(process.env.REACT_APP_API_URL + '/login', loginForm, {
-      withCredentials: true
-    })
-    setLoggedIn(true)
-    setLoginForm({ user: '', password: '' })
-  } catch (err) {
-    console.log('(login):', err)
-    throw new Error('Usuario o contraseña incorrectos')
+  const login = async () => {
+    try {
+      await axios.post(process.env.REACT_APP_API_URL + '/login', loginForm, {
+        withCredentials: true
+      })
+      setLoggedIn(true)
+      setLoginForm({ user: '', password: '' })
+    } catch (err) {
+      console.log('(login):', err)
+      throw new Error('Usuario o contraseña incorrectos')
+    }
   }
-}
 
   const logout = async () => {
-    await axios.post(process.env.REACT_APP_API_URL + '/logout', { withCredentials: true })
+    await axios.post(process.env.REACT_APP_API_URL + '/logout', {}, { withCredentials: true })
     setLoggedIn(false)
     setLoginForm({
       user: '',
